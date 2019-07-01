@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('contenido/contenido');
 });
+
+Route::get('/maestro', 'MaestroController@index');
+Route::post('/maestro/registrar', 'MaestroController@store');
+Route::put('/maestro/actualizar', 'MaestroController@update');
+Route::put('/maestro/desactivar', 'MaestroController@desactivar');
+Route::put('/maestro/activar', 'MaestroController@activar');

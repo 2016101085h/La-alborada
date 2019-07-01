@@ -16,8 +16,8 @@ class CreateMaestrosAsignaturasTable extends Migration
         Schema::create('maestros_asignaturas', function (Blueprint $table) {
             $table->integer('idmaestro')->unsigned();
             $table->integer('idasignatura')->unsigned();
-            $table->foreign('idmaestro')->references('id_maestro')->on('maestros');
-            $table->foreign('idasignatura')->references('id_asignatura')->on('asignaturas');
+            $table->foreign('idmaestro')->references('id_maestro')->on('maestros')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idasignatura')->references('id_asignatura')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

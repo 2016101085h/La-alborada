@@ -22,7 +22,7 @@ class CreateMaestrosTable extends Migration
             $table->string('grado_intruccion',50);
             $table->longText('m_direccion',200);
             $table->integer('num_celular');
-            $table->boolean('condicion');
+            $table->boolean('condicion')->default(1);
             $table->timestamps();
         });
     }

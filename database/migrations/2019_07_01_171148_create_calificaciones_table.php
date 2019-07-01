@@ -16,15 +16,16 @@ class CreateCalificacionesTable extends Migration
         Schema::create('calificaciones', function (Blueprint $table) {
             $table->bigIncrements('id_calificacion');
             $table->integer('idalumno')->unsigned();
-            $table->integer('cal_alumno');
             $table->integer('idgrado')->unsigned();
             $table->integer('idasignatura')->unsigned();
             $table->integer('cal_periodo');
-            $table->string('calificacion_tipo',50);
+            $table->string('calificacion_tipo', 50);
+            $table->integer('idperiodo')->unsigned();
             $table->timestamps();
-            $table->foreign('idalumno')->references('id_alumno')->on('alumnos');
-            $table->foreign('idgrado')->references('id_grado')->on('grado');
-            $table->foreign('idasignatura')->references('id_asignatura')->on('asignaturas');
+            $table->foreign('idalumno')->references('id_alumno')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idgrado')->references('id_grado')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idasignatura')->references('id_asignatura')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idperiodo')->references('id_periodo')->on('periodos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

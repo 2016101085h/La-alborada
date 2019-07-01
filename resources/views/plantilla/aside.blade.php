@@ -40,7 +40,7 @@
                <li @click="menu=1" class="nav-item">
                  <a href="#" class="nav-link active">
                    <i class="far fa-circle nav-icon"></i>
-                   <p>Simple Tables</p>
+                   <p>Maestros</p>
                  </a>
                </li>
                <li @click="menu=16" class="nav-item">

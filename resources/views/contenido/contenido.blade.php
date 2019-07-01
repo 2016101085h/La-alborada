@@ -5,7 +5,7 @@
   <h1 class="content-wrapper">Contenido del menu 1</h1>
 </template>
 <template v-if="menu==1">
-  <example-component></example-component>
+  <maestro></maestro>
 </template>
 <template v-if="menu==2">
    <h1 class="content-wrapper">Contenido del menu 2</h1>
