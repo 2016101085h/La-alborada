@@ -1906,6 +1906,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1919,7 +1948,9 @@ __webpack_require__.r(__webpack_exports__);
       arrayMaestro: [],
       modal: 0,
       tituloModal: '',
-      tipoAccion: 0
+      tipoAccion: 0,
+      errorMaestro: 0,
+      errorMostrarMsjMaestro: []
     };
   },
   methods: {
@@ -1938,6 +1969,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     registrarMaestro: function registrarMaestro() {
+      if (this.validarMaestro()) {
+        return;
+      }
+
       var me = this;
       axios.post('maestro/registrar', {
         'nombre': this.nombre,
@@ -1977,6 +2012,14 @@ __webpack_require__.r(__webpack_exports__);
           }
       }
     },
+    validarMaestro: function validarMaestro() {
+      this.errorMaestro = 0;
+      this.errorMostrarMsjMaestro = [];
+      if (!this.nombre) this.errorMostrarMsjMaestro.push("El nombre del Maestro no puede estar vacío.");
+      if (!this.apellido) this.errorMostrarMsjMaestro.push("El apellido del Maestro no puede estar vacio.");
+      if (this.errorMostrarMsjMaestro.length) this.errorMaestro = 1;
+      return this.errorMaestro;
+    },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
@@ -1984,6 +2027,7 @@ __webpack_require__.r(__webpack_exports__);
       this.apellido = '';
       this.fech_nacimiento = '';
       this.sexo = '', this.grado_instruccion = '', this.direccion = '', this.num_celular = 0;
+      this.errorMaestro = 0;
     }
   },
   mounted: function mounted() {
@@ -6450,7 +6494,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n    width: 100%;\n    position: absolute !important;\n    top: 5rem;\n    border-radius: 10px!important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n   \n    background-color: #3c29297a !important;\n    transition: all .5s ease-in-out !important;\n}\n.mostrar:hover{\n    opacity: 2 !important;\n}\n", ""]);
+exports.push([module.i, "\n.modal-content{\n    width: 100%;\n    position: absolute !important;\n    top: 5rem;\n    border-radius: 10px!important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n   \n    background-color: #3c29297a !important;\n    transition: all .5s ease-in-out !important;\n}\n.mostrar:hover{\n    opacity: 2 !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -37942,7 +37986,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "btn btn-secondary bg-info ml-2 border-transparent ",
+                      "btn btn-secondary bg-primary ml-2 border-transparent ",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -37962,7 +38006,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "table",
-                  { staticClass: "table table-bordered" },
+                  { staticClass: "table table-bordered   " },
                   [
                     _vm._m(2),
                     _vm._v(" "),
@@ -38117,7 +38161,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre de Maestro(a)")]
+                        [_vm._v("Nombre ")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -38155,7 +38199,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Apellido de Maestro(a)")]
+                        [_vm._v("Apellidos ")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -38229,36 +38273,50 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
+                          attrs: { for: "text-input" }
                         },
                         [_vm._v("Sexo")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.sexo,
-                              expression: "sexo"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Ingrese el sexo"
-                          },
-                          domProps: { value: _vm.sexo },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sexo,
+                                expression: "sexo"
                               }
-                              _vm.sexo = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.sexo = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        })
+                          },
+                          [
+                            _c("option", { attrs: { value: "masculino" } }, [
+                              _vm._v("Masculino")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "femenino" } }, [
+                              _vm._v("Femenino")
+                            ])
+                          ]
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -38267,36 +38325,58 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
+                          attrs: { for: "text-input" }
                         },
-                        [_vm._v("Grado de Intrucción")]
+                        [_vm._v("Grado de Instrucción")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.grado_instruccion,
-                              expression: "grado_instruccion"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Ingrese el grado de intruccion"
-                          },
-                          domProps: { value: _vm.grado_instruccion },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.grado_instruccion,
+                                expression: "grado_instruccion"
                               }
-                              _vm.grado_instruccion = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.grado_instruccion = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        })
+                          },
+                          [
+                            _c("option", { attrs: { value: "Docente" } }, [
+                              _vm._v("Docente")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Auxiliar" } }, [
+                              _vm._v("Auxiliar")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Licenciado" } }, [
+                              _vm._v("Licenciado")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Magister" } }, [
+                              _vm._v("Magister")
+                            ])
+                          ]
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -38345,7 +38425,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("Número de Celular")]
+                        [_vm._v("Telefono")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -38360,8 +38440,8 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            type: "text",
-                            placeholder: "Ingrese el numero de Celular"
+                            type: "tel",
+                            placeholder: "Ingrese el numero de Telefono"
                           },
                           domProps: { value: _vm.num_celular },
                           on: {
@@ -38374,7 +38454,35 @@ var render = function() {
                           }
                         })
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorMaestro,
+                            expression: "errorMaestro"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsjMaestro, function(error) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
                   ]
                 )
               ]),
@@ -38436,18 +38544,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h1", [_vm._v("Simple Tables")])
-      ]),
+      _c("div", { staticClass: "col-sm-6" }, [_c("h1", [_vm._v("Maestros")])]),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
         _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
           _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+            _c("a", { attrs: { href: "#" } }, [_vm._v("Escritorio")])
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Simple Tables")
+            _vm._v("Maestros")
           ])
         ])
       ])
@@ -38501,29 +38607,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      { staticClass: "bg-secondary text-center text-uppercase" },
-      [
-        _c("th", [_vm._v("Opciones")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Apellidos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fecha de Nacimiento")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Sexo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Grado de Intruccion")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Dirección")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Celular")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")])
-      ]
-    )
+    return _c("tr", { staticClass: "bg-info text-center " }, [
+      _c("th", [_vm._v("Opciones")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Apellidos")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Fecha de Nacimiento")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sexo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Grado de Instruccion")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Dirección")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Celular")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Estado")])
+    ])
   },
   function() {
     var _vm = this
@@ -50984,7 +51086,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\sistema-fr\La-alborada\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! D:\Frank\Proyectos\Laravel\la-alborada\resources\assets\js\app.js */"./resources/assets/js/app.js");
 
 
 /***/ })

@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Simple Tables</h1>
+            <h1>Maestros</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
+              <li class="breadcrumb-item active">Maestros</li>
             </ol>
           </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-header ">
                   <i class="fa fa-align-justify"></i> Maestro
-                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-info ml-2 border-transparent " >
+                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-primary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -39,14 +39,14 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered">
-                  <tr class="bg-secondary text-center text-uppercase">
+                <table class="table table-bordered   ">
+                  <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Sexo</th>
-                    <th>Grado de Intruccion</th>
+                    <th>Grado de Instruccion</th>
                     <th>Dirección</th>
                     <th >Celular</th>
                     <th >Estado</th>
@@ -121,14 +121,14 @@
          <div class="modal-body">
            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
              <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Nombre de Maestro(a)</label>
+               <label class="col-md-3 form-control-label" for="text-input">Nombre </label>
                <div class="col-md-9">
                  <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Maestro(a)">
                </div>
                
              </div>
              <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Apellido de Maestro(a)</label>
+               <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
                <div class="col-md-9">
                  <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Maestro(a)">
                </div>
@@ -140,18 +140,40 @@
                  <input type="date" v-model="fech_nacimiento" class="form-control" placeholder="Ingrese la fecha de Nacimiento">
                </div>
              </div>
-             <div class="form-group row">
+              <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
                <div class="col-md-9">
                  <input type="text" v-model="sexo" class="form-control" placeholder="Ingrese el sexo">
                </div>
-             </div>
-             <div class="form-group row">
+             </div>  -->
+            <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Sexo</label>
+                <div class="col-md-9">
+                    <select v-model="sexo" class="form-control">
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                        
+                    </select>                                    
+                </div>
+            </div> 
+             <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
                <div class="col-md-9">
-                 <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de intruccion">
+                 <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
                </div>
-             </div>
+             </div> -->
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Grado de Instrucción</label>
+                <div class="col-md-9">
+                    <select v-model="grado_instruccion" class="form-control">
+                        <option value="Docente">Docente</option>
+                        <option value="Auxiliar">Auxiliar</option>
+                        <option value="Licenciado">Licenciado</option>
+                        <option value="Magister">Magister</option>
+                        
+                    </select>                                    
+                </div>
+            </div> 
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Dirección de Domicilio</label>
                <div class="col-md-9">
@@ -159,11 +181,18 @@
                </div>
              </div>
              <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Número de Celular</label>
+               <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
                <div class="col-md-9">
-                 <input type="text" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Celular">
+                 <input type="tel" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Telefono">
                </div>
              </div>
+              <div v-show="errorMaestro" class="form-group row div-error">
+                <div class="text-center text-error">
+                    <div v-for="error in errorMostrarMsjMaestro" :key="error" v-text="error">
+
+                    </div>
+                </div>
+            </div>
            </form>
          </div>
          <div class="modal-footer">
@@ -223,6 +252,9 @@
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
+                errorMaestro:0,
+                errorMostrarMsjMaestro:[],
+
 
             }
         },
@@ -243,6 +275,9 @@
                 });
             },
             registrarMaestro(){
+                 if (this.validarMaestro()){
+                    return;
+                }
                 let me=this;
                 axios.post('maestro/registrar',{
                     'nombre':this.nombre,
@@ -285,6 +320,17 @@
                     }
                 }
             },
+            validarMaestro(){
+                this.errorMaestro=0;
+                this.errorMostrarMsjMaestro =[];
+
+                if (!this.nombre) this.errorMostrarMsjMaestro.push("El nombre del Maestro no puede estar vacío.");
+                if (!this.apellido) this.errorMostrarMsjMaestro.push("El apellido del Maestro no puede estar vacio.");
+
+                if (this.errorMostrarMsjMaestro.length) this.errorMaestro = 1;
+
+                return this.errorMaestro;
+            },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
@@ -295,6 +341,7 @@
                 this.grado_instruccion='',
                 this.direccion='',
                 this.num_celular=0;
+                this.errorMaestro=0;
                 
             },
         },
@@ -320,5 +367,13 @@
     }
     .mostrar:hover{
         opacity: 2 !important;
+    }
+    .div-error{
+        display: flex;
+        justify-content: center;
+    }
+    .text-error{
+        color: red !important;
+        font-weight: bold;
     }
 </style>
