@@ -16,7 +16,7 @@ class MaestroController extends Controller
     {
        // if (!$request->ajax()) return redirect('/');
         $maestros = Maestro::all();
-        return $maestros;
+        return ['maestros'=>$maestros];
     }
 
     
@@ -77,7 +77,7 @@ class MaestroController extends Controller
     }
 
     public function activar(Request $request){
-        $maestro = Maestro::findOrFail($request->idS);
+        $maestro = Maestro::findOrFail($request->id);
         $maestro->condicion = '1';
         $maestro->save();
     }
