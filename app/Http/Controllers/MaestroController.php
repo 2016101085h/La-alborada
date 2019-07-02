@@ -32,14 +32,14 @@ class MaestroController extends Controller
 
         // if(!$request->ajax()) return redirect('/');
         $maestro=new Maestro();
-        $maestro->m_nombre = $request->m_nombre;
-        $maestro->m_apellido = $request->m_apellido;
-        $maestro->m_fech_nac = $request->m_fech_nac;
-        $maestro->sexo = $request->sexo;
-        $maestro->grado_intruccion = $request->grado_intruccion;
-        $maestro->m_direccion = $request->m_direccion;
-        $maestro->num_celular = $request->num_celular;
-        $maestro->condicion = '1';
+        $maestro->nombre          = $request->nombre;
+        $maestro->apellido        = $request->apellido;
+        $maestro->fech_nacimiento        = $request->fech_nacimiento;
+        $maestro->sexo              = $request->sexo;
+        $maestro->grado_instruccion  = $request->grado_instruccion;
+        $maestro->direccion       = $request->direccion;
+        $maestro->num_celular       = $request->num_celular;
+        $maestro->condicion         = '1';
         $maestro->save();
 
 
@@ -58,26 +58,26 @@ class MaestroController extends Controller
     public function update(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');
-        $maestro = fMaestro::findOrFail($request->id_maestro);
-        $maestro->m_nombre = $request->m_nombre;
-        $maestro->m_apellido = $request->m_apellido;
-        $maestro->m_fech_nac = $request->m_fech_nac;
-        $maestro->sexo = $request->sexo;
-        $maestro->grado_intruccion = $request->grado_intruccion;
-        $maestro->m_direccion = $request->m_direccion;
-        $maestro->num_celular = $request->num_celular;
-        $maestro->condicion = '1';
+        $maestro = Maestro::findOrFail($request->id);
+        $maestro->nombre          = $request->nombre;
+        $maestro->apellido        = $request->apellido;
+        $maestro->fech_nacimiento    = $request->fech_nacimiento;
+        $maestro->sexo              = $request->sexo;
+        $maestro->grado_instruccion  = $request->grado_instruccion;
+        $maestro->direccion       = $request->direccion;
+        $maestro->num_celular       = $request->num_celular;
+        $maestro->condicion         = '1';
         $maestro->save();
     }
 
     public function desactivar(Request $request){
-        $maestro = fMaestro::findOrFail($request->id_maestro);
+        $maestro = Maestro::findOrFail($request->id);
         $maestro->condicion = '0';
         $maestro->save();
     }
 
     public function activar(Request $request){
-        $maestro = fMaestro::findOrFail($request->id_maestro);
+        $maestro = Maestro::findOrFail($request->idS);
         $maestro->condicion = '1';
         $maestro->save();
     }

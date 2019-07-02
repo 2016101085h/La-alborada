@@ -14,18 +14,18 @@ class CreateCalificacionesTable extends Migration
     public function up()
     {
         Schema::create('calificaciones', function (Blueprint $table) {
-            $table->bigIncrements('id_calificacion');
-            $table->integer('idalumno')->unsigned();
-            $table->integer('idgrado')->unsigned();
-            $table->integer('idasignatura')->unsigned();
+            $table->bigIncrements('id');
+            $table->integer('alumno_id')->unsigned();
+            $table->integer('grado_id')->unsigned();
+            $table->integer('asignatura_id')->unsigned();
             $table->integer('cal_periodo');
             $table->string('calificacion_tipo', 50);
-            $table->integer('idperiodo')->unsigned();
+            $table->integer('periodo_id')->unsigned();
             $table->timestamps();
-            $table->foreign('idalumno')->references('id_alumno')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idgrado')->references('id_grado')->on('grado')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idasignatura')->references('id_asignatura')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idperiodo')->references('id_periodo')->on('periodos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('asignatura_id')->references('id')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

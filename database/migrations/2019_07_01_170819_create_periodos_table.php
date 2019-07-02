@@ -14,8 +14,8 @@ class CreatePeriodosTable extends Migration
     public function up()
     {
         Schema::create('periodos', function (Blueprint $table) {
-            $table->increments('id_periodo');
-            $table->string('nom_periodo',70);
+            $table->increments('id');
+            $table->string('nombre',70);
 
             $table->timestamps();
         });

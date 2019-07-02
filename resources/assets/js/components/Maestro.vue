@@ -52,7 +52,7 @@
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestro in arrayMaestro" :key="maestro.id_maestro">
+                  <tr v-for="maestro in arrayMaestro" :key="maestro.id">
                     <td >
                         <button type="button" @click="abrirModal('maestro','actualizar',maestro)" class="btn btn-warning btn-sm" 
                           >
@@ -63,12 +63,12 @@
                           <i class="fa fa-trash"></i>
                         </button>
                     </td>
-                    <td v-text="maestro.m_nombre"></td>
-                    <td v-text="maestro.m_apellido"></td>
-                    <td v-text="maestro.m_fech_nac"></td>
+                    <td v-text="maestro.nombre"></td>
+                    <td v-text="maestro.apellido"></td>
+                    <td v-text="maestro.fech_nacimiento"></td>
                     <td v-text="maestro.sexo"></td>
-                    <td v-text="maestro.grado_intruccion"></td>
-                    <td v-text="maestro.m_direccion"></td>
+                    <td v-text="maestro.grado_instruccion"></td>
+                    <td v-text="maestro.direccion"></td>
                     <td v-text="maestro.num_celular"></td>
                     <td>
                         <div v-if="maestro.condicion">
@@ -123,21 +123,21 @@
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="text-input">Nombre de Maestro(a)</label>
                <div class="col-md-9">
-                 <input type="text" v-model="m_nombre" class="form-control" placeholder="Nombre del Maestro(a)">
+                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Maestro(a)">
                </div>
                
              </div>
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="text-input">Apellido de Maestro(a)</label>
                <div class="col-md-9">
-                 <input type="text" v-model="m_apellido" class="form-control" placeholder="Apellido del Maestro(a)">
+                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Maestro(a)">
                </div>
                
              </div>
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="">Fecha de Nacimiento</label>
                <div class="col-md-9">
-                 <input type="date" v-model="m_fech_nac" class="form-control" placeholder="Ingrese la fecha de Nacimiento">
+                 <input type="date" v-model="fech_nacimiento" class="form-control" placeholder="Ingrese la fecha de Nacimiento">
                </div>
              </div>
              <div class="form-group row">
@@ -149,13 +149,13 @@
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
                <div class="col-md-9">
-                 <input type="text" v-model="grado_intruccion" class="form-control" placeholder="Ingrese el grado de intruccion">
+                 <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de intruccion">
                </div>
              </div>
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Dirección de Domicilio</label>
                <div class="col-md-9">
-                 <input type="text" v-model="m_direccion" class="form-control" placeholder="Ingrese la dirección de Domicilio">
+                 <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese la dirección de Domicilio">
                </div>
              </div>
              <div class="form-group row">
@@ -212,12 +212,12 @@
         data(){
             return{
 
-                m_nombre:'',
-                m_apellido:'',
-                m_fech_nac:'',
+                nombre:'',
+                apellido:'',
+                fech_nacimiento:'',
                 sexo:'',
-                grado_intruccion:'',
-                m_direccion:'',
+                grado_instruccion:'',
+                direccion:'',
                 num_celular:0,
                 arrayMaestro:[],
                 modal:0,
@@ -245,12 +245,12 @@
             registrarMaestro(){
                 let me=this;
                 axios.post('maestro/registrar',{
-                    'm_nombre':this.m_nombre,
-                    'm_apellido':this.m_apellido,
-                    'm_fech_nac':this.m_fech_nac,
+                    'nombre':this.nombre,
+                    'apellido':this.apellido,
+                    'fech_nacimiento':this.fech_nacimiento,
                     'sexo':this.sexo,
-                    'grado_intruccion':this.grado_intruccion,
-                    'm_direccion':this.m_direccion,
+                    'grado_instruccion':this.grado_instruccion,
+                    'direccion':this.direccion,
                     'num_celular': this.num_celular
 
                 }
@@ -271,12 +271,12 @@
                             {
                                 this.modal=1;
                                 this.tituloModal='Registrar Maestro';
-                                this.m_nombre='';
-                                this.m_apellido='';
-                                this.m_fech_nac='';
+                                this.nombre='';
+                                this.apellido='';
+                                this.fech_nacimiento='';
                                 this.sexo='',
-                                this.grado_intruccion='',
-                                this.m_direccion='',
+                                this.grado_instruccion='',
+                                this.direccion='',
                                 this.num_celular=0;
                                 this.tipoAccion=1;
                             }
@@ -288,12 +288,12 @@
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
-                this.m_nombre='';
-                this.m_apellido='';
-                this.m_fech_nac='';
+                this.nombre='';
+                this.apellido='';
+                this.fech_nacimiento='';
                 this.sexo='',
-                this.grado_intruccion='',
-                this.m_direccion='',
+                this.grado_instruccion='',
+                this.direccion='',
                 this.num_celular=0;
                 
             },

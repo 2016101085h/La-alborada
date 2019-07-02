@@ -1909,12 +1909,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      m_nombre: '',
-      m_apellido: '',
-      m_fech_nac: '',
+      nombre: '',
+      apellido: '',
+      fech_nacimiento: '',
       sexo: '',
-      grado_intruccion: '',
-      m_direccion: '',
+      grado_instruccion: '',
+      direccion: '',
       num_celular: 0,
       arrayMaestro: [],
       modal: 0,
@@ -1940,12 +1940,12 @@ __webpack_require__.r(__webpack_exports__);
     registrarMaestro: function registrarMaestro() {
       var me = this;
       axios.post('maestro/registrar', {
-        'm_nombre': this.m_nombre,
-        'm_apellido': this.m_apellido,
-        'm_fech_nac': this.m_fech_nac,
+        'nombre': this.nombre,
+        'apellido': this.apellido,
+        'fech_nacimiento': this.fech_nacimiento,
         'sexo': this.sexo,
-        'grado_intruccion': this.grado_intruccion,
-        'm_direccion': this.m_direccion,
+        'grado_instruccion': this.grado_instruccion,
+        'direccion': this.direccion,
         'num_celular': this.num_celular
       }).then(function (response) {
         me.cerrarModal();
@@ -1965,10 +1965,10 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   this.modal = 1;
                   this.tituloModal = 'Registrar Maestro';
-                  this.m_nombre = '';
-                  this.m_apellido = '';
-                  this.m_fech_nac = '';
-                  this.sexo = '', this.grado_intruccion = '', this.m_direccion = '', this.num_celular = 0;
+                  this.nombre = '';
+                  this.apellido = '';
+                  this.fech_nacimiento = '';
+                  this.sexo = '', this.grado_instruccion = '', this.direccion = '', this.num_celular = 0;
                   this.tipoAccion = 1;
                 }
 
@@ -1980,10 +1980,10 @@ __webpack_require__.r(__webpack_exports__);
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
-      this.m_nombre = '';
-      this.m_apellido = '';
-      this.m_fech_nac = '';
-      this.sexo = '', this.grado_intruccion = '', this.m_direccion = '', this.num_celular = 0;
+      this.nombre = '';
+      this.apellido = '';
+      this.fech_nacimiento = '';
+      this.sexo = '', this.grado_instruccion = '', this.direccion = '', this.num_celular = 0;
     }
   },
   mounted: function mounted() {
@@ -37967,7 +37967,7 @@ var render = function() {
                     _vm._m(2),
                     _vm._v(" "),
                     _vm._l(_vm.arrayMaestro, function(maestro) {
-                      return _c("tr", { key: maestro.id_maestro }, [
+                      return _c("tr", { key: maestro.id }, [
                         _c("td", [
                           _c(
                             "button",
@@ -37991,15 +37991,17 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(maestro.m_nombre) }
+                          domProps: { textContent: _vm._s(maestro.nombre) }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(maestro.m_apellido) }
+                          domProps: { textContent: _vm._s(maestro.apellido) }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(maestro.m_fech_nac) }
+                          domProps: {
+                            textContent: _vm._s(maestro.fech_nacimiento)
+                          }
                         }),
                         _vm._v(" "),
                         _c("td", {
@@ -38008,12 +38010,12 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(maestro.grado_intruccion)
+                            textContent: _vm._s(maestro.grado_instruccion)
                           }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(maestro.m_direccion) }
+                          domProps: { textContent: _vm._s(maestro.direccion) }
                         }),
                         _vm._v(" "),
                         _c("td", {
@@ -38124,8 +38126,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.m_nombre,
-                              expression: "m_nombre"
+                              value: _vm.nombre,
+                              expression: "nombre"
                             }
                           ],
                           staticClass: "form-control",
@@ -38133,13 +38135,13 @@ var render = function() {
                             type: "text",
                             placeholder: "Nombre del Maestro(a)"
                           },
-                          domProps: { value: _vm.m_nombre },
+                          domProps: { value: _vm.nombre },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.m_nombre = $event.target.value
+                              _vm.nombre = $event.target.value
                             }
                           }
                         })
@@ -38162,8 +38164,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.m_apellido,
-                              expression: "m_apellido"
+                              value: _vm.apellido,
+                              expression: "apellido"
                             }
                           ],
                           staticClass: "form-control",
@@ -38171,13 +38173,13 @@ var render = function() {
                             type: "text",
                             placeholder: "Apellido del Maestro(a)"
                           },
-                          domProps: { value: _vm.m_apellido },
+                          domProps: { value: _vm.apellido },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.m_apellido = $event.target.value
+                              _vm.apellido = $event.target.value
                             }
                           }
                         })
@@ -38200,8 +38202,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.m_fech_nac,
-                              expression: "m_fech_nac"
+                              value: _vm.fech_nacimiento,
+                              expression: "fech_nacimiento"
                             }
                           ],
                           staticClass: "form-control",
@@ -38209,13 +38211,13 @@ var render = function() {
                             type: "date",
                             placeholder: "Ingrese la fecha de Nacimiento"
                           },
-                          domProps: { value: _vm.m_fech_nac },
+                          domProps: { value: _vm.fech_nacimiento },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.m_fech_nac = $event.target.value
+                              _vm.fech_nacimiento = $event.target.value
                             }
                           }
                         })
@@ -38276,8 +38278,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.grado_intruccion,
-                              expression: "grado_intruccion"
+                              value: _vm.grado_instruccion,
+                              expression: "grado_instruccion"
                             }
                           ],
                           staticClass: "form-control",
@@ -38285,13 +38287,13 @@ var render = function() {
                             type: "text",
                             placeholder: "Ingrese el grado de intruccion"
                           },
-                          domProps: { value: _vm.grado_intruccion },
+                          domProps: { value: _vm.grado_instruccion },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.grado_intruccion = $event.target.value
+                              _vm.grado_instruccion = $event.target.value
                             }
                           }
                         })
@@ -38314,8 +38316,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.m_direccion,
-                              expression: "m_direccion"
+                              value: _vm.direccion,
+                              expression: "direccion"
                             }
                           ],
                           staticClass: "form-control",
@@ -38323,13 +38325,13 @@ var render = function() {
                             type: "text",
                             placeholder: "Ingrese la dirección de Domicilio"
                           },
-                          domProps: { value: _vm.m_direccion },
+                          domProps: { value: _vm.direccion },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.m_direccion = $event.target.value
+                              _vm.direccion = $event.target.value
                             }
                           }
                         })

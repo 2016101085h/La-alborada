@@ -15,14 +15,14 @@ class CreatePadresTable extends Migration
     {
         Schema::create('padres', function (Blueprint $table) {
             $table->increments('id_padre');
-            $table->integer('idalumno')->unsigned();
-            $table->string('p_nombre',50);
-            $table->string('p_apellido',0);
-            $table->string('p_dni');
-            $table->string('p_sexo');
+            $table->integer('alumno_id')->unsigned();
+            $table->string('nombre',50);
+            $table->string('apellido',0);
+            $table->string('dni');
+            $table->string('sexo');
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('idalumno')->references('id_alumno')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

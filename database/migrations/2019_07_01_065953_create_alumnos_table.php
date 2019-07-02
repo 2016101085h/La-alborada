@@ -14,16 +14,16 @@ class CreateAlumnosTable extends Migration
     public function up()
     {
         Schema::create('alumnos', function (Blueprint $table) {
-            $table->increments('id_alumno');
-            $table->integer('idgrado')->unsigned();
-            $table->string('alum_nombre', 50);
-            $table->string('alum_apellido', 100);
-            $table->string('alum_sexo', 50);
-            $table->date('alum_fech_nac');
+            $table->increments('id');
+            $table->integer('grado_id')->unsigned();
+            $table->string('nombre', 50);
+            $table->string('apellido', 100);
+            $table->string('sexo', 50);
+            $table->date('fech_nacimiento');
             $table->longText('direccion', 200);
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('idgrado')->references('id_grado')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

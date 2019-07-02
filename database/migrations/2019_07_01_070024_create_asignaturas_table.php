@@ -14,13 +14,13 @@ class CreateAsignaturasTable extends Migration
     public function up()
     {
         Schema::create('asignaturas', function (Blueprint $table) {
-            $table->increments('id_asignatura');
-            $table->string('asig_nombre');
-            $table->text('asig_temario');
-            $table->integer('idgrado')->unsigned();
+            $table->increments('id');
+            $table->string('nombre');
+            $table->text('temario');
+            $table->integer('grado_id')->unsigned();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('idgrado')->references('id_grado')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

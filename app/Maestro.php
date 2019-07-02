@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maestro extends Model
 {
-    protected $filiable = ['m_nombre','m_apellido','m_fech_nac','sexo','grado_intruccion',
-'m_direccion','num_celular','condicion'];
+    protected $filiable = ['nombre','apellido','fech_nacimiento','sexo','grado_instruccion',
+'direccion','num_celular','condicion'];
 }
 // $table->string('m_nombre', 50);
 // $table->string('m_apellido', 100);
