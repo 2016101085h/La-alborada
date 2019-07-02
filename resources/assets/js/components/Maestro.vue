@@ -265,7 +265,7 @@
                     // var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=response.data;
+                    me.arrayMaestro= response.data;
                     // me.pagination=respuesta.pagination;
                     console.log(response);
                 })
