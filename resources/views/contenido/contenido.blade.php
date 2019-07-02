@@ -8,7 +8,7 @@
   <maestro></maestro>
 </template>
 <template v-if="menu==2">
-   <h1 class="content-wrapper">Contenido del menu 2</h1>
+  <alumno></alumno>  
 </template>
 <template v-if="menu==3">
    <h1 class="content-wrapper">Contenido del menu 3</h1>

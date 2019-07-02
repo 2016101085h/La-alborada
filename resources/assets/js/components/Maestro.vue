@@ -262,10 +262,10 @@
             listarMaestro(){
                 let me= this;
                 axios.get('/maestro').then(function (response) {
-                    // var respuesta=response.data;
+                    var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro= response.data;
+                    me.arrayMaestro= respuesta.maestros;
                     // me.pagination=respuesta.pagination;
                     console.log(response);
                 })
