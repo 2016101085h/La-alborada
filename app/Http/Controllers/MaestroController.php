@@ -15,8 +15,29 @@ class MaestroController extends Controller
     public function index(Request $request)
     {
        // if (!$request->ajax()) return redirect('/');
-        $maestros = Maestro::all();
-        return $maestros;
+        // $maestros = Maestro::all();
+        // return $maestros;
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        if($buscar == ''){
+
+            $maestros= Maestro::orderBy('id','desc')->paginate(5);
+        }
+        else{
+            $maestros = Maestro::where($criterio,'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(2);
+
+        }
+        return [
+            'pagination' => [
+                'total' => $maestros->total(),
+                'current_page' => $maestros->currentPage(),
+                'per_page' => $maestros->perPage(),
+                'last_page' => $maestros->lastPage(),
+                'from' => $maestros->firstItem(),
+                'to' => $maestros->lastItem(),
+            ],
+            'maestros'    => $maestros
+        ];
     }
 
     
@@ -31,6 +52,7 @@ class MaestroController extends Controller
     {
 
         // if(!$request->ajax()) return redirect('/');
+        
         $maestro=new Maestro();
         $maestro->nombre          = $request->nombre;
         $maestro->apellido        = $request->apellido;
@@ -41,7 +63,8 @@ class MaestroController extends Controller
         $maestro->num_celular       = $request->num_celular;
         $maestro->condicion         = '1';
         $maestro->save();
-
+        
+     
 
     }
 
@@ -71,13 +94,15 @@ class MaestroController extends Controller
     }
 
     public function desactivar(Request $request){
+          // if(!$request->ajax()) return redirect('/');    
         $maestro = Maestro::findOrFail($request->id);
         $maestro->condicion = '0';
         $maestro->save();
     }
 
     public function activar(Request $request){
-        $maestro = Maestro::findOrFail($request->idS);
+          // if(!$request->ajax()) return redirect('/');
+        $maestro = Maestro::findOrFail($request->id);
         $maestro->condicion = '1';
         $maestro->save();
     }

@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-header ">
                   <i class="fa fa-align-justify"></i> Maestro
-                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-primary ml-2 border-transparent " >
+                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -30,12 +30,14 @@
                 <div class="form-group row">
                   <div class="col-md-6">
                     <div class="input-group">
-                      <select class="form-control col-md-3" id="opcion" name="opcion">
+                      <select class="form-control col-md-3" v-model="criterio">
                         <option value="nombre">Nombre</option>
-                        <option value="descripcion">Descripción</option>
+                        <option value="apellido">Apellidos</option>
+                        <option value="sexo">Sexo</option>
+                        
                       </select>
-                      <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarMaestro(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarMaestro(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
@@ -58,10 +60,16 @@
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <button type="button" class="btn btn-danger btn-sm" 
-                          >
+                        <template v-if="maestro.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestro(maestro.id)">
                           <i class="fa fa-trash"></i>
                         </button>
+                        </template>
+                        <template v-else>
+                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestro(maestro.id)">
+                          <i class="fa fa-check"></i>
+                        </button>
+                        </template>
                     </td>
                     <td v-text="maestro.nombre"></td>
                     <td v-text="maestro.apellido"></td>
@@ -87,11 +95,16 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    <li class="page-item" v-if="pagination.current_page > 1">
+                      <a class="page-link" href="#" @click.prevent="cambiarpagina(pagination.current_page - 1,buscar,criterio)" >&laquo;</a>
+                    </li>
+                    <li class="page-item " v-for="page in pagesNumber" :key="page" :class = "[page == isActived ? 'active' :'' ]">
+                        <a class="page-link" href="#" @click.prevent="cambiarpagina(page,buscar,criterio)" v-text="page"></a>
+                    </li>
+                  
+                     <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                         <a class="page-link" href="#" @click.prevent="cambiarpagina(pagination.current_page + 1,buscar,criterio)">&raquo;</a>
+                     </li>
                 </ul>
               </div>
             </div>
@@ -150,6 +163,7 @@
                 <label class="col-md-3 form-control-label" for="text-input">Sexo</label>
                 <div class="col-md-9">
                     <select v-model="sexo" class="form-control">
+                        <option value="sexo" disabled>Selecciona tu sexo</option>
                         <option value="masculino">Masculino</option>
                         <option value="femenino">Femenino</option>
                         
@@ -166,6 +180,7 @@
                 <label class="col-md-3 form-control-label" for="text-input">Grado de Instrucción</label>
                 <div class="col-md-9">
                     <select v-model="grado_instruccion" class="form-control">
+                        <option value="grado" disabled>Selecciona su Grado de Instrucción</option>
                         <option value="Docente">Docente</option>
                         <option value="Auxiliar">Auxiliar</option>
                         <option value="Licenciado">Licenciado</option>
@@ -183,14 +198,15 @@
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
                <div class="col-md-9">
-                 <input type="tel" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Telefono">
+                 <input type="number" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Telefono">
                </div>
              </div>
               <div v-show="errorMaestro" class="form-group row div-error">
                 <div class="text-center text-error">
                     <div v-for="error in errorMostrarMsjMaestro" :key="error" v-text="error">
-
+                        
                     </div>
+                  
                 </div>
             </div>
            </form>
@@ -198,7 +214,7 @@
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
            <button v-if="tipoAccion==1" type="button" @click="registrarMaestro()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary">Actualizar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestro()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -240,7 +256,7 @@
     export default {
         data(){
             return{
-
+                maestro_id:'',
                 nombre:'',
                 apellido:'',
                 fech_nacimiento:'',
@@ -254,25 +270,72 @@
                 tipoAccion:0,
                 errorMaestro:0,
                 errorMostrarMsjMaestro:[],
+                pagination:{
+                    'total':0,
+                    'current_page':0,
+                    'per_page':0,
+                    'last_page':0,
+                    'from':0,
+                    'to':0,
+                },
+                offset:3,
+                criterio:'nombre',
+                buscar:''
 
 
             }
         },
+        computed:{
+            isActived: function(){
+                return this.pagination.current_page;
+            },
+            //calcula los elemenos de la paginacion
+            pagesNumber: function(){
+                if(!this.pagination.to){
+                    return [];
+                }
+                var from = this.pagination.current_page-this.offset;
+                if(from<1){
+                    from=1;
+                }
+                var to = from+(this.offset*2);
+                if(to>=this.pagination.last_page){
+                    to=this.pagination.last_page;
+                }
+                var pagesArray=[];
+                while(from <= to){
+
+                    pagesArray.push(from);
+                    from++;
+                }
+                return pagesArray;
+            }
+        },
         methods:{
-            listarMaestro(){
+            listarMaestro(page,buscar,criterio){
                 let me= this;
-                axios.get('/maestro').then(function (response) {
-                    // var respuesta=response.data;
+                var url = '/maestro?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=response.data;
-                    // me.pagination=respuesta.pagination;
+                    me.arrayMaestro=respuesta.maestros.data;
+                        me.pagination=respuesta.pagination;
+                    
                     console.log(response);
                 })
                 .catch(function (error) {
                     // handle error
                     console.log(error);
                 });
+            },
+             cambiarpagina(page,buscar,criterio){
+                let me = this;
+                //Actualiza la pagina actual
+                me.pagination.current_page = page;
+
+                //Envia la peticion para visualizar la data de esa pagina
+                me.listarMaestro(page,buscar,criterio);
             },
             registrarMaestro(){
                  if (this.validarMaestro()){
@@ -291,11 +354,132 @@
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestro();
+                    me.listarMaestro(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
+            actualizarMaestro(){
+               if (this.validarMaestro()){
+                    return;
+                }
+                
+                let me = this;
+
+                axios.put('/maestro/actualizar',{
+                    'id': this.maestro_id,
+                   'nombre':this.nombre,
+                    'apellido':this.apellido,
+                    'fech_nacimiento':this.fech_nacimiento,
+                    'sexo':this.sexo,
+                    'grado_instruccion':this.grado_instruccion,
+                    'direccion':this.direccion,
+                    'num_celular': this.num_celular
+                }).then(function (response) {
+                    me.cerrarModal();
+                    me.listarMaestro(1,'','nombre');
+                }).catch(function (error) {
+                    console.log(error);
+                }); 
+            },
+            desactivarMaestro(id){
+               const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false,
+                })
+
+                swalWithBootstrapButtons.fire({
+                title: 'Esta de seguro de desactivar este Maestro?',
+                
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me=this;
+                    axios.put('maestro/desactivar',{
+                       
+                        'id':id
+                    }
+                    ).then(function (response){
+                        
+                        me.listarMaestro(1,'','nombre');
+                          swalWithBootstrapButtons.fire(
+                            'Desactivado!',
+                            'El registro ha sido desactivado con exito.',
+                            'success'
+                            )
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+                  
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                    )
+                }
+                }) 
+            },
+            activarMaestro(id){
+                
+               const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false,
+                })
+
+                swalWithBootstrapButtons.fire({
+                title: 'Esta de seguro de activar este Maestro?',
+                
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me=this;
+                    axios.put('maestro/activar',{
+                       
+                        'id':id
+                    }
+                    ).then(function (response){
+                        
+                        me.listarMaestro(1,'','nombre');
+                          swalWithBootstrapButtons.fire(
+                            'Activado!',
+                            'El registro ha sido activado con exito.',
+                            'success'
+                            )
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+                  
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                    )
+                }
+                }) 
+            },
+            
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
@@ -305,17 +489,32 @@
                             case 'registrar':
                             {
                                 this.modal=1;
+                                this.tipoAccion=1;
                                 this.tituloModal='Registrar Maestro';
                                 this.nombre='';
                                 this.apellido='';
                                 this.fech_nacimiento='';
-                                this.sexo='',
-                                this.grado_instruccion='',
+                                this.sexo='sexo',
+                                this.grado_instruccion='grado',
                                 this.direccion='',
                                 this.num_celular=0;
-                                this.tipoAccion=1;
+                                break;
                             }
                             case 'actualizar':
+                            {
+                                this.modal=1;
+                                this.tituloModal='Actualizar Maestro';
+                                this.tipoAccion=2;
+                                this.maestro_id=data['id'];
+                                this.nombre=data['nombre'];
+                                this.apellido=data['apellido'];
+                                this.fech_nacimiento=data['fech_nacimiento'];
+                                this.sexo=data['sexo'],
+                                this.grado_instruccion=data['grado_instruccion'],
+                                this.direccion=data['direccion'],
+                                this.num_celular=data['num_celular'];
+                                break;
+                            }
                         }
                     }
                 }
@@ -326,6 +525,9 @@
 
                 if (!this.nombre) this.errorMostrarMsjMaestro.push("El nombre del Maestro no puede estar vacío.");
                 if (!this.apellido) this.errorMostrarMsjMaestro.push("El apellido del Maestro no puede estar vacio.");
+                if (this.sexo=='sexo') this.errorMostrarMsjMaestro.push("El campo de sexo no puede estar vacío");
+                if (this.grado_instruccion=='grado') this.errorMostrarMsjMaestro.push("El campo de Grado de Instruccion no puede estar vacío    ");
+                if (this.num_celular.length<9 || this.num_celular.length>9) this.errorMostrarMsjMaestro.push("El telefono debe del Maestro debe contener 9 digitos.");
 
                 if (this.errorMostrarMsjMaestro.length) this.errorMaestro = 1;
 
@@ -346,7 +548,7 @@
             },
         },
         mounted() {
-           this.listarMaestro();
+           this.listarMaestro(1,this.buscar,this.criterio);
         }
     }
 </script>
