@@ -16,7 +16,7 @@ class MaestroController extends Controller
     {
        // if (!$request->ajax()) return redirect('/');
         $maestros = Maestro::all();
-        return ['maestros'=>$maestros];
+        return $maestros;
     }
 
     
