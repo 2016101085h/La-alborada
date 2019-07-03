@@ -66,25 +66,14 @@
                   <p>Grado</p>
                 </a>
               </li>
-              <li @click="menu=4" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li @click="menu=5" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
+            
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
+                Periodos
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">6</span>
               </p>
@@ -93,21 +82,10 @@
               <li @click="menu=6" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
+                  <p>Periodos</p>
                 </a>
               </li>
-              <li @click="menu=7" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
-                </a>
-              </li>
-              <li @click="menu=8" lass="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed</p>
-                </a>
-              </li>
+             
              
              
               <li @click="menu=9" class="nav-item">
@@ -123,7 +101,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                UI Elements
+                Alumnos
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -149,7 +127,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Asignaturas
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -157,7 +135,7 @@
               <li @click="menu=12" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
+                  <p>General </p>
                 </a>
               </li>
               <li @click="menu=13" class="nav-item">

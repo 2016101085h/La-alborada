@@ -19,8 +19,11 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.component('portada', require('./components/Portada.vue').default);
 Vue.component('maestro', require('./components/Maestro.vue').default);
 Vue.component('grado', require('./components/Grado.vue').default);
+Vue.component('periodo', require('./components/Periodo.vue').default);
+Vue.component('alumno', require('./components/Alumno.vue').default);
 // Vue.component('grado', require('./components/Grado.vue'));
 
 /**

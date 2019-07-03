@@ -2,7 +2,7 @@
 @section('contenido')
     
 <template v-if="menu==0">
-  <h1 class="content-wrapper">Contenido del menu 1</h1>
+  <portada></portada>
 </template>
 <template v-if="menu==1">
   <maestro></maestro>
@@ -20,7 +20,7 @@
    <h1 class="content-wrapper">Contenido del menu 5</h1>
 </template>
 <template v-if="menu==6">
-   <h1 class="content-wrapper">Contenido del menu 6</h1>
+   <periodo></periodo>
 </template>
 <template v-if="menu==7">
    <h1 class="content-wrapper">Contenido del menu 7</h1>
@@ -32,7 +32,7 @@
    <h1 class="content-wrapper">Contenido del menu 9</h1>
 </template>
 <template v-if="menu==10">
-   <h1 class="content-wrapper">Contenido del menu 10</h1>
+   <alumno></alumno>
 </template>
 <template v-if="menu==11">
    <h1 class="content-wrapper">Contenido del menu 11</h1>

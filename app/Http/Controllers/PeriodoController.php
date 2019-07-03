@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Grado;
+use App\Periodo;
 
-class GradoController extends Controller
+class PeriodoController extends Controller
 {
     public function index(Request $request)
     {
@@ -16,29 +16,24 @@ class GradoController extends Controller
         $criterio = $request->criterio;
         if ($buscar == '') {
 
-            $grados = Grado::orderBy('id', 'desc')->paginate(5);
+            $periodos = Periodo::orderBy('id', 'desc')->paginate(5);
         } else {
-            $grados = Grado::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(2);
+            $periodos = Periodo::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(2);
         }
         return [
             'pagination' => [
-                'total' => $grados->total(),
-                'current_page' => $grados->currentPage(),
-                'per_page' => $grados->perPage(),
-                'last_page' => $grados->lastPage(),
-                'from' => $grados->firstItem(),
-                'to' => $grados->lastItem(),
+                'total' => $periodos->total(),
+                'current_page' => $periodos->currentPage(),
+                'per_page' => $periodos->perPage(),
+                'last_page' => $periodos->lastPage(),
+                'from' => $periodos->firstItem(),
+                'to' => $periodos->lastItem(),
             ],
-            'grados'    => $grados
+            'periodos'    => $periodos
         ];
     }
 
-    public function selectGrado(Request $request)
-    {
-        // if(!$request->ajax()) return redirect('/');
-        $grados = Grado::where('condicion', '=', '1')->select('id', 'grado', 'seccion', 'turno')->orderBy('grado', 'asc')->get();
-        return ['grados' => $grados];
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -51,10 +46,9 @@ class GradoController extends Controller
 
         // if(!$request->ajax()) return redirect('/');
 
-        $grado = new Grado();
-        $grado->grado = $request->grado;
-        $grado->seccion = $request->seccion;
-        $grado->turno = $request->turno;
+        $grado = new Periodo();
+        $grado->nombre = $request->nombre;
+       
         $grado->save();
     }
 
@@ -71,18 +65,16 @@ class GradoController extends Controller
     public function update(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');
-        $grado = Grado::findOrFail($request->id);
-        $grado->grado = $request->grado;
-        $grado->seccion = $request->seccion;
-        $grado->turno = $request->turno;
-        $grado->save();
+        $grado = Periodo::findOrFail($request->id);
+        $grado->nombre = $request->nombre;
         
+        $grado->save();
     }
 
     public function desactivar(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');    
-        $grado = Grado::findOrFail($request->id);
+        $grado = Periodo::findOrFail($request->id);
         $grado->condicion = '0';
         $grado->save();
     }
@@ -90,7 +82,7 @@ class GradoController extends Controller
     public function activar(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');
-        $grado = Grado::findOrFail($request->id);
+        $grado = Periodo::findOrFail($request->id);
         $grado->condicion = '1';
         $grado->save();
     }
@@ -100,5 +92,4 @@ class GradoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
 }

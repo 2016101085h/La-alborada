@@ -34,3 +34,4 @@ class CreateAsignaturasTable extends Migration
         Schema::dropIfExists('asignaturas');
     }
 }
+    

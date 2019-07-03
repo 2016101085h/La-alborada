@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Grados</h1>
+            <h1>Periodos</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Grados</li>
+              <li class="breadcrumb-item active">Periodos</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Grados
-                  <button type="button" @click="abrirModal('grado','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Periodos
+                  <button type="button" @click="abrirModal('periodo','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -31,48 +31,45 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
-                        <option value="seccion">Sección</option>
-                        <option value="grado">Grado</option>
-                        <option value="turno">Turno</option>
+                        <option value="nombre">Nombre</option>
+                        
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarGrado(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarGrado(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarPeriodo(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarPeriodo(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
                 <table class="table table-bordered   ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
-                    <th>Grado</th>
-                    <th>Sección</th>
-                    <th>Turno</th>
+                    <th>Nombre</th>
+                    
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="grado in arrayGrado" :key="grado.id">
+                  <tr v-for="periodo in arrayPeriodo" :key="periodo.id">
                     <td >
-                        <button type="button" @click="abrirModal('grado','actualizar',grado)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('periodo','actualizar',periodo)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="grado.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarGrado(grado.id)">
+                        <template v-if="periodo.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarPeriodo(periodo.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarGrado(grado.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarPeriodo(periodo.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="grado.grado"></td>
-                    <td v-text="grado.seccion"></td>
-                    <td v-text="grado.turno"></td>
+                    
+                    <td v-text="periodo.nombre"></td>
                     
                     <td>
-                        <div v-if="grado.condicion">
+                        <div v-if="periodo.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -134,34 +131,20 @@
                
              </div> -->
              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Grado</label>
+                <label class="col-md-3 form-control-label" for="text-input">Periodo</label>
                 <div class="col-md-9">
-                    <select v-model="grado" class="form-control">
-                        <option value="gra" disabled>Selecciona el Grado</option>
-                        <option value="primero">Primero</option>
-                        <option value="segundo">Segundo</option>
-                        <option value="tercero">Tercero</option>
-                        <option value="cuarto">Cuarto</option>
-                        <option value="quinto">Quinto</option>
-                        <option value="sexto">Sexto</option>
+                    <select v-model="nombre" class="form-control">
+                        <option value="periodo" disabled>Selecciona el Periodo</option>
+                        <option value="Primer Periodo">Primer Periodo</option>
+                        <option value="Segundo Periodo">Segundo Periodo</option>
+                        <option value="Tercer Periodo">Tercer Periodo</option>
+                        <option value="Cuarto Periodo">Cuarto Periodo</option>
+                        
                         
                     </select>                                    
                 </div>
             </div> 
-             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sección</label>
-                <div class="col-md-9">
-                    <select v-model="seccion" class="form-control">
-                        <option value="seccion" disabled>Selecciona la Seccion</option>
-                        <option value="A">Sección A</option>
-                        <option value="B">Sección B</option>
-                        <option value="C">Sección C</option>
-                        <option value="D">Sección D</option>
-                      
-                        
-                    </select>                                    
-                </div>
-            </div> 
+          
              <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="text-input">Turno </label>
                <div class="col-md-9">
@@ -169,17 +152,7 @@
                </div>
                
              </div> -->
-               <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Turno</label>
-                <div class="col-md-9">
-                    <select v-model="turno" class="form-control">
-                        <option value="turno" disabled>Selecciona el turno</option>
-                        <option value="Mañana">Mañana</option>
-                        <option value="Tarde">Tarde</option>
-                        
-                    </select>                                    
-                </div>
-            </div> 
+               
              
               <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
@@ -197,9 +170,9 @@
                
              
              
-              <div v-show="errorGrado" class="form-group row div-error">
+              <div v-show="errorPeriodo" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjGrado" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjPeriodo" :key="error" v-text="error">
                         
                     </div>
                   
@@ -209,8 +182,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarGrado()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarGrado()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarPeriodo()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarPeriodo()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -252,17 +225,16 @@
     export default {
         data(){
             return{
-                grado_id:'',
-                grado:'',
-                seccion:'',
-                turno:'',
+                periodo_id:'',
+                nombre:'',
                 
-                arrayGrado:[],
+                
+                arrayPeriodo:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorGrado:0,
-                errorMostrarMsjGrado:[],
+                errorPeriodo:0,
+                errorMostrarMsjPeriodo:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -272,7 +244,7 @@
                     'to':0,
                 },
                 offset:3,
-                criterio:'seccion',
+                criterio:'nombre',
                 buscar:''
 
 
@@ -305,14 +277,14 @@
             }
         },
         methods:{
-            listarGrado(page,buscar,criterio){
+            listarPeriodo(page,buscar,criterio){
                 let me= this;
-                var url = '/grado?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/periodo?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayGrado=respuesta.grados.data;
+                    me.arrayPeriodo=respuesta.periodos.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -328,48 +300,46 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarGrados(page,buscar,criterio);
+                me.listarPeriodo(page,buscar,criterio);
             },
-            registrarGrado(){
-                 if (this.validarGrado()){
+            registrarPeriodo(){
+                 if (this.validarPeriodo()){
                     return;
                 }
                 let me=this;
-                axios.post('grado/registrar',{
-                    'grado':this.grado,
-                    'seccion':this.seccion,
-                    'turno':this.turno,
+                axios.post('periodo/registrar',{
+                    
+                    'nombre':this.nombre,
                     
 
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarGrado(1,'','seccion');
+                    me.listarPeriodo(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarGrado(){
-               if (this.validarGrado()){
+            actualizarPeriodo(){
+               if (this.validarPeriodo()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/grado/actualizar',{
-                    'id': this.grado_id,
-                    'grado':this.grado,
-                   'seccion':this.seccion,
-                    'turno':this.turno,
+                axios.put('/periodo/actualizar',{
+                    'id': this.periodo_id,
+                    'nombre':this.nombre,
+                   
                    
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarGrado(1,'','seccion');
+                    me.listarPeriodo(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarGrado(id){
+            desactivarPeriodo(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -379,7 +349,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Grado?',
+                title: 'Esta de seguro de desactivar este Periodo?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -389,13 +359,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('grado/desactivar',{
+                    axios.put('periodo/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarGrado(1,'','seccion');
+                        me.listarPeriodo(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -417,7 +387,7 @@
                 }
                 }) 
             },
-            activarGrado(id){
+            activarPeriodo(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -428,7 +398,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Grado?',
+                title: 'Esta de seguro de activar este Periodo?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -438,13 +408,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('grado/activar',{
+                    axios.put('periodo/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarGrado(1,'','seccion');
+                        me.listarPeriodo(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -470,29 +440,27 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "grado":
+                    case "periodo":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Grado';
-                                this.grado='gra';
-                                this.seccion='seccion';
-                                this.turno='turno';
+                                this.tituloModal='Registrar Periodo';
+                                this.nombre='nombre';
+                             
                                 
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Grado';
+                                this.tituloModal='Actualizar Periodo';
                                 this.tipoAccion=2;
-                                this.grado_id=data['id'];
-                                this.grado=data['grado']
-                                this.seccion=data['seccion'];
-                                this.turno=data['turno'];
+                                this.periodo_id=data['id'];
+                                this.nombre=data['nombre']
+                               
                                 
                                 break;
                             }
@@ -500,31 +468,29 @@
                     }
                 }
             },
-            validarGrado(){
-                this.errorGrado=0;
-                this.errorMostrarMsjGrado =[];
+            validarPeriodo(){
+                this.errorPeriodo=0;
+                this.errorMostrarMsjPeriodo =[];
 
-                if (!this.grado) this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
-                if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
-                if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
+                if (!this.nombre) this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
+                
                
 
-                if (this.errorMostrarMsjGrado.length) this.errorGrado = 1;
+                if (this.errorMostrarMsjPeriodo.length) this.errorPeriodo = 1;
 
-                return this.errorGrado;
+                return this.errorPeriodo;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
-                this.grado='';
-                this.seccion='';
-                this.turno='';
-                this.errorGrado=0;
+                this.nombre='';
+               
+                this.errorPeriodo=0;
                 
             },
         },
         mounted() {
-           this.listarGrado(1,this.buscar,this.criterio);
+           this.listarPeriodo(1,this.buscar,this.criterio);
         }
     }
 </script>
