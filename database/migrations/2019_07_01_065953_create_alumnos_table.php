@@ -23,7 +23,7 @@ class CreateAlumnosTable extends Migration
             $table->longText('direccion', 200);
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

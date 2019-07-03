@@ -64,7 +64,7 @@
               <li @click="menu=2" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
+                  <p>Alumnos</p>
                 </a>
               </li>
               <li @click="menu=3" class="nav-item">

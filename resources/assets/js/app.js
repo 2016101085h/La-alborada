@@ -19,8 +19,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/')alumnosplit('.')[0], files(key)Alumnot)));
 
-Vue.component('maestro', require('./components/Maestro.vue'));
-Vue.component('alumno', require('./components/Alumno.vue'));
+Vue.component('maestro', require('./components/Maestro.vue').default);
+Vue.component('alumno', require('./components/Alumno.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

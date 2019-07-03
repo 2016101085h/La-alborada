@@ -20,7 +20,7 @@ class CreateAsignaturasTable extends Migration
             $table->integer('grado_id')->unsigned();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

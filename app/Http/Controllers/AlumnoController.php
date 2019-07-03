@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Alumno;
+use App\{Alumno, Grado};
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
@@ -14,9 +14,14 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        $alumnos = Alumno::all();
+        $alumnos = Alumno::join('grados', 'alumnos.grado_id', '=', 'grados.id')->select('alumnos.id', 'alumnos.grado_id', 'alumnos.nombre', 'alumnos.apellido','alumnos.sexo', 'alumnos.fech_nacimiento', 'alumnos.direccion', 'alumnos.condicion', 'grados.seccion')->orderBy('alumnos.id', 'desc')->get();
 
-        return ['alumnos' => $alumnos];
+        $grados = Grado::all();   
+
+        return [
+            'alumnos' => $alumnos,
+            'grados' => $grados
+        ];
     }
 
     /**
@@ -47,7 +52,7 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request)
     {
         $alumno = Alumno::findOrFail($request->id);
         $alumno->grado_id = $request->grado_id;
@@ -71,13 +76,14 @@ class AlumnoController extends Controller
     {
         $alumno = Alumno::findOrFail($request->id);
         $alumno->condicion = '1';
-        
+        $alumno->save();
     }
 
     public function desactivar(Request $request)
     {
         $alumno = Alumno::findOrFail($request->id);
         $alumno->condicion = '0';
+        $alumno->save();
         
     }
 }
