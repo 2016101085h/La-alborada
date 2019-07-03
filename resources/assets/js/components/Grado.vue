@@ -328,7 +328,7 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarGrados(page,buscar,criterio);
+                me.listarGrado(page,buscar,criterio);
             },
             registrarGrado(){
                  if (this.validarGrado()){

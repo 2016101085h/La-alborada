@@ -9,6 +9,10 @@ class Maestro extends Model
     
     protected $fillable = ['nombre','apellido','fech_nacimiento','sexo','grado_instruccion',
 'direccion','num_celular','condicion'];
+    public function asignaturas()
+    {
+        return $this->hasMany('App\Asignatura');
+    }
 }
 // $table->string('m_nombre', 50);
 // $table->string('m_apellido', 100);

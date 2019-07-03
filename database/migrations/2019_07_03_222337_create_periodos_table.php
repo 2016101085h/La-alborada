@@ -17,7 +17,6 @@ class CreatePeriodosTable extends Migration
             $table->increments('id');
             $table->string('nombre', 70);
             $table->boolean('condicion')->default(1);
-
             $table->timestamps();
         });
     }

@@ -39,6 +39,7 @@ class GradoController extends Controller
         $grados = Grado::where('condicion', '=', '1')->select('id', 'grado', 'seccion', 'turno')->orderBy('grado', 'asc')->get();
         return ['grados' => $grados];
     }
+    
 
     /**
      * Store a newly created resource in storage.

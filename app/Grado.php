@@ -13,4 +13,8 @@ class Grado extends Model
     {
         return $this->hasMany('App\Alumno');
     }
+    public function asignaturas()
+    {
+        return $this->hasMany('App\Asignatura');
+    }
 }

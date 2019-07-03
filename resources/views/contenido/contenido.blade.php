@@ -38,7 +38,7 @@
    <h1 class="content-wrapper">Contenido del menu 11</h1>
 </template>
 <template v-if="menu==12">
-   <h1 class="content-wrapper">Contenido del menu 12</h1>
+   <asignatura></asignatura>
 </template>
 <template v-if="menu==13">
    <h1 class="content-wrapper">Contenido del menu 13</h1>

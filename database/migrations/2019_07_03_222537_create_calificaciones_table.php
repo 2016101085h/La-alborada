@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGradosTable extends Migration
+class CreateCalificacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateGradosTable extends Migration
      */
     public function up()
     {
-        Schema::create('grados', function (Blueprint $table) {
+        Schema::create('calificaciones', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('grado');
-            $table->string('seccion');
-            $table->string('turno');
+            $table->string('cal_periodo', 20);
+            $table->string('calificacion_tipo', 50);
+            $table->string('cal_periodofinal', 20);
             $table->boolean('condicion')->default(1);
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreateGradosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grados');
+        Schema::dropIfExists('calificaciones');
     }
 }

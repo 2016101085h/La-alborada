@@ -17,9 +17,13 @@ class CreateAsignaturasTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->text('temario');
+            
+            $table->integer('maestro_id')->unsigned();
             $table->integer('grado_id')->unsigned();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
+            
+            $table->foreign('maestro_id')->references('id')->on('maestros')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -34,4 +38,3 @@ class CreateAsignaturasTable extends Migration
         Schema::dropIfExists('asignaturas');
     }
 }
-    

@@ -39,8 +39,12 @@ class MaestroController extends Controller
             'maestros'    => $maestros
         ];
     }
-
-    
+    public function selectMaestro(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $maestros = Maestro::where('condicion', '=', '1')->select('id', 'nombre', 'apellido')->orderBy('nombre', 'asc')->get();
+        return ['maestros' => $maestros];
+    }
 
     /**
      * Store a newly created resource in storage.
