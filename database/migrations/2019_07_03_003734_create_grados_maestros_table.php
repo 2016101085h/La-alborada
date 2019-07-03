@@ -16,7 +16,7 @@ class CreateGradosMaestrosTable extends Migration
         Schema::create('grados_maestros', function (Blueprint $table) {
             $table->integer('grado_id')->unsigned();
             $table->integer('maestro_id')->unsigned();
-            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('maestro_id')->references('id')->on('maestros')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

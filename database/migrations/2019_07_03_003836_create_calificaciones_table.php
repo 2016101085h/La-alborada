@@ -21,9 +21,10 @@ class CreateCalificacionesTable extends Migration
             $table->integer('cal_periodo');
             $table->string('calificacion_tipo', 50);
             $table->integer('periodo_id')->unsigned();
+            $table->boolean('condicion')->default(1);
             $table->timestamps();
             $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('grado_id')->references('id')->on('grado')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('asignatura_id')->references('id')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade')->onUpdate('cascade');
         });

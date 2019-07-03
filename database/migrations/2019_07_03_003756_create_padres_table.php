@@ -16,8 +16,8 @@ class CreatePadresTable extends Migration
         Schema::create('padres', function (Blueprint $table) {
             $table->increments('id_padre');
             $table->integer('alumno_id')->unsigned();
-            $table->string('nombre',50);
-            $table->string('apellido',0);
+            $table->string('nombre', 50);
+            $table->string('apellido', 0);
             $table->string('dni');
             $table->string('sexo');
             $table->boolean('condicion')->default(1);

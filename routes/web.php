@@ -20,3 +20,11 @@ Route::post('/maestro/registrar', 'MaestroController@store');
 Route::put('/maestro/actualizar', 'MaestroController@update');
 Route::put('/maestro/desactivar', 'MaestroController@desactivar');
 Route::put('/maestro/activar', 'MaestroController@activar');
+Route::get('/maestro', 'MaestroController@index');
+
+Route::get('/grado', 'GradoController@index');
+Route::post('/grado/registrar', 'GradoController@store');
+Route::put('/grado/actualizar', 'GradoController@update');
+Route::put('/grado/desactivar', 'GradoController@desactivar');
+Route::put('/grado/activar', 'GradoController@activar');
+Route::get('/grado', 'GradoController@index');
