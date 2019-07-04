@@ -2205,8 +2205,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombre = '';
                   this.apellido = '';
                   this.grado = '0';
-                  this.seccion_grado = '2';
-                  this.turno_grado = '3';
+                  this.seccion_grado = '';
+                  this.turno_grado = '';
                   this.fech_nacimiento = '';
                   this.sexo = 'sexo';
                   this.direccion = '';
@@ -2221,10 +2221,10 @@ __webpack_require__.r(__webpack_exports__);
                   this.alumno_id = data['id'];
                   this.grado_id = data['grado_id'];
                   this.nombre = data['nombre'];
-                  this.apellido = data['apellido'];
-                  this.grado = data['grado'];
-                  this.seccion_grado = data['seccion_grado'];
-                  this.turno_grado = data['turno_grado'];
+                  this.apellido = data['apellido']; // this.grado=data['grado'];
+                  // this.seccion_grado=data['seccion_grado'];
+                  // this.turno_grado=data['turno_grado'];
+
                   this.fech_nacimiento = data['fech_nacimiento'];
                   this.sexo = data['sexo'];
                   this.direccion = data['direccion'];
@@ -2241,6 +2241,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.nombre) this.errorMostrarMsjAlumno.push("El nombre del Alumno no puede estar vacío.");
       if (!this.apellido) this.errorMostrarMsjAlumno.push("El apellido del Alumno no puede estar vacio.");
       if (this.sexo == 'sexo') this.errorMostrarMsjAlumno.push("El campo de sexo no puede estar vacío");
+      if (this.grado == '0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
       if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
       return this.errorAlumno;
     },
@@ -2251,8 +2252,6 @@ __webpack_require__.r(__webpack_exports__);
       this.nombre = '';
       this.apellido = '';
       this.grado = '';
-      this.seccion_grado = '';
-      this.turno_grado = '';
       this.fech_nacimiento = '';
       this.sexo = '', this.direccion = '', this.errorAlumno = 0;
     }
@@ -2273,33 +2272,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2618,21 +2590,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    selectGrado: function selectGrado() {
-      var me = this;
-      var url = '/grado/selectGrado';
-      axios.get(url).then(function (response) {
-        var respuesta = response.data; // // // handle success
-        // // console.log(response);
-
-        me.arrayGrado = respuesta.grados; // me.pagination=respuesta.pagination;
-
-        console.log(response);
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
     selectMaestro: function selectMaestro() {
       var me = this;
       var url = '/maestro/selectMaestro';
@@ -2641,6 +2598,21 @@ __webpack_require__.r(__webpack_exports__);
         // // console.log(response);
 
         me.arrayMaestro = respuesta.maestros; // me.pagination=respuesta.pagination;
+
+        console.log(response);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    selectGrado: function selectGrado() {
+      var me = this;
+      var url = '/grado/selectGrado';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data; // // // handle success
+        // // console.log(response);
+
+        me.arrayGrado = respuesta.grados; // me.pagination=respuesta.pagination;
 
         console.log(response);
       })["catch"](function (error) {
@@ -2685,6 +2657,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put('/asignatura/actualizar', {
         'nombre': this.nombre,
+        'id': this.asignatura_id,
         'temario': this.temario,
         'maestro_id': this.maestro_id,
         'nombre_maestro': this.nombre_maestro,
@@ -2694,12 +2667,12 @@ __webpack_require__.r(__webpack_exports__);
         'seccion_grado': this.seccion_grado
       }).then(function (response) {
         me.cerrarModal();
-        me.listarAlumno(1, '', 'nombre');
+        me.listarAsignatura(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    desactivarAlumno: function desactivarAlumno(id) {
+    desactivarAsignatura: function desactivarAsignatura(id) {
       var _this = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -2784,9 +2757,9 @@ __webpack_require__.r(__webpack_exports__);
                   this.maestro_id = '0';
                   this.nombre_maestro = '';
                   this.apellido_maestro = '';
-                  this.grado_id = '0';
-                  this.grado = '0';
-                  this.seccion_grado = '2';
+                  this.grado_id = '1';
+                  this.grado = '';
+                  this.seccion_grado = '';
                   break;
                 }
 
@@ -2795,16 +2768,15 @@ __webpack_require__.r(__webpack_exports__);
                   this.modal = 1;
                   this.tituloModal = 'Actualizar Asignatura';
                   this.tipoAccion = 2;
-                  this.alumno_id = data['id'];
-                  this.grado_id = data['grado_id'];
+                  this.asignatura_id = data['id'];
                   this.nombre = data['nombre'];
-                  this.apellido = data['apellido'];
-                  this.grado = data['grado'];
-                  this.seccion_grado = data['seccion_grado'];
-                  this.turno_grado = data['turno_grado'];
-                  this.fech_nacimiento = data['fech_nacimiento'];
-                  this.sexo = data['sexo'];
-                  this.direccion = data['direccion'];
+                  this.temario = data['temario'];
+                  this.maestro_id = data['maestro_id']; // this.nombre_maestro=data['nombre_maestro'];
+                  // this.apellido_maestro=data['apellido_maestro'];
+
+                  this.grado_id = data['grado_id']; // this.grado=data['grado'];
+                  // this.seccion_grado=data['seccion_grado'];
+
                   break;
                 }
             }
@@ -2814,11 +2786,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     validarAsignatura: function validarAsignatura() {
-      this.erroAsignatura = 0;
+      this.errorAsignatura = 0;
       this.errorMostrarMsjAsignatura = [];
-      if (!this.nombre) this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
+      if (this.nombre == '') this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
+      if (this.temario == '') this.errorMostrarMsjAsignatura.push("El temario de la Asignatura no puede estar vacío.");
       if (this.errorMostrarMsjAsignatura.length) this.erroAsignatura = 1;
-      return this.erroAsignatura;
+      return this.errorAsignatura;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
@@ -3318,7 +3291,7 @@ __webpack_require__.r(__webpack_exports__);
     validarGrado: function validarGrado() {
       this.errorGrado = 0;
       this.errorMostrarMsjGrado = [];
-      if (!this.grado) this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+      if (this.grado == 'gra') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
       if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
       if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
       if (this.errorMostrarMsjGrado.length) this.errorGrado = 1;
@@ -4304,7 +4277,7 @@ __webpack_require__.r(__webpack_exports__);
     validarPeriodo: function validarPeriodo() {
       this.errorPeriodo = 0;
       this.errorMostrarMsjPeriodo = [];
-      if (!this.nombre) this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
+      if (this.nombre == 'nombre') this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
       if (this.errorMostrarMsjPeriodo.length) this.errorPeriodo = 1;
       return this.errorPeriodo;
     },
@@ -41472,16 +41445,8 @@ var render = function() {
                             _vm._v("Nombre")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "apellido" } }, [
-                            _vm._v("Apellidos")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
+                          _c("option", { attrs: { value: "grado" } }, [
+                            _vm._v("Grado")
                           ])
                         ]
                       ),
@@ -41629,7 +41594,11 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: {
-                            textContent: _vm._s(asignatura.nombre_maestro)
+                            textContent: _vm._s(
+                              asignatura.nombre_maestro +
+                                " " +
+                                asignatura.apellido_maestro
+                            )
                           }
                         }),
                         _vm._v(" "),
@@ -41857,7 +41826,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Apellidos ")]
+                        [_vm._v("Temario ")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -41931,7 +41900,7 @@ var render = function() {
                             _c(
                               "option",
                               { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Selecciona el Grado")]
+                              [_vm._v("Selecciona el Maestro")]
                             ),
                             _vm._v(" "),
                             _vm._l(_vm.arrayMaestro, function(maestro) {
@@ -41940,7 +41909,7 @@ var render = function() {
                                 domProps: {
                                   value: maestro.id,
                                   textContent: _vm._s(
-                                    maestro.nombre + " - " + maestro.apellido
+                                    maestro.nombre + "  " + maestro.apellido
                                   )
                                 }
                               })
@@ -41993,7 +41962,7 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { value: "0", disabled: "" } },
+                              { attrs: { value: "1", disabled: "" } },
                               [_vm._v("Selecciona el Grado")]
                             ),
                             _vm._v(" "),
@@ -42098,9 +42067,7 @@ var render = function() {
           ]
         )
       ]
-    ),
-    _vm._v(" "),
-    _vm._m(2)
+    )
   ])
 }
 var staticRenderFns = [
@@ -42145,81 +42112,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Estado")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { display: "none" },
-        attrs: {
-          id: "modalEliminar",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-danger",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _vm._v("Eliminar Categoría")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Estas seguro de eliminar la categoría?")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "button" } },
-                  [_vm._v("Eliminar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
   }
 ]
 render._withStripped = true

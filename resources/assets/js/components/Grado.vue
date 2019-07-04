@@ -504,7 +504,7 @@
                 this.errorGrado=0;
                 this.errorMostrarMsjGrado =[];
 
-                if (!this.grado) this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+                if (this.grado=='gra') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
                 if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
                 if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
                

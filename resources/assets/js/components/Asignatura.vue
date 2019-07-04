@@ -32,9 +32,7 @@
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
                         <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellidos</option>
-                        <option value="sexo">Sexo</option>
-                        <option value="sexo">Sexo</option>
+                        <option value="grado">Grado</option>
                         
                       </select>
                       <input type="text" v-model="buscar" @keyup.enter="listarAsignatura(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
@@ -51,8 +49,6 @@
                     <th>Grado</th>
                     <th>Sección</th>
                    
-                    
-                 
                     <th >Estado</th>
 
                   </tr>
@@ -75,7 +71,7 @@
                     </td>
                     <td v-text="asignatura.nombre"></td>
                     <td v-text="asignatura.temario"></td>
-                    <td v-text="asignatura.nombre_maestro"></td>
+                    <td v-text="asignatura.nombre_maestro+' '+asignatura.apellido_maestro"></td>
                     <td v-text="asignatura.grado"></td>
                                                     
                     <td v-text="asignatura.seccion_grado"></td>                                
@@ -144,7 +140,7 @@
                
              </div>
              <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
+               <label class="col-md-3 form-control-label" for="text-input">Temario </label>
                <div class="col-md-9">
                  <input type="text" v-model="temario" class="form-control" placeholder="Temario de la Asignatura">
                </div>
@@ -154,8 +150,8 @@
                 <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
                 <div class="col-md-9">
                     <select v-model="maestro_id" class="form-control">
-                        <option value="0" disabled>Selecciona el Grado</option>
-                        <option v-for="maestro in arrayMaestro" :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' - '+maestro.apellido"></option>
+                        <option value="0" disabled>Selecciona el Maestro</option>
+                        <option v-for="maestro in arrayMaestro" :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+'  '+maestro.apellido"></option>
                         
                         
                     </select>                                    
@@ -165,7 +161,7 @@
                 <label class="col-md-3 form-control-label" for="text-input">Grado</label>
                 <div class="col-md-9">
                     <select v-model="grado_id" class="form-control">
-                        <option value="0" disabled>Selecciona el Grado</option>
+                        <option value="1" disabled>Selecciona el Grado</option>
                         <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.grado+' - '+grado.seccion"></option>
                         
                         
@@ -232,30 +228,7 @@
      <!-- /.modal-dialog -->
    </div>
    <!--Fin del modal-->
-   <!-- Inicio del modal Eliminar -->
-   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     style="display: none;" aria-hidden="true">
-     <div class="modal-dialog modal-danger" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h4 class="modal-title">Eliminar Categoría</h4>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">×</span>
-           </button>
-         </div>
-         <div class="modal-body">
-           <p>Estas seguro de eliminar la categoría?</p>
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-           <button type="button" class="btn btn-danger">Eliminar</button>
-         </div>
-       </div>
-       <!-- /.modal-content -->
-     </div>
-     <!-- /.modal-dialog -->
-   </div>
-   <!-- Fin del modal Eliminar -->
+ 
 
   </main>
  
@@ -342,6 +315,23 @@
                     console.log(error);
                 });
             },
+              selectMaestro(){
+                   let me= this;
+                  var url = '/maestro/selectMaestro';
+                  axios.get(url).then(function (response) {
+                      var respuesta=response.data;
+                      // // // handle success
+                      // // console.log(response);
+                      me.arrayMaestro=respuesta.maestros;
+                          // me.pagination=respuesta.pagination;
+                      
+                      console.log(response);
+                  })
+                  .catch(function (error) {
+                      // handle error
+                      console.log(error);
+                  });
+              },
             selectGrado(){
                  let me= this;
                 var url = '/grado/selectGrado';
@@ -350,23 +340,6 @@
                     // // // handle success
                     // // console.log(response);
                     me.arrayGrado=respuesta.grados;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectMaestro(){
-                 let me= this;
-                var url = '/maestro/selectMaestro';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros;
                         // me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -419,6 +392,7 @@
 
                 axios.put('/asignatura/actualizar',{
                     'nombre':this.nombre,
+                    'id':this.asignatura_id,
                     'temario':this.temario,
                     'maestro_id':this.maestro_id,
                     'nombre_maestro':this.nombre_maestro,
@@ -429,12 +403,12 @@
                     
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarAlumno(1,'','nombre');
+                    me.listarAsignatura(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarAlumno(id){
+            desactivarAsignatura(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -548,9 +522,9 @@
                                 this.maestro_id='0';
                                 this.nombre_maestro='';
                                 this.apellido_maestro='';
-                                this.grado_id='0';
-                                this.grado='0';
-                                this.seccion_grado='2';
+                                this.grado_id='1';
+                                this.grado='';
+                                this.seccion_grado='';
                                 
                                
                                 break;
@@ -560,16 +534,17 @@
                                 this.modal=1;
                                 this.tituloModal='Actualizar Asignatura';
                                 this.tipoAccion=2;
-                                this.alumno_id=data['id'];
-                                this.grado_id=data['grado_id']
+                                this.asignatura_id=data['id']
                                 this.nombre=data['nombre'];
-                                this.apellido=data['apellido'];
-                                this.grado=data['grado'];
-                                this.seccion_grado=data['seccion_grado'];
-                                this.turno_grado=data['turno_grado'];
-                                this.fech_nacimiento=data['fech_nacimiento'];
-                                this.sexo=data['sexo'];
-                                this.direccion=data['direccion'];
+                                this.temario=data['temario'];
+                                this.maestro_id=data['maestro_id'];
+                                // this.nombre_maestro=data['nombre_maestro'];
+                                // this.apellido_maestro=data['apellido_maestro'];
+                                this.grado_id=data['grado_id']
+                                // this.grado=data['grado'];
+                                // this.seccion_grado=data['seccion_grado'];
+                               
+                                
                                
                                 break;
                             }
@@ -581,15 +556,17 @@
                 }
             },
             validarAsignatura(){
-                this.erroAsignatura=0;
+                this.errorAsignatura=0;
                 this.errorMostrarMsjAsignatura =[];
 
-                if (!this.nombre) this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
+                if (this.nombre=='') this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
+                if (this.temario=='') this.errorMostrarMsjAsignatura.push("El temario de la Asignatura no puede estar vacío.");
+
                 
 
                 if (this.errorMostrarMsjAsignatura.length) this.erroAsignatura = 1;
 
-                return this.erroAsignatura;
+                return this.errorAsignatura;
             },
             cerrarModal(){
                 this.modal=0;

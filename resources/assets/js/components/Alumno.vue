@@ -543,8 +543,8 @@
                                 this.nombre='';
                                 this.apellido='';
                                 this.grado='0';
-                                this.seccion_grado='2';
-                                this.turno_grado='3';
+                                this.seccion_grado='';
+                                this.turno_grado='';
                                 this.fech_nacimiento='';
                                 this.sexo='sexo';
                                 this.direccion='';
@@ -560,9 +560,9 @@
                                 this.grado_id=data['grado_id']
                                 this.nombre=data['nombre'];
                                 this.apellido=data['apellido'];
-                                this.grado=data['grado'];
-                                this.seccion_grado=data['seccion_grado'];
-                                this.turno_grado=data['turno_grado'];
+                                // this.grado=data['grado'];
+                                // this.seccion_grado=data['seccion_grado'];
+                                // this.turno_grado=data['turno_grado'];
                                 this.fech_nacimiento=data['fech_nacimiento'];
                                 this.sexo=data['sexo'];
                                 this.direccion=data['direccion'];
@@ -581,6 +581,7 @@
                 if (!this.nombre) this.errorMostrarMsjAlumno.push("El nombre del Alumno no puede estar vacío.");
                 if (!this.apellido) this.errorMostrarMsjAlumno.push("El apellido del Alumno no puede estar vacio.");
                 if (this.sexo=='sexo') this.errorMostrarMsjAlumno.push("El campo de sexo no puede estar vacío");
+                if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
 
                 if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
 
@@ -593,8 +594,7 @@
                 this.nombre='';
                 this.apellido='';
                 this.grado='';
-                this.seccion_grado='';
-                this.turno_grado='';
+               
                 this.fech_nacimiento='';
                 this.sexo='',
                 this.direccion='',

@@ -472,7 +472,7 @@
                 this.errorPeriodo=0;
                 this.errorMostrarMsjPeriodo =[];
 
-                if (!this.nombre) this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
+                if (this.nombre=='nombre') this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
                 
                
 

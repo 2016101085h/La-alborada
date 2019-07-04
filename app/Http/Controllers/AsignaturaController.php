@@ -26,7 +26,7 @@ class AsignaturaController extends Controller
                     'asignaturas.id',
                     'asignaturas.nombre',
                     'asignaturas.temario',
-                    'asignaturas.maestro_id as maestro_asignatura','maestros.nombre','maestros.apellido',  
+                    'asignaturas.maestro_id as maestro_asignatura','maestros.nombre as nombre_maestro','maestros.apellido as apellido_maestro',  
                     'asignaturas.grado_id as  grado_asignatura','grados.grado as grado','grados.seccion as seccion_grado',                
                     'asignaturas.condicion'
                 )
