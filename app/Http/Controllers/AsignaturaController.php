@@ -61,7 +61,12 @@ class AsignaturaController extends Controller
             'asignaturas'    => $asignaturas
         ];
     }
-
+    public function selectAsignatura(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $asignaturas = Asignatura::where('condicion', '=', '1')->select('id', 'nombre')->orderBy('nombre', 'asc')->get();
+        return ['asignaturas' => $asignaturas];
+    }
 
 
     /**

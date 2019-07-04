@@ -13,6 +13,10 @@ class Alumno extends Model
     {
         return $this->belongsTo('App\Grado');
     }
+    public function alumnoasignaturas()
+    {
+        return $this->hasMany('App\AlumnoAsignatura');
+    }
     // $table->increments ('id');
     // $table->integer('grado_id')->unsigned();
     // $table->string('nombre', 50);

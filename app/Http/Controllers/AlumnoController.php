@@ -46,7 +46,12 @@ class AlumnoController extends Controller
         ];
     }
 
-    
+    public function selectAlumno(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $alumnos = Alumno::where('condicion', '=', '1')->select('id', 'nombre', 'apellido')->orderBy('nombre', 'asc')->get();
+        return ['alumnos' => $alumnos];
+    }
 
     /**
      * Store a newly created resource in storage.

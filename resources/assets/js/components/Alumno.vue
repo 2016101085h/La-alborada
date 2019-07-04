@@ -581,7 +581,7 @@
                 if (!this.nombre) this.errorMostrarMsjAlumno.push("El nombre del Alumno no puede estar vacío.");
                 if (!this.apellido) this.errorMostrarMsjAlumno.push("El apellido del Alumno no puede estar vacio.");
                 if (this.sexo=='sexo') this.errorMostrarMsjAlumno.push("El campo de sexo no puede estar vacío");
-                if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
+                // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
 
                 if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
 

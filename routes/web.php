@@ -41,6 +41,7 @@ Route::post('/alumno/registrar', 'AlumnoController@store');
 Route::put('/alumno/actualizar', 'AlumnoController@update');
 Route::put('/alumno/desactivar', 'AlumnoController@desactivar');
 Route::put('/alumno/activar', 'AlumnoController@activar');
+Route::get('/alumno/selectAlumno', 'AlumnoController@selectAlumno');
 
 
 Route::get('/asignatura', 'AsignaturaController@index');
@@ -48,4 +49,17 @@ Route::post('/asignatura/registrar', 'AsignaturaController@store');
 Route::put('/asignatura/actualizar', 'AsignaturaController@update');
 Route::put('/asignatura/desactivar', 'AsignaturaController@desactivar');
 Route::put('/asignatura/activar', 'AsignaturaController@activar');
+Route::get('/asignatura/selectAsignatura', 'AsignaturaController@selectAsignatura');
+
+Route::get('/alumnoasignatura', 'AlumnoAsignaturaController@index');
+Route::post('/alumnoasignatura/registrar', 'AlumnoAsignaturaController@store');
+Route::put('/alumnoasignatura/actualizar', 'AlumnoAsignaturaController@update');
+Route::put('/alumnoasignatura/desactivar', 'AlumnoAsignaturaController@desactivar');
+Route::put('/alumnoasignatura/activar', 'AlumnoAsignaturaController@activar');
+
+Route::get('/maestroasignatura', 'MaestroAsignaturaController@index');
+Route::post('/maestroasignatura/registrar', 'MaestroAsignaturaController@store');
+Route::put('/maestrosignatura/actualizar', 'MaestroAsignaturaController@update');
+Route::put('/maestrosignatura/desactivar', 'MaestroAsignaturaController@desactivar');
+Route::put('/maestrosignatura/activar', 'MaestroAsignaturaController@activar');
 

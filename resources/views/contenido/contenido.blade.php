@@ -41,7 +41,7 @@
    <asignatura></asignatura>
 </template>
 <template v-if="menu==13">
-   <h1 class="content-wrapper">Contenido del menu 13</h1>
+   <maestroasignatura></maestroasignatura>
 </template>
 <template v-if="menu==14">
    <h1 class="content-wrapper">Contenido del menu 44</h1>

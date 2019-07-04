@@ -13,7 +13,7 @@ class CreateAlumnosAsignaturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('alumnos_asignaturas', function (Blueprint $table) {
+        Schema::create('alumno_asignaturas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('alumno_id')->unsigned();
             $table->integer('asignatura_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateAlumnosAsignaturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alumnos_asignaturas');
+        Schema::dropIfExists('alumno_asignaturas');
     }
 }

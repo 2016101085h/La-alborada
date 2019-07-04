@@ -17,6 +17,10 @@ class Asignatura extends Model
     {
         return $this->belongsTo('App\Maestro');
     }
+    // public function alumnoasignaturas()
+    // {
+    //     return $this->hasMany('App\AlumnoAsignatura');
+    // }
     // $table->increments ('id');
     // $table->string('nombre');
     // $table->text('temario');

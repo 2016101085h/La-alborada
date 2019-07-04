@@ -141,7 +141,7 @@
               <li @click="menu=13" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
+                  <p>Maestros</p>
                 </a>
               </li>
               

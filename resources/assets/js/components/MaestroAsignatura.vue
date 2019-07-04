@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Maestros</h1>
+            <h1>Asignaturas de Maestros</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Maestros</li>
+              <li class="breadcrumb-item active">Asignaturas de Maestros</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Maestro
-                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Asignaturas de Maestros
+                  <button type="button" @click="abrirModal('maestroasignatura','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -34,52 +34,47 @@
                         <option value="nombre">Nombre</option>
                         <option value="apellido">Apellidos</option>
                         <option value="sexo">Sexo</option>
+                        <option value="sexo">Sexo</option>
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarMaestro(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarMaestro(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarMaestroAsignatura(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarMaestroAsignatura(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
                 <table class="table table-bordered   ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Grado de Instruccion</th>
-                    <th>Dirección</th>
-                    <th >Celular</th>
+                    <th>Nombre de Maestro</th>
+                    
+                    <th>Asignatura</th>
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestro in arrayMaestro" :key="maestro.id">
+                  <tr v-for="maestroasignatura in arrayMaestroAsignatura" :key="maestroasignatura.id">
                     <td >
-                        <button type="button" @click="abrirModal('maestro','actualizar',maestro)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('maestroasignatura','actualizar',maestroasignatura)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="maestro.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestro(maestro.id)">
+                        <template v-if="maestroasignatura.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestroAsignatura(maestroasignatura.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestro(maestro.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestroAsignatura(maestroasignatura.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestro.nombre"></td>
-                    <td v-text="maestro.apellido"></td>
-                    <td v-text="maestro.fech_nacimiento"></td>
-                    <td v-text="maestro.sexo"></td>
-                    <td v-text="maestro.grado_instruccion"></td>
-                    <td v-text="maestro.direccion"></td>
-                    <td v-text="maestro.num_celular"></td>
+                    <td v-text="maestroasignatura.nombre+ maestroasignatura.apellido"></td>
+                    
+                    <td v-text="maestroasignatura.nombre_asignatura"></td>                 
+                    
+                    
                     <td>
-                        <div v-if="maestro.condicion">
+                        <div v-if="maestroasignatura.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -133,77 +128,77 @@
          </div>
          <div class="modal-body">
            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-             <div class="form-group row">
+             <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="text-input">Nombre </label>
                <div class="col-md-9">
-                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Maestro(a)">
+                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Alumno(a)">
                </div>
                
              </div>
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
                <div class="col-md-9">
-                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Maestro(a)">
+                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Alumno(a)">
                </div>
                
-             </div>
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="">Fecha de Nacimiento</label>
-               <div class="col-md-9">
-                 <input type="date" v-model="fech_nacimiento" class="form-control" placeholder="Ingrese la fecha de Nacimiento">
-               </div>
-             </div>
-              <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
-               <div class="col-md-9">
-                 <input type="text" v-model="sexo" class="form-control" placeholder="Ingrese el sexo">
-               </div>
-             </div>  -->
+             </div> -->
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sexo</label>
+                <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
                 <div class="col-md-9">
-                    <select v-model="sexo" class="form-control">
-                        <option value="sexo" disabled>Selecciona tu sexo</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="femenino">Femenino</option>
+                    <select v-model="maestro_id" class="form-control">
+                        <option value="0" disabled>Selecciona el Maestro</option>
+                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' - '+maestro.apellido"></option>
+                        
                         
                     </select>                                    
                 </div>
             </div> 
+            <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Asignatura</label>
+                <div class="col-md-9">
+                    <select v-model="asignatura_id" class="form-control">
+                        <option value="1" disabled>Selecciona la Asignatura</option>
+                        <option v-for="asignatura in arrayAsignatura " :key="asignatura.id" :value="asignatura.id" v-text="asignatura.nombre"></option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div> 
+            <!-- <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Sección</label>
+                <div class="col-md-9">
+                    <select v-model="seccion_grado" class="form-control">
+                        <option value="2" disabled>Selecciona la Sección</option>
+                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.seccion"></option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div>  -->
+            <!-- <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Turno</label>
+                <div class="col-md-9">
+                    <select v-model="turno_grado" class="form-control">
+                        <option value="3" disabled>Selecciona el Turno</option>
+                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.turno"></option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div>  -->
+             
              <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
                <div class="col-md-9">
                  <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
                </div>
              </div> -->
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Grado Académico</label>
-                <div class="col-md-9">
-                    <select v-model="grado_instruccion" class="form-control">
-                        <option value="grado" disabled>Selecciona su Grado Académico</option>
-                        <option value="Docente">Docente</option>
-                        <option value="Auxiliar">Auxiliar</option>
-                        <option value="Licenciado">Licenciado</option>
-                        <option value="Magister">Magister</option>
-                        
-                    </select>                                    
-                </div>
-            </div> 
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Dirección de Domicilio</label>
-               <div class="col-md-9">
-                 <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese la dirección de Domicilio">
-               </div>
-             </div>
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
-               <div class="col-md-9">
-                 <input type="number" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Telefono">
-               </div>
-             </div>
-              <div v-show="errorMaestro" class="form-group row div-error">
+              
+           
+           
+              <div v-show="errorMaestroAsignatura" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjMaestro" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjMaestroAsignatura" :key="error" v-text="error">
                         
                     </div>
                   
@@ -213,8 +208,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarMaestro()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestro()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarMaestroAsignatura()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestroAsignatura()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -256,20 +251,19 @@
     export default {
         data(){
             return{
-                maestro_id:'',
+                maestroasignatura_id:'',
+                maestro_id:0,
                 nombre:'',
                 apellido:'',
-                fech_nacimiento:'',
-                sexo:'',
-                grado_instruccion:'',
-                direccion:'',
-                num_celular:0,
-                arrayMaestro:[],
+                asignatura_id:0,
+                nombre_asignatura:'',
+                
+                arrayMaestroAsignatura:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorMaestro:0,
-                errorMostrarMsjMaestro:[],
+                errorMaestroAsignatura:0,
+                errorMostrarMsjMaestroAsignatura:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -280,7 +274,10 @@
                 },
                 offset:3,
                 criterio:'nombre',
-                buscar:''
+                buscar:'',
+                arrayMaestro:[],
+                arrayAsignatura:[],
+
 
 
             }
@@ -312,15 +309,49 @@
             }
         },
         methods:{
-            listarMaestro(page,buscar,criterio){
+            listarMaestroAsignatura(page,buscar,criterio){
                 let me= this;
-                var url = '/maestro?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/maestroasignatura?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros.data;
+                    me.arrayMaestroAsignatura=respuesta.maestroasignaturas.data;
                         me.pagination=respuesta.pagination;
+                    
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+            selectMaestro(){
+                 let me= this;
+                var url = '/maestro/selectMaestro';
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
+                    // // // handle success
+                    // // console.log(response);
+                    me.arrayMaestro=respuesta.maestros;
+                        // me.pagination=respuesta.pagination;
+                    
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+            selectAsignatura(){
+                 let me= this;
+                var url = '/asignatura/selectAsignatura';
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
+                    // // // handle success
+                    // // console.log(response);
+                    me.arrayAsignatura=respuesta.asignaturas;
+                        // me.pagination=respuesta.pagination;
                     
                     console.log(response);
                 })
@@ -335,54 +366,55 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarMaestro(page,buscar,criterio);
+                me.listarMaestroAsignatura(page,buscar,criterio);
             },
-            registrarMaestro(){
-                 if (this.validarMaestro()){
+            registrarMaestroAsignatura(){
+                 if (this.validarMaestroAsignatura()){
                     return;
                 }
                 let me=this;
-                axios.post('maestro/registrar',{
+                axios.post('maestroasignatura/registrar',{
+                    'maestro_id':this.maestro_id,
                     'nombre':this.nombre,
                     'apellido':this.apellido,
-                    'fech_nacimiento':this.fech_nacimiento,
-                    'sexo':this.sexo,
-                    'grado_instruccion':this.grado_instruccion,
-                    'direccion':this.direccion,
-                    'num_celular': this.num_celular
+                    'asignatura_id':this.asignatura_id,
+                    'nombre_asignatura': this.nombre_asignatura,
+                    
+                   
+                    
 
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestro(1,'','nombre');
+                    me.listarMaestroAsignatura(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarMaestro(){
-               if (this.validarMaestro()){
+            actualizarMaestroAsignatura(){
+               if (this.validarMaestroAsignatura()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/maestro/actualizar',{
-                    'id': this.maestro_id,
-                   'nombre':this.nombre,
+                axios.put('/maestroasignatura/actualizar',{
+                    'maestro_id':this.maestro_id,
+                    'id': this.maestroasignatura_id,
+                    'nombre':this.nombre,
                     'apellido':this.apellido,
-                    'fech_nacimiento':this.fech_nacimiento,
-                    'sexo':this.sexo,
-                    'grado_instruccion':this.grado_instruccion,
-                    'direccion':this.direccion,
-                    'num_celular': this.num_celular
+                     'asignatura_id': this.asignatura_id,
+                    'nombre_asignatura':this.nombre_asignatura,
+                    
+                    
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarMaestro(1,'','nombre');
+                    me.listarMaestroAsignatura(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarMaestro(id){
+            desactivarMaestroAsignatura(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -392,7 +424,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Maestro?',
+                title: 'Esta de seguro de desactivar este Alumno?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -402,13 +434,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestro/desactivar',{
+                    axios.put('maestroasignatura/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestro(1,'','nombre');
+                        me.listarMaestroAsignatura(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -430,7 +462,7 @@
                 }
                 }) 
             },
-            activarMaestro(id){
+            activarMaestroAsignatura(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -441,7 +473,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Maestro?',
+                title: 'Esta de seguro de activar este Alumno?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -451,13 +483,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestro/activar',{
+                    axios.put('maestroasignatura/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestro(1,'','nombre');
+                        me.listarMaestroAsignatura(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -483,72 +515,76 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "maestro":
+                    case "maestroasignatura":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Maestro';
+                                this.tituloModal='Registrar Alumno';
+                                this.maestro_id='0';
                                 this.nombre='';
                                 this.apellido='';
-                                this.fech_nacimiento='';
-                                this.sexo='sexo',
-                                this.grado_instruccion='grado',
-                                this.direccion='',
-                                this.num_celular=0;
+                                this.asignatura_id='1';
+                                this.nombre_asignatura='';
+                                
+                               
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Maestro';
+                                this.tituloModal='Actualizar Alumno';
                                 this.tipoAccion=2;
-                                this.maestro_id=data['id'];
+                                this.maestroasignatura_id=data['id'];
+                                this.maestro_id=data['maestro_id']
                                 this.nombre=data['nombre'];
                                 this.apellido=data['apellido'];
-                                this.fech_nacimiento=data['fech_nacimiento'];
-                                this.sexo=data['sexo'],
-                                this.grado_instruccion=data['grado_instruccion'],
-                                this.direccion=data['direccion'],
-                                this.num_celular=data['num_celular'];
+                                // this.grado=data['grado'];
+                                // this.seccion_grado=data['seccion_grado'];
+                                // this.turno_grado=data['turno_grado'];
+                                this.asignatura_id=data['asignatura_id'];
+                                this.nombre_asignatura=data['nombre_asignatura'];
+                                
+                               
                                 break;
                             }
                         }
                     }
+                    this.selectMaestro();
+                    this.selectAsignatura();
                 }
             },
-            validarMaestro(){
-                this.errorMaestro=0;
-                this.errorMostrarMsjMaestro =[];
+            validarMaestroAsignatura(){
+                this.errorMaestroAsignatura=0;
+                this.errorMostrarMsjMaestroAsignatura =[];
 
-                if (!this.nombre) this.errorMostrarMsjMaestro.push("El nombre del Maestro no puede estar vacío.");
-                if (!this.apellido) this.errorMostrarMsjMaestro.push("El apellido del Maestro no puede estar vacio.");
-                if (this.sexo=='sexo') this.errorMostrarMsjMaestro.push("El campo de sexo no puede estar vacío");
-                if (this.grado_instruccion=='grado') this.errorMostrarMsjMaestro.push("El campo de Grado de Instruccion no puede estar vacío    ");
-                if (this.num_celular.length<9 || this.num_celular.length>9) this.errorMostrarMsjMaestro.push("El telefono debe del Maestro debe contener 9 digitos.");
+                // if (this.nombre=='') this.errorMostrarMsjMaestroAsignatura.push("El nombre del MaestroAsignatura no puede estar vacío.");
+                // if (this.apellido=='') this.errorMostrarMsjMaestroAsignatura.push("El apellido del MaestroAsignatura no puede estar vacio.");
+                // if (this.sexo=='sexo') this.errorMostrarMsjMaestroAsignatura.push("El campo de sexo no puede estar vacío");
+                // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
 
-                if (this.errorMostrarMsjMaestro.length) this.errorMaestro = 1;
+                if (this.errorMostrarMsjMaestroAsignatura.length) this.errorMaestroAsignatura = 1;
 
-                return this.errorMaestro;
+                return this.errorMaestroAsignatura;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
+                this.maestro_id='';
                 this.nombre='';
                 this.apellido='';
-                this.fech_nacimiento='';
-                this.sexo='',
-                this.grado_instruccion='',
-                this.direccion='',
-                this.num_celular=0;
-                this.errorMaestro=0;
+                this.asignatura_id='';
+               
+                this.nombre_asignatura='';
+               
+                this.errorMaestroAsignatura=0;
                 
             },
         },
         mounted() {
-           this.listarMaestro(1,this.buscar,this.criterio);
+           this.listarMaestroAsignatura(1,this.buscar,this.criterio);
         }
     }
 </script>

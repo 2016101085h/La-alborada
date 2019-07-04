@@ -25,6 +25,7 @@ Vue.component('grado', require('./components/Grado.vue').default);
 Vue.component('periodo', require('./components/Periodo.vue').default);
 Vue.component('alumno', require('./components/Alumno.vue').default);
 Vue.component('asignatura', require('./components/Asignatura.vue').default);
+Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
 // Vue.component('grado', require('./components/Grado.vue'));
 
 /**

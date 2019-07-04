@@ -13,7 +13,7 @@ class CreateMaestrosAsignaturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('maestros_asignaturas', function (Blueprint $table) {
+        Schema::create('maestro_asignaturas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('maestro_id')->unsigned();
             $table->integer('asignatura_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateMaestrosAsignaturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('maestros_asignaturas');
+        Schema::dropIfExists('maestro_asignaturas');
     }
 }
