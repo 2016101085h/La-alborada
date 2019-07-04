@@ -28,11 +28,11 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-header">EXAMPLES</li>  
-           <li class="nav-item has-treeview menu-open">
+           <li class="nav-item has-treeview ">
              <a href="#" class="nav-link ">
                <i class="nav-icon fas fa-table"></i>
                <p>
-                 Tables
+                 Maestros
                  <i class="fas fa-angle-left right"></i>
                </p>
              </a>
@@ -43,7 +43,7 @@
                    <p>Maestros</p>
                  </a>
                </li>
-               <li @click="menu=16" class="nav-item">
+               <li @click="menu=2" class="nav-item">
                  <a href="#" class="nav-link">
                    <i class="far fa-circle nav-icon"></i>
                    <p>Data Tables</p>
@@ -51,37 +51,53 @@
                </li>
              </ul>
            </li>
-          <li class="nav-item has-treeview">
+           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                Grado
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+<<<<<<< HEAD
               <li @click="menu=2" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Alumnos</p>
                 </a>
               </li>
+=======
+>>>>>>> master
               <li @click="menu=3" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
+                  <p>Grado</p>
                 </a>
               </li>
-              <li @click="menu=4" lass="nav-item">
+            
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Periodos
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">6</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li @click="menu=6" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed</p>
+                  <p>Periodos</p>
                 </a>
               </li>
              
              
-              <li @click="menu=5" class="nav-item">
+             
+              <li @click="menu=9" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Collapsed Sidebar</p>
@@ -89,40 +105,12 @@
               </li>
             </ul>
           </li>
-          <li @click="menu=6" class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li @click="menu=7" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li @click="menu=8" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li @click="menu=9" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                UI Elements
+                Alumnos
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -148,7 +136,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Asignaturas
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -156,7 +144,7 @@
               <li @click="menu=12" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
+                  <p>General </p>
                 </a>
               </li>
               <li @click="menu=13" class="nav-item">

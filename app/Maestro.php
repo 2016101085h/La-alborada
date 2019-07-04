@@ -6,8 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maestro extends Model
 {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> master
     protected $fillable = ['nombre','apellido','fech_nacimiento','sexo','grado_instruccion',
 'direccion','num_celular','condicion'];
+    public function asignaturas()
+    {
+        return $this->hasMany('App\Asignatura');
+    }
 }
 // $table->string('m_nombre', 50);
 // $table->string('m_apellido', 100);

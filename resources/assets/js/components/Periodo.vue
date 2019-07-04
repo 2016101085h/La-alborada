@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Maestros</h1>
+            <h1>Periodos</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Maestros</li>
+              <li class="breadcrumb-item active">Periodos</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Maestro
-                  <button type="button" @click="abrirModal('maestro','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Periodos
+                  <button type="button" @click="abrirModal('periodo','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -32,12 +32,11 @@
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
                         <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellidos</option>
-                        <option value="sexo">Sexo</option>
+                        
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarMaestro(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarMaestro(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarPeriodo(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarPeriodo(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
@@ -45,41 +44,32 @@
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Grado de Instruccion</th>
-                    <th>Dirección</th>
-                    <th >Celular</th>
+                    
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestro in arrayMaestro" :key="maestro.id">
+                  <tr v-for="periodo in arrayPeriodo" :key="periodo.id">
                     <td >
-                        <button type="button" @click="abrirModal('maestro','actualizar',maestro)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('periodo','actualizar',periodo)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="maestro.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestro(maestro.id)">
+                        <template v-if="periodo.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarPeriodo(periodo.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestro(maestro.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarPeriodo(periodo.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestro.nombre"></td>
-                    <td v-text="maestro.apellido"></td>
-                    <td v-text="maestro.fech_nacimiento"></td>
-                    <td v-text="maestro.sexo"></td>
-                    <td v-text="maestro.grado_instruccion"></td>
-                    <td v-text="maestro.direccion"></td>
-                    <td v-text="maestro.num_celular"></td>
+                    
+                    <td v-text="periodo.nombre"></td>
+                    
                     <td>
-                        <div v-if="maestro.condicion">
+                        <div v-if="periodo.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -133,77 +123,56 @@
          </div>
          <div class="modal-body">
            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Nombre </label>
+             <!-- <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="text-input">Sección </label>
                <div class="col-md-9">
-                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Maestro(a)">
+                 <input type="text" v-model="seccion" class="form-control" placeholder="Ingrese la sección">
                </div>
                
-             </div>
+             </div> -->
              <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
+                <label class="col-md-3 form-control-label" for="text-input">Periodo</label>
+                <div class="col-md-9">
+                    <select v-model="nombre" class="form-control">
+                        <option value="periodo" disabled>Selecciona el Periodo</option>
+                        <option value="Primer Periodo">Primer Periodo</option>
+                        <option value="Segundo Periodo">Segundo Periodo</option>
+                        <option value="Tercer Periodo">Tercer Periodo</option>
+                        <option value="Cuarto Periodo">Cuarto Periodo</option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div> 
+          
+             <!-- <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="text-input">Turno </label>
                <div class="col-md-9">
-                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Maestro(a)">
+                 <input type="text" v-model="turno" class="form-control" placeholder="Ingrese el turno">
                </div>
                
-             </div>
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="">Fecha de Nacimiento</label>
-               <div class="col-md-9">
-                 <input type="date" v-model="fech_nacimiento" class="form-control" placeholder="Ingrese la fecha de Nacimiento">
-               </div>
-             </div>
+             </div> -->
+               
+             
               <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
                <div class="col-md-9">
                  <input type="text" v-model="sexo" class="form-control" placeholder="Ingrese el sexo">
                </div>
              </div>  -->
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sexo</label>
-                <div class="col-md-9">
-                    <select v-model="sexo" class="form-control">
-                        <option value="sexo" disabled>Selecciona tu sexo</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="femenino">Femenino</option>
-                        
-                    </select>                                    
-                </div>
-            </div> 
+            
              <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
                <div class="col-md-9">
                  <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
                </div>
              </div> -->
-              <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Grado de Instrucción</label>
-                <div class="col-md-9">
-                    <select v-model="grado_instruccion" class="form-control">
-                        <option value="grado" disabled>Selecciona su Grado de Instrucción</option>
-                        <option value="Docente">Docente</option>
-                        <option value="Auxiliar">Auxiliar</option>
-                        <option value="Licenciado">Licenciado</option>
-                        <option value="Magister">Magister</option>
-                        
-                    </select>                                    
-                </div>
-            </div> 
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Dirección de Domicilio</label>
-               <div class="col-md-9">
-                 <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese la dirección de Domicilio">
-               </div>
-             </div>
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
-               <div class="col-md-9">
-                 <input type="number" v-model="num_celular" class="form-control" placeholder="Ingrese el numero de Telefono">
-               </div>
-             </div>
-              <div v-show="errorMaestro" class="form-group row div-error">
+               
+             
+             
+              <div v-show="errorPeriodo" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjMaestro" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjPeriodo" :key="error" v-text="error">
                         
                     </div>
                   
@@ -213,8 +182,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarMaestro()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestro()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarPeriodo()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarPeriodo()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -222,6 +191,30 @@
      <!-- /.modal-dialog -->
    </div>
    <!--Fin del modal-->
+   <!-- Inicio del modal Eliminar -->
+   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     style="display: none;" aria-hidden="true">
+     <div class="modal-dialog modal-danger" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Eliminar Categoría</h4>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <p>Estas seguro de eliminar la categoría?</p>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+           <button type="button" class="btn btn-danger">Eliminar</button>
+         </div>
+       </div>
+       <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+   </div>
+   <!-- Fin del modal Eliminar -->
 
   </main>
  
@@ -232,20 +225,16 @@
     export default {
         data(){
             return{
-                maestro_id:'',
+                periodo_id:'',
                 nombre:'',
-                apellido:'',
-                fech_nacimiento:'',
-                sexo:'',
-                grado_instruccion:'',
-                direccion:'',
-                num_celular:0,
-                arrayMaestro:[],
+                
+                
+                arrayPeriodo:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorMaestro:0,
-                errorMostrarMsjMaestro:[],
+                errorPeriodo:0,
+                errorMostrarMsjPeriodo:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -288,25 +277,16 @@
             }
         },
         methods:{
-            listarMaestro(page,buscar,criterio){
+            listarPeriodo(page,buscar,criterio){
                 let me= this;
-<<<<<<< HEAD
-                axios.get('/maestro').then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayMaestro= respuesta.maestros;
-                    // me.pagination=respuesta.pagination;
-=======
-                var url = '/maestro?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/periodo?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros.data;
+                    me.arrayPeriodo=respuesta.periodos.data;
                         me.pagination=respuesta.pagination;
                     
->>>>>>> master
                     console.log(response);
                 })
                 .catch(function (error) {
@@ -320,54 +300,46 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarMaestro(page,buscar,criterio);
+                me.listarPeriodo(page,buscar,criterio);
             },
-            registrarMaestro(){
-                 if (this.validarMaestro()){
+            registrarPeriodo(){
+                 if (this.validarPeriodo()){
                     return;
                 }
                 let me=this;
-                axios.post('maestro/registrar',{
+                axios.post('periodo/registrar',{
+                    
                     'nombre':this.nombre,
-                    'apellido':this.apellido,
-                    'fech_nacimiento':this.fech_nacimiento,
-                    'sexo':this.sexo,
-                    'grado_instruccion':this.grado_instruccion,
-                    'direccion':this.direccion,
-                    'num_celular': this.num_celular
+                    
 
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestro(1,'','nombre');
+                    me.listarPeriodo(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarMaestro(){
-               if (this.validarMaestro()){
+            actualizarPeriodo(){
+               if (this.validarPeriodo()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/maestro/actualizar',{
-                    'id': this.maestro_id,
-                   'nombre':this.nombre,
-                    'apellido':this.apellido,
-                    'fech_nacimiento':this.fech_nacimiento,
-                    'sexo':this.sexo,
-                    'grado_instruccion':this.grado_instruccion,
-                    'direccion':this.direccion,
-                    'num_celular': this.num_celular
+                axios.put('/periodo/actualizar',{
+                    'id': this.periodo_id,
+                    'nombre':this.nombre,
+                   
+                   
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarMaestro(1,'','nombre');
+                    me.listarPeriodo(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarMaestro(id){
+            desactivarPeriodo(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -377,7 +349,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Maestro?',
+                title: 'Esta de seguro de desactivar este Periodo?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -387,13 +359,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestro/desactivar',{
+                    axios.put('periodo/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestro(1,'','nombre');
+                        me.listarPeriodo(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -415,7 +387,7 @@
                 }
                 }) 
             },
-            activarMaestro(id){
+            activarPeriodo(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -426,7 +398,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Maestro?',
+                title: 'Esta de seguro de activar este Periodo?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -436,13 +408,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestro/activar',{
+                    axios.put('periodo/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestro(1,'','nombre');
+                        me.listarPeriodo(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -468,72 +440,57 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "maestro":
+                    case "periodo":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Maestro';
-                                this.nombre='';
-                                this.apellido='';
-                                this.fech_nacimiento='';
-                                this.sexo='sexo',
-                                this.grado_instruccion='grado',
-                                this.direccion='',
-                                this.num_celular=0;
+                                this.tituloModal='Registrar Periodo';
+                                this.nombre='nombre';
+                             
+                                
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Maestro';
+                                this.tituloModal='Actualizar Periodo';
                                 this.tipoAccion=2;
-                                this.maestro_id=data['id'];
-                                this.nombre=data['nombre'];
-                                this.apellido=data['apellido'];
-                                this.fech_nacimiento=data['fech_nacimiento'];
-                                this.sexo=data['sexo'],
-                                this.grado_instruccion=data['grado_instruccion'],
-                                this.direccion=data['direccion'],
-                                this.num_celular=data['num_celular'];
+                                this.periodo_id=data['id'];
+                                this.nombre=data['nombre']
+                               
+                                
                                 break;
                             }
                         }
                     }
                 }
             },
-            validarMaestro(){
-                this.errorMaestro=0;
-                this.errorMostrarMsjMaestro =[];
+            validarPeriodo(){
+                this.errorPeriodo=0;
+                this.errorMostrarMsjPeriodo =[];
 
-                if (!this.nombre) this.errorMostrarMsjMaestro.push("El nombre del Maestro no puede estar vacío.");
-                if (!this.apellido) this.errorMostrarMsjMaestro.push("El apellido del Maestro no puede estar vacio.");
-                if (this.sexo=='sexo') this.errorMostrarMsjMaestro.push("El campo de sexo no puede estar vacío");
-                if (this.grado_instruccion=='grado') this.errorMostrarMsjMaestro.push("El campo de Grado de Instruccion no puede estar vacío    ");
-                if (this.num_celular.length<9 || this.num_celular.length>9) this.errorMostrarMsjMaestro.push("El telefono debe del Maestro debe contener 9 digitos.");
+                if (this.nombre=='nombre') this.errorMostrarMsjPeriodo.push("El periodo no puede estar vacío.");
+                
+               
 
-                if (this.errorMostrarMsjMaestro.length) this.errorMaestro = 1;
+                if (this.errorMostrarMsjPeriodo.length) this.errorPeriodo = 1;
 
-                return this.errorMaestro;
+                return this.errorPeriodo;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
                 this.nombre='';
-                this.apellido='';
-                this.fech_nacimiento='';
-                this.sexo='',
-                this.grado_instruccion='',
-                this.direccion='',
-                this.num_celular=0;
-                this.errorMaestro=0;
+               
+                this.errorPeriodo=0;
                 
             },
         },
         mounted() {
-           this.listarMaestro(1,this.buscar,this.criterio);
+           this.listarPeriodo(1,this.buscar,this.criterio);
         }
     }
 </script>

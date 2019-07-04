@@ -22,6 +22,7 @@ mix.scripts([
     'resources/assets/plugins/fastclick/fastclick.js',
     'resources/assets/plantilla/js/adminlte.min.js',
     'resources/assets/plantilla/js/demo.js',
+    'resources/assets/plantilla/js/sweetalert2.all.min.js',
 
 
 
