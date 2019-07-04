@@ -38476,18 +38476,14 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-warning btn-sm",
-                              attrs: { type: "button" }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fa fa-pen",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.abrirModal("actualizar", alumno)
-                                  }
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.abrirModal("actualizar", alumno)
                                 }
-                              })
-                            ]
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-pen" })]
                           ),
                           _vm._v("  \n                      "),
                           alumno.condicion
@@ -38509,18 +38505,14 @@ var render = function() {
                                 {
                                   staticClass: "btn btn-danger btn-sm",
                                   staticStyle: { "background-color": "green" },
-                                  attrs: { type: "button" }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-check",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.activarAlumno(alumno.id)
-                                      }
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activarAlumno(alumno.id)
                                     }
-                                  })
-                                ]
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-check" })]
                               )
                         ]),
                         _vm._v(" "),
@@ -52046,15 +52038,14 @@ if (token) {
 /*!***************************************************!*\
   !*** ./resources/assets/js/components/Alumno.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alumno.vue?vue&type=template&id=f45f700a& */ "./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a&");
 /* harmony import */ var _Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alumno.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alumno.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alumno.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -52086,7 +52077,7 @@ component.options.__file = "resources/assets/js/components/Alumno.vue"
 /*!****************************************************************************!*\
   !*** ./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

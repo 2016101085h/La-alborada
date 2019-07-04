@@ -53,14 +53,14 @@
                   </tr>
                   <tr v-for="alumno in arrayAlumnos" :key="alumno.id">
                     <td>
-                        <button type="button" class="btn btn-warning btn-sm">
-                          <i class="fa fa-pen" @click="abrirModal('actualizar', alumno)"></i>
+                        <button type="button" class="btn btn-warning btn-sm" @click="abrirModal('actualizar', alumno)">
+                          <i class="fa fa-pen"></i>
                         </button> &nbsp;
                         <button v-if="alumno.condicion" type="button" class="btn btn-danger btn-sm" @click="desactivarAlumno(alumno.id)">
                           <i class="fa fa-trash"></i>
                         </button>
-                        <button style="background-color: green" v-else type="button" class="btn btn-danger btn-sm">
-                          <i class="fa fa-check" @click="activarAlumno(alumno.id)"></i>
+                        <button style="background-color: green" v-else type="button" class="btn btn-danger btn-sm" @click="activarAlumno(alumno.id)">
+                          <i class="fa fa-check"></i>
                         </button>
                     </td>
                     <td v-text="alumno.nombre"></td>
