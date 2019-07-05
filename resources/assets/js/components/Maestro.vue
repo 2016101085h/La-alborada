@@ -41,7 +41,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered  table-sm  ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>
@@ -183,7 +183,7 @@
                         <option value="grado" disabled>Selecciona su Grado Académico</option>
                         <option value="Docente">Docente</option>
                         <option value="Auxiliar">Auxiliar</option>
-                        <option value="Licenciado">Licenciado</option>
+                        <option value="Licenciado">Licenciado</option>  
                         <option value="Magister">Magister</option>
                         
                     </select>                                    

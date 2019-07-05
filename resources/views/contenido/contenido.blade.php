@@ -14,7 +14,7 @@
    <grado></grado>
 </template>
 <template v-if="menu==4">
-   <h1 class="content-wrapper">Contenido del menu 4</h1>
+<gradomaestro></gradomaestro>
 </template>
 <template v-if="menu==5">
    <h1 class="content-wrapper">Contenido del menu 5</h1>
@@ -44,7 +44,7 @@
    <maestroasignatura></maestroasignatura>
 </template>
 <template v-if="menu==14">
-   <h1 class="content-wrapper">Contenido del menu 44</h1>
+  <alumnoasignatura></alumnoasignatura>
 </template>
 <template v-if="menu==15">
    <h1 class="content-wrapper">Contenido del menu 15</h1>

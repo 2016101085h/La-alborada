@@ -13,6 +13,10 @@ class Maestro extends Model
     {
         return $this->hasMany('App\Asignatura');
     }
+    public function grados()
+    {
+        return $this->hasMany('App\Grado');
+    }
     
 }
 // $table->string('m_nombre', 50);

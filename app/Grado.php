@@ -13,6 +13,10 @@ class Grado extends Model
     {
         return $this->hasMany('App\Alumno');
     }
+    public function maestros()
+    {
+        return $this->hasMany('App\Maestro');
+    }
     public function asignaturas()
     {
         return $this->hasMany('App\Asignatura');

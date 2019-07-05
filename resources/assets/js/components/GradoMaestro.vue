@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Asignaturas de Maestros</h1>
+            <h1>Grados de Maestros</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Asignaturas de Maestros</li>
+              <li class="breadcrumb-item active">Grados de Maestros</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Asignaturas de Maestros
-                  <button type="button" @click="abrirModal('maestroasignatura','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Grados de Maestros
+                  <button type="button" @click="abrirModal('gradomaestro','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -31,50 +31,52 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
+                        <option value="grado">Grado</option>
                         <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellidos</option>
-                        <option value="sexo">Sexo</option>
-                        <option value="sexo">Sexo</option>
+                        
+                        
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarMaestroAsignatura(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarMaestroAsignatura(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarGradoMaestro(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarGradoMaestro(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered table-sm   ">
+                <table class="table table-bordered table-sm     ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
-                    <th>Nombre de Maestro</th>
-                    
-                    <th>Asignatura</th>
+                    <th>Grado</th>
+                    <th>Sección</th>
+                    <th>Turno</th>
+                    <th>Maestro</th>                   
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestroasignatura in arrayMaestroAsignatura" :key="maestroasignatura.id">
+                  <tr v-for="gradomaestro in arrayGradoMaestro" :key="gradomaestro.id">
                     <td >
-                        <button type="button" @click="abrirModal('maestroasignatura','actualizar',maestroasignatura)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('gradomaestro','actualizar',gradomaestro)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="maestroasignatura.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestroAsignatura(maestroasignatura.id)">
+                        <template v-if="gradomaestro.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarGradoMaestro(gradomaestro.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestroAsignatura(maestroasignatura.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarGradoMaestro(gradomaestro.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestroasignatura.nombre + ' ' +maestroasignatura.apellido"></td>
-                    
-                    <td v-text="maestroasignatura.nombre_asignatura"></td>                 
+                    <td v-text="gradomaestro.grado "></td>
+                    <td v-text="gradomaestro.seccion "></td>
+                    <td v-text="gradomaestro.turno"></td>
+                    <td v-text="gradomaestro.nombre + ' ' +gradomaestro.apellido"></td>                 
                     
                     
                     <td>
-                        <div v-if="maestroasignatura.condicion">
+                        <div v-if="gradomaestro.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -143,22 +145,22 @@
                
              </div> -->
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
+                <label class="col-md-3 form-control-label" for="text-input">Grado</label>
                 <div class="col-md-9">
-                    <select v-model="maestro_id" class="form-control">
-                        <option value="0" disabled>Selecciona el Maestro</option>
-                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' - '+maestro.apellido"></option>
+                    <select v-model="grado_id" class="form-control">
+                        <option value="0" disabled>Selecciona el Grado</option>
+                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.grado + ' - '+ grado.seccion+' - '+ grado.turno"></option>
                         
                         
                     </select>                                    
                 </div>
             </div> 
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Asignatura</label>
+                <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
                 <div class="col-md-9">
-                    <select v-model="asignatura_id" class="form-control">
-                        <option value="1" disabled>Selecciona la Asignatura</option>
-                        <option v-for="asignatura in arrayAsignatura " :key="asignatura.id" :value="asignatura.id" v-text="asignatura.nombre"></option>
+                    <select v-model="maestro_id" class="form-control">
+                        <option value="1" disabled>Selecciona el Maestro</option>
+                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' '+maestro.apellido"></option>
                         
                         
                     </select>                                    
@@ -196,9 +198,9 @@
               
            
            
-              <div v-show="errorMaestroAsignatura" class="form-group row div-error">
+              <div v-show="errorGradoMaestro" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjMaestroAsignatura" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjGradoMaestro" :key="error" v-text="error">
                         
                     </div>
                   
@@ -208,8 +210,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarMaestroAsignatura()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestroAsignatura()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarGradoMaestro()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarGradoMaestro()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -217,29 +219,7 @@
      <!-- /.modal-dialog -->
    </div>
    <!--Fin del modal-->
-   <!-- Inicio del modal Eliminar -->
-   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     style="display: none;" aria-hidden="true">
-     <div class="modal-dialog modal-danger" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h4 class="modal-title">Eliminar Categoría</h4>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">×</span>
-           </button>
-         </div>
-         <div class="modal-body">
-           <p>Estas seguro de eliminar la categoría?</p>
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-           <button type="button" class="btn btn-danger">Eliminar</button>
-         </div>
-       </div>
-       <!-- /.modal-content -->
-     </div>
-     <!-- /.modal-dialog -->
-   </div>
+   
    <!-- Fin del modal Eliminar -->
 
   </main>
@@ -251,19 +231,22 @@
     export default {
         data(){
             return{
-                maestroasignatura_id:'',
+                gradomaestro_id:'',
+                grado_id:'',
+                grado:'',
+                seccion:'',
+                turno:'',
                 maestro_id:0,
                 nombre:'',
                 apellido:'',
-                asignatura_id:0,
-                nombre_asignatura:'',
                 
-                arrayMaestroAsignatura:[],
+                
+                arrayGradoMaestro:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorMaestroAsignatura:0,
-                errorMostrarMsjMaestroAsignatura:[],
+                errorGradoMaestro:0,
+                errorMostrarMsjGradoMaestro:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -273,10 +256,10 @@
                     'to':0,
                 },
                 offset:3,
-                criterio:'nombre',
+                criterio:'grado',
                 buscar:'',
+                arrayGrado:[],
                 arrayMaestro:[],
-                arrayAsignatura:[],
 
 
 
@@ -309,14 +292,14 @@
             }
         },
         methods:{
-            listarMaestroAsignatura(page,buscar,criterio){
+            listarGradoMaestro(page,buscar,criterio){
                 let me= this;
-                var url = '/maestroasignatura?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/gradomaestro?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestroAsignatura=respuesta.maestro_asignaturas.data;
+                    me.arrayGradoMaestro=respuesta.grado_maestros.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -343,14 +326,14 @@
                     console.log(error);
                 });
             },
-            selectAsignatura(){
+            selectGrado(){
                  let me= this;
-                var url = '/asignatura/selectAsignatura';
+                var url = '/grado/selectGrado';
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayAsignatura=respuesta.asignaturas;
+                    me.arrayGrado=respuesta.grados;
                         // me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -366,19 +349,22 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarMaestroAsignatura(page,buscar,criterio);
+                me.listarGradoMaestro(page,buscar,criterio);
             },
-            registrarMaestroAsignatura(){
-                 if (this.validarMaestroAsignatura()){
+            registrarGradoMaestro(){
+                 if (this.validarGradoMaestro()){
                     return;
                 }
                 let me=this;
-                axios.post('maestroasignatura/registrar',{
+                axios.post('gradomaestro/registrar',{
+                    'grado_id':this.grado_id,
+                    'grado':this.grado,
+                    'seccion':this.seccion,
+                    'turno':this.turno,
                     'maestro_id':this.maestro_id,
                     'nombre':this.nombre,
                     'apellido':this.apellido,
-                    'asignatura_id':this.asignatura_id,
-                    'nombre_asignatura': this.nombre_asignatura,
+                    
                     
                    
                     
@@ -386,35 +372,38 @@
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestroAsignatura(1,'','nombre');
+                    me.listarGradoMaestro(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarMaestroAsignatura(){
-               if (this.validarMaestroAsignatura()){
+            actualizarGradoMaestro(){
+               if (this.validarGradoMaestro()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/maestroasignatura/actualizar',{
-                    'id': this.maestroasignatura_id,
+                axios.put('/gradomaestro/actualizar',{
+                    'id': this.gradomaestro_id,
+                    'grado_id':this.grado_id,
                     'maestro_id':this.maestro_id,
+                    'grado':this.grado,
+                    'seccion':this.seccion,
+                    'turno':this.turno,
                     'nombre':this.nombre,
                     'apellido':this.apellido,
-                     'asignatura_id': this.asignatura_id,
-                    'nombre_asignatura':this.nombre_asignatura,
+                    
                     
                     
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarMaestroAsignatura(1,'','nombre');
+                    me.listarGradoMaestro(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarMaestroAsignatura(id){
+            desactivarGradoMaestro(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -434,13 +423,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroasignatura/desactivar',{
+                    axios.put('gradomaestro/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAsignatura(1,'','nombre');
+                        me.listarGradoMaestro(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -462,7 +451,7 @@
                 }
                 }) 
             },
-            activarMaestroAsignatura(id){
+            activarGradoMaestro(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -483,13 +472,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroasignatura/activar',{
+                    axios.put('gradomaestro/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAsignatura(1,'','nombre');
+                        me.listarGradoMaestro(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -515,37 +504,42 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "maestroasignatura":
+                    case "gradomaestro":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Maestro y Asignatura';
-                                this.maestro_id='0';
+                                this.tituloModal='Registrar Grado y Maestro';
+                                this.grado_id='0';
+                                this.grado='';
+                                this.seccion='';
+                                this.turno='';
+                                this.maestro_id='1';
                                 this.nombre='';
                                 this.apellido='';
-                                this.asignatura_id='1';
-                                this.nombre_asignatura='';
-                                
+                               
                                
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Maestro y Asignatura';
+                                this.tituloModal='Actualizar  Grado y Maestro';
                                 this.tipoAccion=2;
-                                this.maestroasignatura_id=data['id'];
+                                this.gradomaestro_id=data['id'];
+                                this.grado_id=data['grado_id'];
+                                this.grado=data['grado'];
+                                this.seccion=data['seccion'];
+                                this.turno=data['turno'];
                                 this.maestro_id=data['maestro_id'];
                                 this.nombre=data['nombre'];
                                 this.apellido=data['apellido'];
                                 // this.grado=data['grado'];
                                 // this.seccion_grado=data['seccion_grado'];
                                 // this.turno_grado=data['turno_grado'];
-                                this.asignatura_id=data['asignatura_id'];
-                                this.nombre_asignatura=data['nombre_asignatura'];
+                               
                                 
                                
                                 break;
@@ -553,38 +547,38 @@
                         }
                     }
                     this.selectMaestro();
-                    this.selectAsignatura();
+                    this.selectGrado();
                 }
             },
-            validarMaestroAsignatura(){
-                this.errorMaestroAsignatura=0;
-                this.errorMostrarMsjMaestroAsignatura =[];
+            validarGradoMaestro(){
+                this.errorGradoMaestro=0;
+                this.errorMostrarMsjGradoMaestro =[];
 
-                // if (this.nombre=='') this.errorMostrarMsjMaestroAsignatura.push("El nombre del MaestroAsignatura no puede estar vacío.");
-                // if (this.apellido=='') this.errorMostrarMsjMaestroAsignatura.push("El apellido del MaestroAsignatura no puede estar vacio.");
-                // if (this.sexo=='sexo') this.errorMostrarMsjMaestroAsignatura.push("El campo de sexo no puede estar vacío");
-                // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
+            //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+            //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
 
-                if (this.errorMostrarMsjMaestroAsignatura.length) this.errorMaestroAsignatura = 1;
+            //     if (this.errorMostrarMsjGradoMaestro.length) this.errorGradoMaestro = 1;
 
-                return this.errorMaestroAsignatura;
+            //     return this.errorGradoMaestro;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
+                this.grado_id='';
+                this.grado='';
+                this.seccion='';
+                this.turno='';
                 this.maestro_id='';
                 this.nombre='';
                 this.apellido='';
-                this.asignatura_id='';
+                
                
-                this.nombre_asignatura='';
-               
-                this.errorMaestroAsignatura=0;
+                this.errorGradoMaestro=0;
                 
             },
         },
         mounted() {
-           this.listarMaestroAsignatura(1,this.buscar,this.criterio);
+           this.listarGradoMaestro(1,this.buscar,this.criterio);
         }
     }
 </script>

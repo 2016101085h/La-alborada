@@ -13,7 +13,7 @@ class CreateGradosMaestrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('grados_maestros', function (Blueprint $table) {
+        Schema::create('grado_maestros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('grado_id')->unsigned();
             $table->integer('maestro_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateGradosMaestrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grados_maestros');
+        Schema::dropIfExists('grado_maestros');
     }
 }

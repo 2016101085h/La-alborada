@@ -40,7 +40,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered table-sm   ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>

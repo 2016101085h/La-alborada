@@ -59,7 +59,13 @@ Route::put('/alumnoasignatura/activar', 'AlumnoAsignaturaController@activar');
 
 Route::get('/maestroasignatura', 'MaestroAsignaturaController@index');
 Route::post('/maestroasignatura/registrar', 'MaestroAsignaturaController@store');
-Route::put('/maestrosignatura/actualizar', 'MaestroAsignaturaController@update');
-Route::put('/maestrosignatura/desactivar', 'MaestroAsignaturaController@desactivar');
-Route::put('/maestrosignatura/activar', 'MaestroAsignaturaController@activar');
+Route::put('/maestroasignatura/actualizar', 'MaestroAsignaturaController@update');
+Route::put('/maestroasignatura/desactivar', 'MaestroAsignaturaController@desactivar');
+Route::put('/maestroasignatura/activar', 'MaestroAsignaturaController@activar');
+
+Route::get('/gradomaestro', 'GradoMaestroController@index');
+Route::post('/gradomaestro/registrar', 'GradoMaestroController@store');
+Route::put('/gradomaestro/actualizar', 'GradoMaestroController@update');
+Route::put('/gradomaestro/desactivar', 'GradoMaestroController@desactivar');
+Route::put('/gradomaestro/activar', 'GradoMaestroController@activar');
 

@@ -41,7 +41,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered table-sm   ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Grado</th>
@@ -504,10 +504,11 @@
                 this.errorGrado=0;
                 this.errorMostrarMsjGrado =[];
 
-                if (this.grado=='gra') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
-                if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
-                if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
-               
+                
+                // if (this.turno=='turno') this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
+               if (this.grado=='gra') this.errorMostrarMsjGradoMaestro.push("El grado no puede estar vacío.");
+                if (this.seccion=='seccion') this.errorMostrarMsjGradoMaestro.push("La sección no puede estar vacío.");
+                if (this.turno=='turno') this.errorMostrarMsjGradoMaestro.push("El turno no puede estar vacio.");
 
                 if (this.errorMostrarMsjGrado.length) this.errorGrado = 1;
 

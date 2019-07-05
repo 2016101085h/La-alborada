@@ -59,7 +59,7 @@ class MaestroAsignaturaController extends Controller
     }
 
     
-    /**
+    /**returm $sdqw, -$wfwefwwrv
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

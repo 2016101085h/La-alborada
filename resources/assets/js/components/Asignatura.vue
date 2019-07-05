@@ -40,7 +40,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered  table-sm  ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>
@@ -534,13 +534,13 @@
                                 this.modal=1;
                                 this.tituloModal='Actualizar Asignatura';
                                 this.tipoAccion=2;
-                                this.asignatura_id=data['id']
+                                this.asignatura_id=data['id'];
                                 this.nombre=data['nombre'];
                                 this.temario=data['temario'];
                                 this.maestro_id=data['maestro_id'];
                                 // this.nombre_maestro=data['nombre_maestro'];
                                 // this.apellido_maestro=data['apellido_maestro'];
-                                this.grado_id=data['grado_id']
+                                this.grado_id=data['grado_id'];
                                 // this.grado=data['grado'];
                                 // this.seccion_grado=data['seccion_grado'];
                                
@@ -559,7 +559,7 @@
                 this.errorAsignatura=0;
                 this.errorMostrarMsjAsignatura =[];
 
-                if (this.nombre=='') this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
+                if (!this.nombre) this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
                 if (this.temario=='') this.errorMostrarMsjAsignatura.push("El temario de la Asignatura no puede estar vacío.");
 
                 

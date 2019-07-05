@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AlumnoAsignatura;
+use App\Alumno;
+use App\Asignatura;
 
 class AlumnoAsignaturaController extends Controller
 {
@@ -21,39 +23,41 @@ class AlumnoAsignaturaController extends Controller
         $criterio = $request->criterio;
         if ($buscar == '') {
 
-            $alumnoasignaturas = AlumnoAsignatura::join('alumnos', 'alumno_asignaturas.alumno_id', '=', 'alumnos.id')->join('asignaturas','alumno_asignaturas.asignatura_id','=','asignaturas.id')
+            $alumno_asignaturas = AlumnoAsignatura::join('alumnos', 'alumno_asignaturas.alumno_id', '=', 'alumnos.id')->join('asignaturas','alumno_asignaturas.asignatura_id','=','asignaturas.id')
                 ->select(
                     'alumno_asignaturas.id',
-                    'alumno_asignaturas.alumno_id','alumno_asignaturas.asignatura_id',
-                    'alumnos.nombre','alumnos.apellido',
-                    'asignaturas.nombre'
+                    'alumno_asignaturas.alumno_id',
+                    'alumnos.nombre as nombre_alumno','alumnos.apellido as apellido_alumno',
+                    'alumno_asignaturas.asignatura_id',
+                    'asignaturas.nombre as nombre_asignatura',
+                    'alumno_asignaturas.condicion'
                     
                 )
                 ->orderBy('alumno_asignaturas.id', 'desc')->paginate(5);
         } else {
-            $alumnoasignaturas = AlumnoAsignatura::join('alumnos', 'alumno_asignaturas.alumno_id', '=', 'alumnos.id')->join('asignaturas', 'alumno_asignaturas.asignatura_id', '=', 'asignaturas.id')
-                ->select(
-                    'alumno_asignaturas.id',
-                    'alumno_asignaturas.alumno_id',
-                    'alumno_asignaturas.asignatura_id',
-                    'alumnos.nombre',
-                    'alumnos.apellido',
-                    'asignaturas.nombre'
-                    
-                )->where('alumno_asignaturas.' . $criterio, 'like', '%' . $buscar . '%')
+            $alumno_asignaturas = AlumnoAsignatura::join('alumnos', 'alumno_asignaturas.alumno_id', '=', 'alumnos.id')->join('asignaturas','alumno_asignaturas.asignatura_id','=','asignaturas.id')
+            ->select(
+                'alumno_asignaturas.id',
+                'alumno_asignaturas.alumno_id',
+                'alumnos.nombre as nombre_alumno','alumnos.apellido as apellido_alumno',
+                'alumno_asignaturas.asignatura_id',
+                'asignaturas.nombre as nombre_asignatura',
+                'alumno_asignaturas.condicion'
+                
+            )->where('alumno_asignaturas.' . $criterio, 'like', '%' . $buscar . '%')
                 ->orderBy('alumno_asignaturas.id', 'desc')->paginate(2);
             // $alumnos = Alumno::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(2);
         }
         return [
             'pagination' => [
-                'total' => $alumnoasignaturas->total(),
-                'current_page' => $alumnoasignaturas->currentPage(),
-                'per_page' => $alumnoasignaturas->perPage(),
-                'last_page' => $alumnoasignaturas->lastPage(),
-                'from' => $alumnoasignaturas->firstItem(),
-                'to' => $alumnoasignaturas->lastItem(),
+                'total' => $alumno_asignaturas->total(),
+                'current_page' => $alumno_asignaturas->currentPage(),
+                'per_page' => $alumno_asignaturas->perPage(),
+                'last_page' => $alumno_asignaturas->lastPage(),
+                'from' => $alumno_asignaturas->firstItem(),
+                'to' => $alumno_asignaturas->lastItem(),
             ],
-            'alumnocategorias'    => $alumnoasignaturas
+            'alumno_asignaturas'    => $alumno_asignaturas
         ];
     }
 

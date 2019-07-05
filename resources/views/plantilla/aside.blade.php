@@ -66,6 +66,12 @@
                   <p>Grado</p>
                 </a>
               </li>
+              <li @click="menu=4" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Maestro</p>
+                </a>
+              </li>
             
             </ul>
           </li>
@@ -96,8 +102,7 @@
               </li>
             </ul>
           </li>
-          
-          <li class="nav-item has-treeview">
+           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
@@ -123,6 +128,7 @@
              
             </ul>
           </li>
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -144,9 +150,16 @@
                   <p>Maestros</p>
                 </a>
               </li>
+              <li @click="menu=14" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Alumnos</p>
+                </a>
+              </li>
               
             </ul>
           </li>
+         
         
           <li class="nav-header">EXAMPLES</li>
           <li @click="menu=14" class="nav-item">
