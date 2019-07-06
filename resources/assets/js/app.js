@@ -29,6 +29,9 @@ Vue.component('periodo', require('./components/Periodo.vue').default);
 Vue.component('maestroaula', require('./components/MaestroAula.vue').default);
 Vue.component('estudiante', require('./components/Estudiante.vue').default);
  Vue.component('curso', require('./components/Curso.vue').default);
+ Vue.component('rol', require('./components/Rol.vue').default);
+ Vue.component('usuario', require('./components/Usuario.vue').default);
+ Vue.component('competencia', require('./components/Competencia.vue').default);
 // Vue.component('alumnoasignatura', require('./components/AlumnoAsignatura.vue').default);
 // Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
 

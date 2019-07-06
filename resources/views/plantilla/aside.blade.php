@@ -32,7 +32,7 @@
              <a href="#" class="nav-link ">
                <i class="nav-icon fas fa-table"></i>
                <p>
-                 Maestros
+                 Datos  
                  <i class="fas fa-angle-left right"></i>
                </p>
              </a>
@@ -60,7 +60,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li @click="menu=12" class="nav-item">
+              <li @click="menu=3" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>General </p>
@@ -80,19 +80,19 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li @click="menu=3" class="nav-item">
+              <li @click="menu=4" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Aula</p>
                 </a>
               </li>
-              <li @click="menu=4" class="nav-item">
+              <li @click="menu=5" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Maestro</p>
                 </a>
               </li>
-               <li @click="menu=5" class="nav-item">
+               <li @click="menu=6" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Alumnos</p>
@@ -112,7 +112,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li @click="menu=6" class="nav-item">
+              <li @click="menu=7" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Periodos</p>
@@ -121,7 +121,7 @@
              
              
              
-              <li @click="menu=9" class="nav-item">
+              <li @click="menu=8" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Collapsed Sidebar</p>
@@ -131,20 +131,46 @@
           </li>
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Estudiantes
+                Roles
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li @click="menu=9" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Usuario</p>
+                </a>
+              </li>
               <li @click="menu=10" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General</p>
+                  <p>Rol</p>
                 </a>
               </li>
+              
+              
+             
+            </ul>
+          </li>
+           <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Notas
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li @click="menu=11" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Competencias</p>
+                </a>
+              </li>
+              <li @click="menu=12" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Icons</p>

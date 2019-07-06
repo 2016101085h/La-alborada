@@ -11,34 +11,35 @@
    <h1 class="content-wrapper">Contenido del menu 2</h1>
 </template>
 <template v-if="menu==3">
-   <aula></aula>
+   <curso></curso>
 </template>
 <template v-if="menu==4">
-<maestroaula></maestroaula>
+   <aula></aula>
 </template>
 <template v-if="menu==5">
-   <estudiante></estudiante>
+   <maestroaula></maestroaula>
 </template>
 <template v-if="menu==6">
-   <periodo></periodo>
+   
+   <estudiante></estudiante>
 </template>
 <template v-if="menu==7">
-   <h1 class="content-wrapper">Contenido del menu 7</h1>
+   <periodo></periodo>
 </template>
 <template v-if="menu==8">
    <h1 class="content-wrapper">Contenido del menu 8</h1>
 </template>
 <template v-if="menu==9">
-   <h1 class="content-wrapper">Contenido del menu 9</h1>
+   <usuario></usuario>
 </template>
 <template v-if="menu==10">
-  <estudiante></estudiante>
+  <rol></rol>
 </template>
 <template v-if="menu==11">
-   <h1 class="content-wrapper">Contenido del menu 11</h1>
+    <competencia></competencia>
 </template>
 <template v-if="menu==12">
-      <curso></curso>
+      
 </template>
 <template v-if="menu==13">
    <h1 class="content-wrapper">Contenido del menu 13</h1>

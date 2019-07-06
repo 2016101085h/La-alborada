@@ -58,21 +58,26 @@ Route::put('/curso/desactivar', 'CursoController@desactivar');
 Route::put('/curso/activar', 'CursoController@activar');
 Route::get('/curso/selectcurso', 'CursoController@selectCurso');
 
-Route::get('/alumnoasignatura', 'AlumnoAsignaturaController@index');
-Route::post('/alumnoasignatura/registrar', 'AlumnoAsignaturaController@store');
-Route::put('/alumnoasignatura/actualizar', 'AlumnoAsignaturaController@update');
-Route::put('/alumnoasignatura/desactivar', 'AlumnoAsignaturaController@desactivar');
-Route::put('/alumnoasignatura/activar', 'AlumnoAsignaturaController@activar');
+Route::get('/rol', 'RolController@index');
+Route::post('/rol/registrar', 'RolController@store');
+Route::put('/rol/actualizar', 'RolController@update');
+Route::put('/rol/desactivar', 'RolController@desactivar');
+Route::put('/rol/activar', 'RolController@activar');
+Route::get('/rol/selectrol', 'RolController@selectRol');
 
-Route::get('/maestroasignatura', 'MaestroAsignaturaController@index');
-Route::post('/maestroasignatura/registrar', 'MaestroAsignaturaController@store');
-Route::put('/maestroasignatura/actualizar', 'MaestroAsignaturaController@update');
-Route::put('/maestroasignatura/desactivar', 'MaestroAsignaturaController@desactivar');
-Route::put('/maestroasignatura/activar', 'MaestroAsignaturaController@activar');
+Route::get('/usuario', 'UsuarioController@index');
+Route::post('/usuario/registrar', 'UsuarioController@store');
+Route::put('/usuario/actualizar', 'UsuarioController@update');
+Route::put('/usuario/desactivar', 'UsuarioController@desactivar');
+Route::put('/usuario/activar', 'UsuarioController@activar');
+Route::get('/usuario/selectusuario', 'UsuarioController@selectUsuario');
 
-Route::get('/gradomaestro', 'GradoMaestroController@index');
-Route::post('/gradomaestro/registrar', 'GradoMaestroController@store');
-Route::put('/gradomaestro/actualizar', 'GradoMaestroController@update');
-Route::put('/gradomaestro/desactivar', 'GradoMaestroController@desactivar');
-Route::put('/gradomaestro/activar', 'GradoMaestroController@activar');
+
+
+Route::get('/competencia', 'CompetenciaController@index');
+Route::post('/competencia/registrar', 'CompetenciaController@store');
+Route::put('/competencia/actualizar', 'CompetenciaController@update');
+Route::put('/competencia/desactivar', 'CompetenciaController@desactivar');
+Route::put('/competencia/activar', 'CompetenciaController@activar');
+Route::get('/competencia/selectcompetencia', 'CompetenciaController@selectCompetencia');
 
