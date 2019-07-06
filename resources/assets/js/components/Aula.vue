@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Asignaturas de Maestros</h1>
+            <h1>Aulas</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Asignaturas de Maestros</li>
+              <li class="breadcrumb-item active">Aulas</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Asignaturas de Maestros
-                  <button type="button" @click="abrirModal('maestroasignatura','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Aulas
+                  <button type="button" @click="abrirModal('aula','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -31,50 +31,48 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
-                        <option value="nombre">Nombre</option>
-                        <option value="apellido">Apellidos</option>
-                        <option value="sexo">Sexo</option>
-                        <option value="sexo">Sexo</option>
+                        <option value="seccion">Sección</option>
+                        <option value="aula">Aula</option>
+                        
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarMaestroAsignatura(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarMaestroAsignatura(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarAula(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarAula(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered table-sm   ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
-                    <th>Nombre de Maestro</th>
+                    <th>Grado</th>
+                    <th>Sección</th>
                     
-                    <th>Asignatura</th>
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestroasignatura in arrayMaestroAsignatura" :key="maestroasignatura.id">
+                  <tr v-for="aula in arrayAula" :key="aula.id">
                     <td >
-                        <button type="button" @click="abrirModal('maestroasignatura','actualizar',maestroasignatura)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('aula','actualizar',aula)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="maestroasignatura.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestroAsignatura(maestroasignatura.id)">
+                        <template v-if="aula.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarAula(aula.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestroAsignatura(maestroasignatura.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarAula(aula.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestroasignatura.nombre+ maestroasignatura.apellido"></td>
-                    
-                    <td v-text="maestroasignatura.nombre_asignatura"></td>                 
+                    <td v-text="aula.grado"></td>
+                    <td v-text="aula.seccion"></td>
                     
                     
                     <td>
-                        <div v-if="maestroasignatura.condicion">
+                        <div v-if="aula.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -129,76 +127,69 @@
          <div class="modal-body">
            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
              <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Nombre </label>
+               <label class="col-md-3 form-control-label" for="text-input">Sección </label>
                <div class="col-md-9">
-                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Alumno(a)">
-               </div>
-               
-             </div>
-             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
-               <div class="col-md-9">
-                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Alumno(a)">
+                 <input type="text" v-model="seccion" class="form-control" placeholder="Ingrese la sección">
                </div>
                
              </div> -->
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
+             <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Grado</label>
                 <div class="col-md-9">
-                    <select v-model="maestro_id" class="form-control">
-                        <option value="0" disabled>Selecciona el Maestro</option>
-                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' - '+maestro.apellido"></option>
-                        
+                    <select v-model="grado" class="form-control">
+                        <option value="gra" disabled>Selecciona el Grado</option>
+                        <option value="primero">Primero</option>
+                        <option value="segundo">Segundo</option>
+                        <option value="tercero">Tercero</option>
+                        <option value="cuarto">Cuarto</option>
+                        <option value="quinto">Quinto</option>
+                        <option value="sexto">Sexto</option>
                         
                     </select>                                    
                 </div>
             </div> 
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Asignatura</label>
-                <div class="col-md-9">
-                    <select v-model="asignatura_id" class="form-control">
-                        <option value="1" disabled>Selecciona la Asignatura</option>
-                        <option v-for="asignatura in arrayAsignatura " :key="asignatura.id" :value="asignatura.id" v-text="asignatura.nombre"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div> 
-            <!-- <div class="form-group row">
+             <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Sección</label>
                 <div class="col-md-9">
-                    <select v-model="seccion_grado" class="form-control">
-                        <option value="2" disabled>Selecciona la Sección</option>
-                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.seccion"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div>  -->
-            <!-- <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Turno</label>
-                <div class="col-md-9">
-                    <select v-model="turno_grado" class="form-control">
-                        <option value="3" disabled>Selecciona el Turno</option>
-                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.turno"></option>
-                        
+                    <select v-model="seccion" class="form-control">
+                        <option value="seccion" disabled>Selecciona la Seccion</option>
+                        <option value="A">Sección A</option>
+                        <option value="B">Sección B</option>
+                        <option value="C">Sección C</option>
+                        <option value="D">Sección D</option>
+                      
                         
                     </select>                                    
                 </div>
-            </div>  -->
+            </div> 
+             <!-- <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="text-input">Turno </label>
+               <div class="col-md-9">
+                 <input type="text" v-model="turno" class="form-control" placeholder="Ingrese el turno">
+               </div>
+               
+             </div> -->
+              
              
+              <!-- <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
+               <div class="col-md-9">
+                 <input type="text" v-model="sexo" class="form-control" placeholder="Ingrese el sexo">
+               </div>
+             </div>  -->
+            
              <!-- <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
                <div class="col-md-9">
                  <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
                </div>
              </div> -->
-              
-           
-           
-              <div v-show="errorMaestroAsignatura" class="form-group row div-error">
+               
+             
+             
+              <div v-show="errorAula" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjMaestroAsignatura" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjAula" :key="error" v-text="error">
                         
                     </div>
                   
@@ -208,8 +199,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarMaestroAsignatura()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestroAsignatura()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarAula()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarAularegistrarAula()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -251,19 +242,17 @@
     export default {
         data(){
             return{
-                maestroasignatura_id:'',
-                maestro_id:0,
-                nombre:'',
-                apellido:'',
-                asignatura_id:0,
-                nombre_asignatura:'',
+                aula_id:'',
+                grado:'',
+                seccion:'',
+               
                 
-                arrayMaestroAsignatura:[],
+                arrayAula:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorMaestroAsignatura:0,
-                errorMostrarMsjMaestroAsignatura:[],
+                errorAula:0,
+                errorMostrarMsjAula:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -273,11 +262,8 @@
                     'to':0,
                 },
                 offset:3,
-                criterio:'nombre',
-                buscar:'',
-                arrayMaestro:[],
-                arrayAsignatura:[],
-
+                criterio:'seccion',
+                buscar:''
 
 
             }
@@ -309,49 +295,15 @@
             }
         },
         methods:{
-            listarMaestroAsignatura(page,buscar,criterio){
+            listarAula(page,buscar,criterio){
                 let me= this;
-                var url = '/maestroasignatura?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/aula?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestroAsignatura=respuesta.maestroasignaturas.data;
+                    me.arrayAula=respuesta.aulas.data;
                         me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectMaestro(){
-                 let me= this;
-                var url = '/maestro/selectMaestro';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectAsignatura(){
-                 let me= this;
-                var url = '/asignatura/selectAsignatura';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayAsignatura=respuesta.asignaturas;
-                        // me.pagination=respuesta.pagination;
                     
                     console.log(response);
                 })
@@ -366,55 +318,48 @@
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarMaestroAsignatura(page,buscar,criterio);
+                me.listarAula(page,buscar,criterio);
             },
-            registrarMaestroAsignatura(){
-                 if (this.validarMaestroAsignatura()){
+            registrarAula(){
+                 if (this.validarAula()){
                     return;
                 }
                 let me=this;
-                axios.post('maestroasignatura/registrar',{
-                    'maestro_id':this.maestro_id,
-                    'nombre':this.nombre,
-                    'apellido':this.apellido,
-                    'asignatura_id':this.asignatura_id,
-                    'nombre_asignatura': this.nombre_asignatura,
+                axios.post('aula/registrar',{
+                    'seccion':this.seccion,
+                    'grado':this.grado,
                     
-                   
                     
 
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestroAsignatura(1,'','nombre');
+                    me.listarAula(1,'','seccion');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarMaestroAsignatura(){
-               if (this.validarMaestroAsignatura()){
+            actualizarAula(){
+               if (this.validarAula()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/maestroasignatura/actualizar',{
-                    'maestro_id':this.maestro_id,
-                    'id': this.maestroasignatura_id,
-                    'nombre':this.nombre,
-                    'apellido':this.apellido,
-                     'asignatura_id': this.asignatura_id,
-                    'nombre_asignatura':this.nombre_asignatura,
+                axios.put('/aula/actualizar',{
+                    'id': this.aula_id,
+                   'seccion':this.seccion,
+                    'grado':this.grado,
                     
-                    
+                   
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarMaestroAsignatura(1,'','nombre');
+                    me.listarAula(1,'','seccion');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarMaestroAsignatura(id){
+            desactivarAula(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -424,7 +369,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Alumno?',
+                title: 'Esta de seguro de desactivar este Aula?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -434,13 +379,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroasignatura/desactivar',{
+                    axios.put('aula/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAsignatura(1,'','nombre');
+                        me.listarAula(1,'','seccion');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -462,7 +407,7 @@
                 }
                 }) 
             },
-            activarMaestroAsignatura(id){
+            activarAula(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -473,7 +418,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Alumno?',
+                title: 'Esta de seguro de activar este Aula?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -483,13 +428,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroasignatura/activar',{
+                    axios.put('aula/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAsignatura(1,'','nombre');
+                        me.listarAula(1,'','seccion');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -515,76 +460,62 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "maestroasignatura":
+                    case "aula":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Alumno';
-                                this.maestro_id='0';
-                                this.nombre='';
-                                this.apellido='';
-                                this.asignatura_id='1';
-                                this.nombre_asignatura='';
+                                this.tituloModal='Registrar Aula';
+                                this.seccion='seccion';
+                                this.grado='gra';
                                 
-                               
+                                
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Alumno';
+                                this.tituloModal='Actualizar Aula';
                                 this.tipoAccion=2;
-                                this.maestroasignatura_id=data['id'];
-                                this.maestro_id=data['maestro_id']
-                                this.nombre=data['nombre'];
-                                this.apellido=data['apellido'];
-                                // this.grado=data['grado'];
-                                // this.seccion_grado=data['seccion_grado'];
-                                // this.turno_grado=data['turno_grado'];
-                                this.asignatura_id=data['asignatura_id'];
-                                this.nombre_asignatura=data['nombre_asignatura'];
+                                this.aula_id=data['id'];
+                                this.seccion=data['seccion'];
+                                this.grado=data['grado']
+                                this.turno=data['turno'];
                                 
-                               
                                 break;
                             }
                         }
                     }
-                    this.selectMaestro();
-                    this.selectAsignatura();
                 }
             },
-            validarMaestroAsignatura(){
-                this.errorMaestroAsignatura=0;
-                this.errorMostrarMsjMaestroAsignatura =[];
+            validarAula(){
+                this.errorAula=0;
+                this.errorMostrarMsjAula =[];
 
-                // if (this.nombre=='') this.errorMostrarMsjMaestroAsignatura.push("El nombre del MaestroAsignatura no puede estar vacío.");
-                // if (this.apellido=='') this.errorMostrarMsjMaestroAsignatura.push("El apellido del MaestroAsignatura no puede estar vacio.");
-                // if (this.sexo=='sexo') this.errorMostrarMsjMaestroAsignatura.push("El campo de sexo no puede estar vacío");
-                // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
+                
+                // if (this.turno=='turno') this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
+                if (this.seccion=='seccion') this.errorMostrarMsjAula.push("La sección no puede estar vacío.");
+               if (this.grado=='gra') this.errorMostrarMsjAula.push("El grado no puede estar vacío.");
+                if (this.turno=='turno') this.errorMostrarMsjAula.push("El turno no puede estar vacio.");
 
-                if (this.errorMostrarMsjMaestroAsignatura.length) this.errorMaestroAsignatura = 1;
+                if (this.errorMostrarMsjAula.length) this.errorAula = 1;
 
-                return this.errorMaestroAsignatura;
+                return this.errorAula;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
-                this.maestro_id='';
-                this.nombre='';
-                this.apellido='';
-                this.asignatura_id='';
-               
-                this.nombre_asignatura='';
-               
-                this.errorMaestroAsignatura=0;
+                this.seccion='';
+                this.grado='';
+                
+                this.errorAula=0;
                 
             },
         },
         mounted() {
-           this.listarMaestroAsignatura(1,this.buscar,this.criterio);
+           this.listarAula(1,this.buscar,this.criterio);
         }
     }
 </script>

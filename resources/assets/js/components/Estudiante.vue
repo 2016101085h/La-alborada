@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Grados</h1>
+            <h1>Estudiante</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Grados</li>
+              <li class="breadcrumb-item active">Estudiante</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Grados
-                  <button type="button" @click="abrirModal('grado','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Estudiante
+                  <button type="button" @click="abrirModal('estudiante','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -31,48 +31,60 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
-                        <option value="seccion">Sección</option>
                         <option value="grado">Grado</option>
-                        <option value="turno">Turno</option>
+                        <option value="nombre">Nombre</option>
+                        
+                        
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarGrado(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarGrado(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarEstudiante(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarEstudiante(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
-                  <tr class="bg-info text-center ">
+                <table class="table table-bordered table-sm ">
+                  <tr class="bg-info  ">
                     <th>Opciones</th>
-                    <th>Grado</th>
-                    <th>Sección</th>
-                    <th>Turno</th>
+                    <th>Aula</th>
+
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Sexo</th>
+                    <th>DNI</th>
+                    <th>Dirección</th>               
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="grado in arrayGrado" :key="grado.id">
+                  <tr v-for="estudiante in arrayEstudiante" :key="estudiante.id">
                     <td >
-                        <button type="button" @click="abrirModal('grado','actualizar',grado)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('estudiante','actualizar',estudiante)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="grado.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarGrado(grado.id)">
+                        <template v-if="estudiante.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarEstudiante(estudiante.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarGrado(grado.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarEstudiante(estudiante.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="grado.grado"></td>
-                    <td v-text="grado.seccion"></td>
-                    <td v-text="grado.turno"></td>
+                    <td v-text="estudiante.grado + ' '+ estudiante.seccion  "></td>
+                    <td v-text="estudiante.nombre "></td>
+                    <td v-text="estudiante.apellido "></td>
+                    <td v-text="estudiante.fech_nacimiento "></td>
+                    <td v-text="estudiante.sexo "></td>
+                   
+                    <td v-text="estudiante.dni"></td>                 
+                    <td v-text="estudiante.direccion"></td>                 
+                    
                     
                     <td>
-                        <div v-if="grado.condicion">
+                        <div v-if="estudiante.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -127,79 +139,91 @@
          <div class="modal-body">
            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
              <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Sección </label>
+               <label class="col-md-3 form-control-label" for="text-input">Nombre </label>
                <div class="col-md-9">
-                 <input type="text" v-model="seccion" class="form-control" placeholder="Ingrese la sección">
+                 <input type="text" v-model="nombre" class="form-control" placeholder="Nombre del Alumno(a)">
+               </div>
+               
+             </div>
+             <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="text-input">Apellidos </label>
+               <div class="col-md-9">
+                 <input type="text" v-model="apellido" class="form-control" placeholder="Apellido del Alumno(a)">
                </div>
                
              </div> -->
-             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Grado</label>
+           
+            <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Aula</label>
                 <div class="col-md-9">
-                    <select v-model="grado" class="form-control">
-                        <option value="gra" disabled>Selecciona el Grado</option>
-                        <option value="primero">Primero</option>
-                        <option value="segundo">Segundo</option>
-                        <option value="tercero">Tercero</option>
-                        <option value="cuarto">Cuarto</option>
-                        <option value="quinto">Quinto</option>
-                        <option value="sexto">Sexto</option>
+                    <select v-model="aula_id" class="form-control">
+                        <option value="0" disabled>Selecciona el aula</option>
+                        <option v-for="aula in arrayAula " :key="aula.id" :value="aula.id" v-text="aula.grado + ' - '+ aula.seccion"></option>
+                        
                         
                     </select>                                    
                 </div>
             </div> 
-             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sección</label>
-                <div class="col-md-9">
-                    <select v-model="seccion" class="form-control">
-                        <option value="seccion" disabled>Selecciona la Seccion</option>
-                        <option value="A">Sección A</option>
-                        <option value="B">Sección B</option>
-                        <option value="C">Sección C</option>
-                        <option value="D">Sección D</option>
-                      
-                        
-                    </select>                                    
-                </div>
-            </div> 
-             <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="text-input">Turno </label>
-               <div class="col-md-9">
-                 <input type="text" v-model="turno" class="form-control" placeholder="Ingrese el turno">
-               </div>
-               
-             </div> -->
-               <div class="form-group row">
+           
+             
+            <!-- <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Turno</label>
                 <div class="col-md-9">
-                    <select v-model="turno" class="form-control">
-                        <option value="turno" disabled>Selecciona el turno</option>
-                        <option value="Mañana">Mañana</option>
-                        <option value="Tarde">Tarde</option>
+                    <select v-model="turno_grado" class="form-control">
+                        <option value="3" disabled>Selecciona el Turno</option>
+                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.turno"></option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div>  -->
+             
+            <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Nombre del Estudiante</label>
+               <div class="col-md-9">
+                 <input type="text" v-model="nombre" class="form-control" placeholder="Ingrese el Nombre del Estudiante">
+               </div>
+             </div> 
+            <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Apellido del Estudiante</label>
+               <div class="col-md-9">
+                 <input type="text" v-model="apellido" class="form-control" placeholder="Ingrese los Apellidos del Estudiante">
+               </div>
+             </div> 
+            <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Fecha de Nacimiento</label>
+               <div class="col-md-9">
+                 <input type="date" v-model="fech_nacimiento" class="form-control" placeholder="Ingrese la fecha de nacimiento del Estudiante">
+               </div>
+             </div> 
+           
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Sexo</label>
+                <div class="col-md-9">
+                    <select v-model="sexo" class="form-control">
+                        <option value="sexo" disabled>Selecciona tu sexo</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
                         
                     </select>                                    
                 </div>
             </div> 
-             
-              <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Sexo</label>
+            <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Fecha de Nacimiento</label>
                <div class="col-md-9">
-                 <input type="text" v-model="sexo" class="form-control" placeholder="Ingrese el sexo">
+                 <input type="number" v-model="dni" class="form-control" placeholder="Ingrese el Documento de Identidad del Estudiante">
                </div>
-             </div>  -->
-            
-             <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
+             </div> 
+              <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Dirección</label>
                <div class="col-md-9">
-                 <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
+                 <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese la Dirección del Estudiante">
                </div>
-             </div> -->
-               
-             
-             
-              <div v-show="errorGrado" class="form-group row div-error">
+             </div> 
+           
+              <div v-show="errorEstudiante" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjGrado" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjEstudiante" :key="error" v-text="error">
                         
                     </div>
                   
@@ -209,8 +233,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarGrado()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarGrado()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarEstudiante()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarEstudiante()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -218,29 +242,7 @@
      <!-- /.modal-dialog -->
    </div>
    <!--Fin del modal-->
-   <!-- Inicio del modal Eliminar -->
-   <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     style="display: none;" aria-hidden="true">
-     <div class="modal-dialog modal-danger" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h4 class="modal-title">Eliminar Categoría</h4>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">×</span>
-           </button>
-         </div>
-         <div class="modal-body">
-           <p>Estas seguro de eliminar la categoría?</p>
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-           <button type="button" class="btn btn-danger">Eliminar</button>
-         </div>
-       </div>
-       <!-- /.modal-content -->
-     </div>
-     <!-- /.modal-dialog -->
-   </div>
+   
    <!-- Fin del modal Eliminar -->
 
   </main>
@@ -252,17 +254,23 @@
     export default {
         data(){
             return{
-                grado_id:'',
+                estudiante_id:'',
+                aula_id:0,
                 grado:'',
                 seccion:'',
-                turno:'',
+                nombre:'',
+                apellido:'',
+                sexo:'',
+                fech_nacimiento:'',
+                dni:0,
+                direccion:'',        
                 
-                arrayGrado:[],
+                arrayEstudiante:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorGrado:0,
-                errorMostrarMsjGrado:[],
+                errorEstudiante:0,
+                errorMostrarMsjEstudiante:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -272,8 +280,11 @@
                     'to':0,
                 },
                 offset:3,
-                criterio:'seccion',
-                buscar:''
+                criterio:'grado',
+                buscar:'',
+                arrayAula:[],
+               
+
 
 
             }
@@ -305,14 +316,14 @@
             }
         },
         methods:{
-            listarGrado(page,buscar,criterio){
+            listarEstudiante(page,buscar,criterio){
                 let me= this;
-                var url = '/grado?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/estudiante?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayGrado=respuesta.grados.data;
+                    me.arrayEstudiante=respuesta.estudiantes.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -322,54 +333,87 @@
                     console.log(error);
                 });
             },
+            
+            selectAula(){
+                 let me= this;
+                var url = '/aula/selectaula';
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
+                    // // // handle success
+                    // // console.log(response);
+                    me.arrayAula=respuesta.aulas;
+                        // me.pagination=respuesta.pagination;
+                    
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+            
              cambiarpagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarGrado(page,buscar,criterio);
+                me.listarEstudiante(page,buscar,criterio);
             },
-            registrarGrado(){
-                 if (this.validarGrado()){
+            registrarEstudiante(){
+                 if (this.validarEstudiante()){
                     return;
                 }
                 let me=this;
-                axios.post('grado/registrar',{
+                axios.post('estudiante/registrar',{
+                    'aula_id':this.aula_id,
                     'grado':this.grado,
                     'seccion':this.seccion,
-                    'turno':this.turno,
-                    
-
+                    'nombre':this.nombre,
+                    'apellido':this.apellido,
+                    'fech_nacimiento':this.fech_nacimiento,
+                    'sexo':this.sexo,
+                    'dni':this.dni,
+                    'direccion':this.direccion,
+            
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarGrado(1,'','seccion');
+                    me.listarEstudiante(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarGrado(){
-               if (this.validarGrado()){
+            actualizarEstudiante(){
+               if (this.validarEstudiante()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/grado/actualizar',{
-                    'id': this.grado_id,
+                axios.put('/estudiante/actualizar',{
+                    'id': this.estudiante_id,
+                    'aula_id':this.aula_id,
                     'grado':this.grado,
-                   'seccion':this.seccion,
-                    'turno':this.turno,
-                   
+                    'seccion':this.seccion,
+                    'nombre':this.nombre,
+                    'apellido':this.apellido,
+                    'fech_nacimiento':this.fech_nacimiento,
+                    'sexo':this.sexo,
+                    'dni':this.dni,
+                    'direccion':this.direccion,
+                    
+                    
+                    
+                    
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarGrado(1,'','seccion');
+                    me.listarEstudiante(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarGrado(id){
+            desactivarEstudiante(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -379,7 +423,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Grado?',
+                title: 'Esta de seguro de desactivar este Alumno?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -389,13 +433,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('grado/desactivar',{
+                    axios.put('estudiante/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarGrado(1,'','seccion');
+                        me.listarEstudiante(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -417,7 +461,7 @@
                 }
                 }) 
             },
-            activarGrado(id){
+            activarEstudiante(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -428,7 +472,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Grado?',
+                title: 'Esta de seguro de activar este Alumno?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -438,13 +482,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('grado/activar',{
+                    axios.put('estudiante/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarGrado(1,'','seccion');
+                        me.listarEstudiante(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -470,61 +514,93 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "grado":
+                    case "estudiante":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Grado';
-                                this.grado='gra';
-                                this.seccion='seccion';
-                                this.turno='turno';
+                                this.tituloModal='Registrar Estudiante';
+                                this.aula_id='0';
+                                this.grado='';
+                                this.seccion='';
+                                this.nombre='';
+                                this.apellido='';
+                                this.fech_nacimiento='';
+                                this.sexo='sexo';
+                                this.dni=0;
+                                this.direccion='';
                                 
+                                
+                               
+                               
                                 break;
                             }
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar Grado';
+                                this.tituloModal='Actualstrar Estudiante';
                                 this.tipoAccion=2;
-                                this.grado_id=data['id'];
-                                this.grado=data['grado']
+                                this.estudiante_id=data['id'];
+                                this.aula_id=data['aula_id'];
                                 this.seccion=data['seccion'];
-                                this.turno=data['turno'];
+                                this.grado=data['grado'];
+                                this.nombre=data['nombre'];
+                                this.apellido=data['apellido'];
+                                this.fech_nacimiento=data['fech_nacimiento'];
+                                this.sexo=data['sexo'];
+                                this.dni=data['dni'];
+                                this.direccion=data['direccion'];
                                 
+                               
+                                // this.grado=data['grado'];
+                                // this.seccion_grado=data['seccion_grado'];
+                                // this.turno_grado=data['turno_grado'];
+                               
+                                
+                               
                                 break;
                             }
                         }
                     }
+                    
+                    this.selectAula();
+                    
                 }
             },
-            validarGrado(){
-                this.errorGrado=0;
-                this.errorMostrarMsjGrado =[];
+            validarEstudiante(){
+                this.errorEstudiante=0;
+                this.errorMostrarMsjEstudiante =[];
 
-                if (this.grado=='gra') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
-                if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
-                if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
-               
+            //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+            //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
 
-                if (this.errorMostrarMsjGrado.length) this.errorGrado = 1;
+            //     if (this.errorMostrarMsjGradoMaestro.length) this.errorGradoMaestro = 1;
 
-                return this.errorGrado;
+            //     return this.errorGradoMaestro;
             },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
+                this.aula_id='';
                 this.grado='';
                 this.seccion='';
-                this.turno='';
-                this.errorGrado=0;
+                
+                this.nombre='';
+                this.apellido='';
+                this.fech_nacimiento='';
+                this.sexo='',
+                this.dni='',
+                this.direccion='',
+                
+               
+                this.errorEstudiante=0;
                 
             },
         },
         mounted() {
-           this.listarGrado(1,this.buscar,this.criterio);
+           this.listarEstudiante(1,this.buscar,this.criterio);
         }
     }
 </script>

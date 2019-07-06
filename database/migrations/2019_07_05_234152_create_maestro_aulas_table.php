@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaestrosAsignaturasTable extends Migration
+class CreateMaestroAulasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateMaestrosAsignaturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('maestro_asignaturas', function (Blueprint $table) {
+        Schema::create('maestro_aulas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('maestro_id')->unsigned();
-            $table->integer('asignatura_id')->unsigned();
-            $table->foreign('maestro_id')->references('id')->on('maestros')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('asignatura_id')->references('id')->on('asignaturas')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('aula_id')->unsigned();
+            $table->integer('curso_id')->unsigned();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
+            $table->foreign('maestro_id')->references('id')->on('maestros');
+            $table->foreign('aula_id')->references('id')->on('aulas');
+            $table->foreign('curso_id')->references('id')->on('cursos');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateMaestrosAsignaturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('maestro_asignaturas');
+        Schema::dropIfExists('maestro_aulas');
     }
 }

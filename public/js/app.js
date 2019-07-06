@@ -1688,10 +1688,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Aula.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1937,59 +1937,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      alumno_id: '',
-      grado_id: 0,
+      aula_id: '',
       grado: '',
-      seccion_grado: '',
-      turno_grado: '',
-      nombre: '',
-      apellido: '',
-      fech_nacimiento: '',
-      sexo: '',
-      direccion: '',
-      arrayAlumno: [],
+      seccion: '',
+      arrayAula: [],
       modal: 0,
       tituloModal: '',
       tipoAccion: 0,
-      errorAlumno: 0,
-      errorMostrarMsjAlumno: [],
+      errorAula: 0,
+      errorMostrarMsjAula: [],
       pagination: {
         'total': 0,
         'current_page': 0,
@@ -1999,9 +1958,8 @@ __webpack_require__.r(__webpack_exports__);
         'to': 0
       },
       offset: 3,
-      criterio: 'nombre',
-      buscar: '',
-      arrayGrado: []
+      criterio: 'seccion',
+      buscar: ''
     };
   },
   computed: {
@@ -2037,30 +1995,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    listarAlumno: function listarAlumno(page, buscar, criterio) {
+    listarAula: function listarAula(page, buscar, criterio) {
       var me = this;
-      var url = '/alumno?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/aula?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         var respuesta = response.data; // // // handle success
         // // console.log(response);
 
-        me.arrayAlumno = respuesta.alumnos.data;
+        me.arrayAula = respuesta.aulas.data;
         me.pagination = respuesta.pagination;
-        console.log(response);
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
-    selectGrado: function selectGrado() {
-      var me = this;
-      var url = '/grado/selectGrado';
-      axios.get(url).then(function (response) {
-        var respuesta = response.data; // // // handle success
-        // // console.log(response);
-
-        me.arrayGrado = respuesta.grados; // me.pagination=respuesta.pagination;
-
         console.log(response);
       })["catch"](function (error) {
         // handle error
@@ -2072,56 +2015,42 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
 
-      me.listarAlumno(page, buscar, criterio);
+      me.listarAula(page, buscar, criterio);
     },
-    registrarAlumno: function registrarAlumno() {
-      if (this.validarAlumno()) {
+    registrarAula: function registrarAula() {
+      if (this.validarAula()) {
         return;
       }
 
       var me = this;
-      axios.post('alumno/registrar', {
-        'grado_id': this.grado_id,
-        'nombre': this.nombre,
-        'apellido': this.apellido,
-        'fech_nacimiento': this.fech_nacimiento,
-        'grado': this.grado,
-        'seccion_grado': this.seccion_grado,
-        'turno_grado': this.turno_grado,
-        'sexo': this.sexo,
-        'direccion': this.direccion
+      axios.post('aula/registrar', {
+        'seccion': this.seccion,
+        'grado': this.grado
       }).then(function (response) {
         me.cerrarModal();
-        me.listarAlumno(1, '', 'nombre');
+        me.listarAula(1, '', 'seccion');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    actualizarAlumno: function actualizarAlumno() {
-      if (this.validarAlumno()) {
+    actualizarAula: function actualizarAula() {
+      if (this.validarAula()) {
         return;
       }
 
       var me = this;
-      axios.put('/alumno/actualizar', {
-        'grado_id': this.grado_id,
-        'id': this.alumno_id,
-        'nombre': this.nombre,
-        'apellido': this.apellido,
-        'grado': this.grado,
-        'seccion_grado': this.seccion_grado,
-        'turno_grado': this.turno_grado,
-        'fech_nacimiento': this.fech_nacimiento,
-        'sexo': this.sexo,
-        'direccion': this.direccion
+      axios.put('/aula/actualizar', {
+        'id': this.aula_id,
+        'seccion': this.seccion,
+        'grado': this.grado
       }).then(function (response) {
         me.cerrarModal();
-        me.listarAlumno(1, '', 'nombre');
+        me.listarAula(1, '', 'seccion');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    desactivarAlumno: function desactivarAlumno(id) {
+    desactivarAula: function desactivarAula(id) {
       var _this = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -2132,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de desactivar este Alumno?',
+        title: 'Esta de seguro de desactivar este Aula?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -2141,10 +2070,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('alumno/desactivar', {
+          axios.put('aula/desactivar', {
             'id': id
           }).then(function (response) {
-            me.listarAlumno(1, '', 'nombre');
+            me.listarAula(1, '', 'seccion');
             swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -2155,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    activarAlumno: function activarAlumno(id) {
+    activarAula: function activarAula(id) {
       var _this2 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -2166,7 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de activar este Alumno?',
+        title: 'Esta de seguro de activar este Aula?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -2175,10 +2104,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('alumno/activar', {
+          axios.put('aula/activar', {
             'id': id
           }).then(function (response) {
-            me.listarAlumno(1, '', 'nombre');
+            me.listarAula(1, '', 'seccion');
             swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -2193,79 +2122,62 @@ __webpack_require__.r(__webpack_exports__);
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (modelo) {
-        case "alumno":
+        case "aula":
           {
             switch (accion) {
               case 'registrar':
                 {
                   this.modal = 1;
                   this.tipoAccion = 1;
-                  this.tituloModal = 'Registrar Alumno';
-                  this.grado_id = '0';
-                  this.nombre = '';
-                  this.apellido = '';
-                  this.grado = '0';
-                  this.seccion_grado = '';
-                  this.turno_grado = '';
-                  this.fech_nacimiento = '';
-                  this.sexo = 'sexo';
-                  this.direccion = '';
+                  this.tituloModal = 'Registrar Aula';
+                  this.seccion = 'seccion';
+                  this.grado = 'gra';
                   break;
                 }
 
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Alumno';
+                  this.tituloModal = 'Actualizar Aula';
                   this.tipoAccion = 2;
-                  this.alumno_id = data['id'];
-                  this.grado_id = data['grado_id'];
-                  this.nombre = data['nombre'];
-                  this.apellido = data['apellido']; // this.grado=data['grado'];
-                  // this.seccion_grado=data['seccion_grado'];
-                  // this.turno_grado=data['turno_grado'];
-
-                  this.fech_nacimiento = data['fech_nacimiento'];
-                  this.sexo = data['sexo'];
-                  this.direccion = data['direccion'];
+                  this.aula_id = data['id'];
+                  this.seccion = data['seccion'];
+                  this.grado = data['grado'];
+                  this.turno = data['turno'];
                   break;
                 }
             }
           }
-          this.selectGrado();
       }
     },
-    validarAlumno: function validarAlumno() {
-      this.errorAlumno = 0;
-      this.errorMostrarMsjAlumno = [];
-      if (!this.nombre) this.errorMostrarMsjAlumno.push("El nombre del Alumno no puede estar vacío.");
-      if (!this.apellido) this.errorMostrarMsjAlumno.push("El apellido del Alumno no puede estar vacio.");
-      if (this.sexo == 'sexo') this.errorMostrarMsjAlumno.push("El campo de sexo no puede estar vacío"); // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
+    validarAula: function validarAula() {
+      this.errorAula = 0;
+      this.errorMostrarMsjAula = []; // if (this.turno=='turno') this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
 
-      if (this.errorMostrarMsjAlumno.length) this.errorAlumno = 1;
-      return this.errorAlumno;
+      if (this.seccion == 'seccion') this.errorMostrarMsjAula.push("La sección no puede estar vacío.");
+      if (this.grado == 'gra') this.errorMostrarMsjAula.push("El grado no puede estar vacío.");
+      if (this.turno == 'turno') this.errorMostrarMsjAula.push("El turno no puede estar vacio.");
+      if (this.errorMostrarMsjAula.length) this.errorAula = 1;
+      return this.errorAula;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
-      this.grado_id = '';
-      this.nombre = '';
-      this.apellido = '';
+      this.seccion = '';
       this.grado = '';
-      this.fech_nacimiento = '';
-      this.sexo = '', this.direccion = '', this.errorAlumno = 0;
+      this.errorAula = 0;
     }
   },
   mounted: function mounted() {
-    this.listarAlumno(1, this.buscar, this.criterio);
+    this.listarAula(1, this.buscar, this.criterio);
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2509,553 +2421,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      asignatura_id: '',
-      nombre: '',
-      temario: '',
-      maestro_id: 0,
-      nombre_maestro: '',
-      apellido_maestro: '',
-      grado_id: 0,
-      grado: '',
-      seccion_grado: '',
-      arrayAsignatura: [],
-      modal: 0,
-      tituloModal: '',
-      tipoAccion: 0,
-      errorAsignatura: 0,
-      errorMostrarMsjAsignatura: [],
-      pagination: {
-        'total': 0,
-        'current_page': 0,
-        'per_page': 0,
-        'last_page': 0,
-        'from': 0,
-        'to': 0
-      },
-      offset: 3,
-      criterio: 'nombre',
-      buscar: '',
-      arrayGrado: [],
-      arrayMaestro: []
-    };
-  },
-  computed: {
-    isActived: function isActived() {
-      return this.pagination.current_page;
-    },
-    //calcula los elemenos de la paginacion
-    pagesNumber: function pagesNumber() {
-      if (!this.pagination.to) {
-        return [];
-      }
-
-      var from = this.pagination.current_page - this.offset;
-
-      if (from < 1) {
-        from = 1;
-      }
-
-      var to = from + this.offset * 2;
-
-      if (to >= this.pagination.last_page) {
-        to = this.pagination.last_page;
-      }
-
-      var pagesArray = [];
-
-      while (from <= to) {
-        pagesArray.push(from);
-        from++;
-      }
-
-      return pagesArray;
-    }
-  },
-  methods: {
-    listarAsignatura: function listarAsignatura(page, buscar, criterio) {
-      var me = this;
-      var url = '/asignatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
-      axios.get(url).then(function (response) {
-        var respuesta = response.data; // // // handle success
-        // // console.log(response);
-
-        me.arrayAsignatura = respuesta.asignaturas.data;
-        me.pagination = respuesta.pagination;
-        console.log(response);
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
-    selectMaestro: function selectMaestro() {
-      var me = this;
-      var url = '/maestro/selectMaestro';
-      axios.get(url).then(function (response) {
-        var respuesta = response.data; // // // handle success
-        // // console.log(response);
-
-        me.arrayMaestro = respuesta.maestros; // me.pagination=respuesta.pagination;
-
-        console.log(response);
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
-    selectGrado: function selectGrado() {
-      var me = this;
-      var url = '/grado/selectGrado';
-      axios.get(url).then(function (response) {
-        var respuesta = response.data; // // // handle success
-        // // console.log(response);
-
-        me.arrayGrado = respuesta.grados; // me.pagination=respuesta.pagination;
-
-        console.log(response);
-      })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      });
-    },
-    cambiarpagina: function cambiarpagina(page, buscar, criterio) {
-      var me = this; //Actualiza la pagina actual
-
-      me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
-
-      me.listarAsignatura(page, buscar, criterio);
-    },
-    registrarAsignatura: function registrarAsignatura() {
-      if (this.validarAsignatura()) {
-        return;
-      }
-
-      var me = this;
-      axios.post('asignatura/registrar', {
-        'nombre': this.nombre,
-        'temario': this.temario,
-        'maestro_id': this.maestro_id,
-        'nombre_maestro': this.nombre_maestro,
-        'apellido_maestro': this.apellido_maestro,
-        'grado_id': this.grado_id,
-        'grado': this.grado,
-        'seccion_grado': this.seccion_grado
-      }).then(function (response) {
-        me.cerrarModal();
-        me.listarAsignatura(1, '', 'nombre');
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    actualizarAsignatura: function actualizarAsignatura() {
-      if (this.validarAsignatura()) {
-        return;
-      }
-
-      var me = this;
-      axios.put('/asignatura/actualizar', {
-        'nombre': this.nombre,
-        'id': this.asignatura_id,
-        'temario': this.temario,
-        'maestro_id': this.maestro_id,
-        'nombre_maestro': this.nombre_maestro,
-        'apellido_maestro': this.apellido_maestro,
-        'grado_id': this.grado_id,
-        'grado': this.grado,
-        'seccion_grado': this.seccion_grado
-      }).then(function (response) {
-        me.cerrarModal();
-        me.listarAsignatura(1, '', 'nombre');
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    desactivarAsignatura: function desactivarAsignatura(id) {
-      var _this = this;
-
-      var swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de desactivar este Asignatura?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this;
-          axios.put('asignatura/desactivar', {
-            'id': id
-          }).then(function (response) {
-            me.listarAsignatura(1, '', 'nombre');
-            swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con exito.', 'success');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if ( // Read more about handling dismissals
-        result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
-        }
-      });
-    },
-    activarAsignatura: function activarAsignatura(id) {
-      var _this2 = this;
-
-      var swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de activar este Asignatura?',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-      }).then(function (result) {
-        if (result.value) {
-          var me = _this2;
-          axios.put('asignatura/activar', {
-            'id': id
-          }).then(function (response) {
-            me.listarAsignatura(1, '', 'nombre');
-            swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con exito.', 'success');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if ( // Read more about handling dismissals
-        result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
-        }
-      });
-    },
-    abrirModal: function abrirModal(modelo, accion) {
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-      switch (modelo) {
-        case "asignatura":
-          {
-            switch (accion) {
-              case 'registrar':
-                {
-                  this.modal = 1;
-                  this.tipoAccion = 1;
-                  this.tituloModal = 'Registrar Asignatura';
-                  this.nombre = '';
-                  this.temario = '';
-                  this.maestro_id = '0';
-                  this.nombre_maestro = '';
-                  this.apellido_maestro = '';
-                  this.grado_id = '1';
-                  this.grado = '';
-                  this.seccion_grado = '';
-                  break;
-                }
-
-              case 'actualizar':
-                {
-                  this.modal = 1;
-                  this.tituloModal = 'Actualizar Asignatura';
-                  this.tipoAccion = 2;
-                  this.asignatura_id = data['id'];
-                  this.nombre = data['nombre'];
-                  this.temario = data['temario'];
-                  this.maestro_id = data['maestro_id']; // this.nombre_maestro=data['nombre_maestro'];
-                  // this.apellido_maestro=data['apellido_maestro'];
-
-                  this.grado_id = data['grado_id']; // this.grado=data['grado'];
-                  // this.seccion_grado=data['seccion_grado'];
-
-                  break;
-                }
-            }
-          }
-          this.selectGrado();
-          this.selectMaestro();
-      }
-    },
-    validarAsignatura: function validarAsignatura() {
-      this.errorAsignatura = 0;
-      this.errorMostrarMsjAsignatura = [];
-      if (this.nombre == '') this.errorMostrarMsjAsignatura.push("El nombre del Asignatura no puede estar vacío.");
-      if (this.temario == '') this.errorMostrarMsjAsignatura.push("El temario de la Asignatura no puede estar vacío.");
-      if (this.errorMostrarMsjAsignatura.length) this.erroAsignatura = 1;
-      return this.errorAsignatura;
-    },
-    cerrarModal: function cerrarModal() {
-      this.modal = 0;
-      this.tituloModal = '';
-      this.nombre = '';
-      this.temario = '';
-      this.maestro_id = '';
-      this.nombre_maestro = '', this.apellido_maestro = '', this.grado_id = '';
-      this.grado = '';
-      this.seccion_grado = '';
-      this.errorAsignatura = 0;
-    }
-  },
-  mounted: function mounted() {
-    this.listarAsignatura(1, this.buscar, this.criterio);
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Grado.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3074,16 +2439,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      grado_id: '',
+      estudiante_id: '',
+      aula_id: 0,
       grado: '',
       seccion: '',
-      turno: '',
-      arrayGrado: [],
+      nombre: '',
+      apellido: '',
+      sexo: '',
+      fech_nacimiento: '',
+      dni: 0,
+      direccion: '',
+      arrayEstudiante: [],
       modal: 0,
       tituloModal: '',
       tipoAccion: 0,
-      errorGrado: 0,
-      errorMostrarMsjGrado: [],
+      errorEstudiante: 0,
+      errorMostrarMsjEstudiante: [],
       pagination: {
         'total': 0,
         'current_page': 0,
@@ -3093,8 +2464,9 @@ __webpack_require__.r(__webpack_exports__);
         'to': 0
       },
       offset: 3,
-      criterio: 'seccion',
-      buscar: ''
+      criterio: 'grado',
+      buscar: '',
+      arrayAula: []
     };
   },
   computed: {
@@ -3130,15 +2502,30 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    listarGrado: function listarGrado(page, buscar, criterio) {
+    listarEstudiante: function listarEstudiante(page, buscar, criterio) {
       var me = this;
-      var url = '/grado?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/estudiante?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         var respuesta = response.data; // // // handle success
         // // console.log(response);
 
-        me.arrayGrado = respuesta.grados.data;
+        me.arrayEstudiante = respuesta.estudiantes.data;
         me.pagination = respuesta.pagination;
+        console.log(response);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    selectAula: function selectAula() {
+      var me = this;
+      var url = '/aula/selectaula';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data; // // // handle success
+        // // console.log(response);
+
+        me.arrayAula = respuesta.aulas; // me.pagination=respuesta.pagination;
+
         console.log(response);
       })["catch"](function (error) {
         // handle error
@@ -3150,44 +2537,56 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
 
-      me.listarGrado(page, buscar, criterio);
+      me.listarEstudiante(page, buscar, criterio);
     },
-    registrarGrado: function registrarGrado() {
-      if (this.validarGrado()) {
+    registrarEstudiante: function registrarEstudiante() {
+      if (this.validarEstudiante()) {
         return;
       }
 
       var me = this;
-      axios.post('grado/registrar', {
+      axios.post('estudiante/registrar', {
+        'aula_id': this.aula_id,
         'grado': this.grado,
         'seccion': this.seccion,
-        'turno': this.turno
+        'nombre': this.nombre,
+        'apellido': this.apellido,
+        'fech_nacimiento': this.fech_nacimiento,
+        'sexo': this.sexo,
+        'dni': this.dni,
+        'direccion': this.direccion
       }).then(function (response) {
         me.cerrarModal();
-        me.listarGrado(1, '', 'seccion');
+        me.listarEstudiante(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    actualizarGrado: function actualizarGrado() {
-      if (this.validarGrado()) {
+    actualizarEstudiante: function actualizarEstudiante() {
+      if (this.validarEstudiante()) {
         return;
       }
 
       var me = this;
-      axios.put('/grado/actualizar', {
-        'id': this.grado_id,
+      axios.put('/estudiante/actualizar', {
+        'id': this.estudiante_id,
+        'aula_id': this.aula_id,
         'grado': this.grado,
         'seccion': this.seccion,
-        'turno': this.turno
+        'nombre': this.nombre,
+        'apellido': this.apellido,
+        'fech_nacimiento': this.fech_nacimiento,
+        'sexo': this.sexo,
+        'dni': this.dni,
+        'direccion': this.direccion
       }).then(function (response) {
         me.cerrarModal();
-        me.listarGrado(1, '', 'seccion');
+        me.listarEstudiante(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    desactivarGrado: function desactivarGrado(id) {
+    desactivarEstudiante: function desactivarEstudiante(id) {
       var _this = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -3198,7 +2597,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de desactivar este Grado?',
+        title: 'Esta de seguro de desactivar este Alumno?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -3207,10 +2606,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('grado/desactivar', {
+          axios.put('estudiante/desactivar', {
             'id': id
           }).then(function (response) {
-            me.listarGrado(1, '', 'seccion');
+            me.listarEstudiante(1, '', 'nombre');
             swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -3221,7 +2620,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    activarGrado: function activarGrado(id) {
+    activarEstudiante: function activarEstudiante(id) {
       var _this2 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -3232,7 +2631,7 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        title: 'Esta de seguro de activar este Grado?',
+        title: 'Esta de seguro de activar este Alumno?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -3241,10 +2640,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('grado/activar', {
+          axios.put('estudiante/activar', {
             'id': id
           }).then(function (response) {
-            me.listarGrado(1, '', 'seccion');
+            me.listarEstudiante(1, '', 'nombre');
             swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -3259,55 +2658,72 @@ __webpack_require__.r(__webpack_exports__);
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (modelo) {
-        case "grado":
+        case "estudiante":
           {
             switch (accion) {
               case 'registrar':
                 {
                   this.modal = 1;
                   this.tipoAccion = 1;
-                  this.tituloModal = 'Registrar Grado';
-                  this.grado = 'gra';
-                  this.seccion = 'seccion';
-                  this.turno = 'turno';
+                  this.tituloModal = 'Registrar Estudiante';
+                  this.aula_id = '0';
+                  this.grado = '';
+                  this.seccion = '';
+                  this.nombre = '';
+                  this.apellido = '';
+                  this.fech_nacimiento = '';
+                  this.sexo = 'sexo';
+                  this.dni = 0;
+                  this.direccion = '';
                   break;
                 }
 
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Grado';
+                  this.tituloModal = 'Actualstrar Estudiante';
                   this.tipoAccion = 2;
-                  this.grado_id = data['id'];
-                  this.grado = data['grado'];
+                  this.estudiante_id = data['id'];
+                  this.aula_id = data['aula_id'];
                   this.seccion = data['seccion'];
-                  this.turno = data['turno'];
+                  this.grado = data['grado'];
+                  this.nombre = data['nombre'];
+                  this.apellido = data['apellido'];
+                  this.fech_nacimiento = data['fech_nacimiento'];
+                  this.sexo = data['sexo'];
+                  this.dni = data['dni'];
+                  this.direccion = data['direccion']; // this.grado=data['grado'];
+                  // this.seccion_grado=data['seccion_grado'];
+                  // this.turno_grado=data['turno_grado'];
+
                   break;
                 }
             }
           }
+          this.selectAula();
       }
     },
-    validarGrado: function validarGrado() {
-      this.errorGrado = 0;
-      this.errorMostrarMsjGrado = [];
-      if (this.grado == 'gra') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
-      if (!this.seccion) this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
-      if (!this.turno) this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
-      if (this.errorMostrarMsjGrado.length) this.errorGrado = 1;
-      return this.errorGrado;
+    validarEstudiante: function validarEstudiante() {
+      this.errorEstudiante = 0;
+      this.errorMostrarMsjEstudiante = []; //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+      //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
+      //     if (this.errorMostrarMsjGradoMaestro.length) this.errorGradoMaestro = 1;
+      //     return this.errorGradoMaestro;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
+      this.aula_id = '';
       this.grado = '';
       this.seccion = '';
-      this.turno = '';
-      this.errorGrado = 0;
+      this.nombre = '';
+      this.apellido = '';
+      this.fech_nacimiento = '';
+      this.sexo = '', this.dni = '', this.direccion = '', this.errorEstudiante = 0;
     }
   },
   mounted: function mounted() {
-    this.listarGrado(1, this.buscar, this.criterio);
+    this.listarEstudiante(1, this.buscar, this.criterio);
   }
 });
 
@@ -3576,6 +2992,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3585,6 +3009,7 @@ __webpack_require__.r(__webpack_exports__);
       fech_nacimiento: '',
       sexo: '',
       grado_instruccion: '',
+      dni: 0,
       direccion: '',
       num_celular: 0,
       arrayMaestro: [],
@@ -3673,6 +3098,7 @@ __webpack_require__.r(__webpack_exports__);
         'fech_nacimiento': this.fech_nacimiento,
         'sexo': this.sexo,
         'grado_instruccion': this.grado_instruccion,
+        'dni': this.dni,
         'direccion': this.direccion,
         'num_celular': this.num_celular
       }).then(function (response) {
@@ -3695,6 +3121,7 @@ __webpack_require__.r(__webpack_exports__);
         'fech_nacimiento': this.fech_nacimiento,
         'sexo': this.sexo,
         'grado_instruccion': this.grado_instruccion,
+        'dni': this.dni,
         'direccion': this.direccion,
         'num_celular': this.num_celular
       }).then(function (response) {
@@ -3787,7 +3214,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombre = '';
                   this.apellido = '';
                   this.fech_nacimiento = '';
-                  this.sexo = 'sexo', this.grado_instruccion = 'grado', this.direccion = '', this.num_celular = 0;
+                  this.sexo = 'sexo', this.grado_instruccion = 'grado', this.dni = 0, this.direccion = '', this.num_celular = 0;
                   break;
                 }
 
@@ -3800,7 +3227,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombre = data['nombre'];
                   this.apellido = data['apellido'];
                   this.fech_nacimiento = data['fech_nacimiento'];
-                  this.sexo = data['sexo'], this.grado_instruccion = data['grado_instruccion'], this.direccion = data['direccion'], this.num_celular = data['num_celular'];
+                  this.sexo = data['sexo'], this.grado_instruccion = data['grado_instruccion'], this.dni = data['dni'], this.direccion = data['direccion'], this.num_celular = data['num_celular'];
                   break;
                 }
             }
@@ -3824,7 +3251,7 @@ __webpack_require__.r(__webpack_exports__);
       this.nombre = '';
       this.apellido = '';
       this.fech_nacimiento = '';
-      this.sexo = '', this.grado_instruccion = '', this.direccion = '', this.num_celular = 0;
+      this.sexo = '', this.grado_instruccion = '', this.dni = '', this.direccion = '', this.num_celular = 0;
       this.errorMaestro = 0;
     }
   },
@@ -3835,10 +3262,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4088,26 +3515,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      maestroasignatura_id: '',
+      maestroaula_id: '',
       maestro_id: 0,
-      nombre: '',
-      apellido: '',
-      asignatura_id: 0,
-      nombre_asignatura: '',
-      arrayMaestroAsignatura: [],
+      nombre_maestro: '',
+      apellido_maestro: '',
+      aula_id: 0,
+      seccion: '',
+      grado: '',
+      curso_id: 0,
+      nombre_curso: '',
+      arrayMaestroAula: [],
       modal: 0,
       tituloModal: '',
       tipoAccion: 0,
-      errorMaestroAsignatura: 0,
-      errorMostrarMsjMaestroAsignatura: [],
+      errorMaestroAula: 0,
+      errorMostrarMsjMaestroAula: [],
       pagination: {
         'total': 0,
         'current_page': 0,
@@ -4117,10 +3542,11 @@ __webpack_require__.r(__webpack_exports__);
         'to': 0
       },
       offset: 3,
-      criterio: 'nombre',
+      criterio: 'grado',
       buscar: '',
-      arrayMaestro: [],
-      arrayAsignatura: []
+      arrayAula: [],
+      arrayCurso: [],
+      arrayMaestro: []
     };
   },
   computed: {
@@ -4156,14 +3582,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    listarMaestroAsignatura: function listarMaestroAsignatura(page, buscar, criterio) {
+    listarMaestroAula: function listarMaestroAula(page, buscar, criterio) {
       var me = this;
-      var url = '/maestroasignatura?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/maestroaula?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
       axios.get(url).then(function (response) {
         var respuesta = response.data; // // // handle success
         // // console.log(response);
 
-        me.arrayMaestroAsignatura = respuesta.maestroasignaturas.data;
+        me.arrayMaestroAula = respuesta.maestro_aulas.data;
         me.pagination = respuesta.pagination;
         console.log(response);
       })["catch"](function (error) {
@@ -4173,7 +3599,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectMaestro: function selectMaestro() {
       var me = this;
-      var url = '/maestro/selectMaestro';
+      var url = '/maestro/selectmaestro';
       axios.get(url).then(function (response) {
         var respuesta = response.data; // // // handle success
         // // console.log(response);
@@ -4186,14 +3612,29 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    selectAsignatura: function selectAsignatura() {
+    selectAula: function selectAula() {
       var me = this;
-      var url = '/asignatura/selectAsignatura';
+      var url = '/aula/selectaula';
       axios.get(url).then(function (response) {
         var respuesta = response.data; // // // handle success
         // // console.log(response);
 
-        me.arrayAsignatura = respuesta.asignaturas; // me.pagination=respuesta.pagination;
+        me.arrayAula = respuesta.aulas; // me.pagination=respuesta.pagination;
+
+        console.log(response);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    selectCurso: function selectCurso() {
+      var me = this;
+      var url = '/curso/selectcurso';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data; // // // handle success
+        // // console.log(response);
+
+        me.arrayCurso = respuesta.cursos; // me.pagination=respuesta.pagination;
 
         console.log(response);
       })["catch"](function (error) {
@@ -4206,48 +3647,54 @@ __webpack_require__.r(__webpack_exports__);
 
       me.pagination.current_page = page; //Envia la peticion para visualizar la data de esa pagina
 
-      me.listarMaestroAsignatura(page, buscar, criterio);
+      me.listarMaestroAula(page, buscar, criterio);
     },
-    registrarMaestroAsignatura: function registrarMaestroAsignatura() {
-      if (this.validarMaestroAsignatura()) {
+    registrarMaestroAula: function registrarMaestroAula() {
+      if (this.validarMaestroAula()) {
         return;
       }
 
       var me = this;
-      axios.post('maestroasignatura/registrar', {
+      axios.post('maestroaula/registrar', {
         'maestro_id': this.maestro_id,
-        'nombre': this.nombre,
-        'apellido': this.apellido,
-        'asignatura_id': this.asignatura_id,
-        'nombre_asignatura': this.nombre_asignatura
+        'nombre_maestro': this.nombre_maestro,
+        'apellido_maestro': this.apellido_maestro,
+        'aula_id': this.aula_id,
+        'seccion': this.seccion,
+        'grado': this.grado,
+        'curso_id': this.curso_id,
+        'nombre_curso': this.nombre_curso
       }).then(function (response) {
         me.cerrarModal();
-        me.listarMaestroAsignatura(1, '', 'nombre');
+        me.listarMaestroAula(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    actualizarMaestroAsignatura: function actualizarMaestroAsignatura() {
-      if (this.validarMaestroAsignatura()) {
+    actualizarMaestroAula: function actualizarMaestroAula() {
+      if (this.validarMaestroAula()) {
         return;
       }
 
       var me = this;
-      axios.put('/maestroasignatura/actualizar', {
+      axios.put('/maestroaula/actualizar', {
+        'id': this.maestroaula_id,
         'maestro_id': this.maestro_id,
-        'id': this.maestroasignatura_id,
-        'nombre': this.nombre,
-        'apellido': this.apellido,
-        'asignatura_id': this.asignatura_id,
-        'nombre_asignatura': this.nombre_asignatura
+        'nombre_maestro': this.nombre_maestro,
+        'apellido_maestro': this.apellido_maestro,
+        'aula_id': this.aula_id,
+        'seccion': this.seccion,
+        'grado': this.grado,
+        'curso_id': this.curso_id,
+        'nombre_curso': this.nombre_curso
       }).then(function (response) {
         me.cerrarModal();
-        me.listarMaestroAsignatura(1, '', 'nombre');
+        me.listarMaestroAula(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    desactivarMaestroAsignatura: function desactivarMaestroAsignatura(id) {
+    desactivarMaestroAula: function desactivarMaestroAula(id) {
       var _this = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -4267,10 +3714,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('maestroasignatura/desactivar', {
+          axios.put('maestroaula/desactivar', {
             'id': id
           }).then(function (response) {
-            me.listarMaestroAsignatura(1, '', 'nombre');
+            me.listarMaestroAula(1, '', 'nombre');
             swalWithBootstrapButtons.fire('Desactivado!', 'El registro ha sido desactivado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -4281,7 +3728,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    activarMaestroAsignatura: function activarMaestroAsignatura(id) {
+    activarMaestroAula: function activarMaestroAula(id) {
       var _this2 = this;
 
       var swalWithBootstrapButtons = Swal.mixin({
@@ -4301,10 +3748,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('maestroasignatura/activar', {
+          axios.put('maestroaula/activar', {
             'id': id
           }).then(function (response) {
-            me.listarMaestroAsignatura(1, '', 'nombre');
+            me.listarMaestroAula(1, '', 'nombre');
             swalWithBootstrapButtons.fire('Activado!', 'El registro ha sido activado con exito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -4319,67 +3766,69 @@ __webpack_require__.r(__webpack_exports__);
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
       switch (modelo) {
-        case "maestroasignatura":
+        case "maestroaula":
           {
             switch (accion) {
               case 'registrar':
                 {
                   this.modal = 1;
                   this.tipoAccion = 1;
-                  this.tituloModal = 'Registrar Alumno';
-                  this.maestro_id = '0';
-                  this.nombre = '';
-                  this.apellido = '';
-                  this.asignatura_id = '1';
-                  this.nombre_asignatura = '';
+                  this.tituloModal = 'Registrar Aula del Maestro';
+                  this.maestro_id = '1';
+                  this.nombre_maestro = '';
+                  this.apellido_maestro = '';
+                  this.aula_id = '0';
+                  this.seccion = '', this.grado = '', this.curso_id = '2';
                   break;
                 }
 
               case 'actualizar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'Actualizar Alumno';
+                  this.tituloModal = 'Actualizar  Aula del Maestro';
                   this.tipoAccion = 2;
-                  this.maestroasignatura_id = data['id'];
+                  this.maestroaula_id = data['id'];
                   this.maestro_id = data['maestro_id'];
-                  this.nombre = data['nombre'];
-                  this.apellido = data['apellido']; // this.grado=data['grado'];
+                  this.nombre_maestro = data['nombre_maestro'];
+                  this.apellido_maestro = data['apellido_maestro'];
+                  this.aula_id = data['aula_id'];
+                  this.seccion = data['seccion'];
+                  this.grado = data['grado'];
+                  this.curso_id = data['curso_id'];
+                  this.nombre_curso = data['nombre_curso']; // this.grado=data['grado'];
                   // this.seccion_grado=data['seccion_grado'];
                   // this.turno_grado=data['turno_grado'];
 
-                  this.asignatura_id = data['asignatura_id'];
-                  this.nombre_asignatura = data['nombre_asignatura'];
                   break;
                 }
             }
           }
           this.selectMaestro();
-          this.selectAsignatura();
+          this.selectAula();
+          this.selectCurso();
       }
     },
-    validarMaestroAsignatura: function validarMaestroAsignatura() {
-      this.errorMaestroAsignatura = 0;
-      this.errorMostrarMsjMaestroAsignatura = []; // if (this.nombre=='') this.errorMostrarMsjMaestroAsignatura.push("El nombre del MaestroAsignatura no puede estar vacío.");
-      // if (this.apellido=='') this.errorMostrarMsjMaestroAsignatura.push("El apellido del MaestroAsignatura no puede estar vacio.");
-      // if (this.sexo=='sexo') this.errorMostrarMsjMaestroAsignatura.push("El campo de sexo no puede estar vacío");
-      // if (this.grado=='0') this.errorMostrarMsjAlumno.push("El campo de grado no puede estar vacío");
-
-      if (this.errorMostrarMsjMaestroAsignatura.length) this.errorMaestroAsignatura = 1;
-      return this.errorMaestroAsignatura;
+    validarMaestroAula: function validarMaestroAula() {
+      this.errorMaestroAula = 0;
+      this.errorMostrarMsjMaestroAula = []; //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
+      //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
+      //     if (this.errorMostrarMsjGradoMaestro.length) this.errorGradoMaestro = 1;
+      //     return this.errorGradoMaestro;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
+      this.grado_id = '';
+      this.grado = '';
+      this.seccion = '';
       this.maestro_id = '';
-      this.nombre = '';
-      this.apellido = '';
-      this.asignatura_id = '';
-      this.nombre_asignatura = '';
-      this.errorMaestroAsignatura = 0;
+      this.nombre_maestro = '';
+      this.apellido_maestro = '';
+      this.curso_id = '', this.nombre_curso = '', this.errorMaestroAula = 0;
     }
   },
   mounted: function mounted() {
-    this.listarMaestroAsignatura(1, this.buscar, this.criterio);
+    this.listarMaestroAula(1, this.buscar, this.criterio);
   }
 });
 
@@ -4807,7 +4256,7 @@ __webpack_require__.r(__webpack_exports__);
                   this.modal = 1;
                   this.tipoAccion = 1;
                   this.tituloModal = 'Registrar Periodo';
-                  this.nombre = 'nombre';
+                  this.nombre = 'periodo';
                   break;
                 }
 
@@ -9324,10 +8773,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9343,29 +8792,10 @@ exports.push([module.i, "\n.modal-content{\n    width: 100%;\n    position: abso
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css& ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.modal-content{\n    width: 100%;\n    position: absolute !important;\n    top: 5rem;\n    border-radius: 10px!important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n   \n    background-color: #3c29297a !important;\n    transition: all .5s ease-in-out !important;\n}\n.mostrar:hover{\n    opacity: 2 !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: red !important;\n    font-weight: bold;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9400,10 +8830,10 @@ exports.push([module.i, "\n.modal-content{\n    width: 100%;\n    position: abso
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40279,15 +39709,15 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alumno.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Aula.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -40309,45 +39739,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&":
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asignatura.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Grado.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Estudiante.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -40399,15 +39799,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAsignatura.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAula.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -41043,10 +40443,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41068,7 +40468,7 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header " }, [
                 _c("i", { staticClass: "fa fa-align-justify" }),
-                _vm._v(" Alumnos\n                "),
+                _vm._v(" Aulas\n                "),
                 _c(
                   "button",
                   {
@@ -41077,1683 +40477,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        return _vm.abrirModal("alumno", "registrar")
-                      }
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-plus" }),
-                    _vm._v(" Nuevo\n                ")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.criterio,
-                              expression: "criterio"
-                            }
-                          ],
-                          staticClass: "form-control col-md-3",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.criterio = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "nombre" } }, [
-                            _vm._v("Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "apellido" } }, [
-                            _vm._v("Apellidos")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.buscar,
-                            expression: "buscar"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Texto a buscar" },
-                        domProps: { value: _vm.buscar },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return _vm.listarAlumno(1, _vm.buscar, _vm.criterio)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.buscar = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning text-white rounded-0",
-                          attrs: { type: "submit" },
-                          on: {
-                            click: function($event) {
-                              return _vm.listarAlumno(
-                                1,
-                                _vm.buscar,
-                                _vm.criterio
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fa fa-search" }),
-                          _vm._v(" Buscar")
-                        ]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "table",
-                  { staticClass: "table table-bordered   " },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._l(_vm.arrayAlumno, function(alumno) {
-                      return _c("tr", { key: alumno.id }, [
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning btn-sm",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.abrirModal(
-                                      "alumno",
-                                      "actualizar",
-                                      alumno
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-pen" })]
-                            ),
-                            _vm._v("  \n                      "),
-                            alumno.condicion
-                              ? [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger btn-sm",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.desactivarAlumno(alumno.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
-                                ]
-                              : [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-success btn-sm",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.activarAlumno(alumno.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-check" })]
-                                  )
-                                ]
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.nombre) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.apellido) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.grado) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(alumno.seccion_grado)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.turno_grado) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(alumno.fech_nacimiento)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.sexo) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(alumno.direccion) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", [
-                          alumno.condicion
-                            ? _c("div", [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge bg-success" },
-                                  [_vm._v("Activo")]
-                                )
-                              ])
-                            : _c("div", [
-                                _c("span", { staticClass: "badge bg-danger" }, [
-                                  _vm._v("Inactivo")
-                                ])
-                              ])
-                        ])
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-footer clearfix" }, [
-                _c(
-                  "ul",
-                  { staticClass: "pagination pagination-sm m-0 float-right" },
-                  [
-                    _vm.pagination.current_page > 1
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.cambiarpagina(
-                                    _vm.pagination.current_page - 1,
-                                    _vm.buscar,
-                                    _vm.criterio
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("«")]
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm._l(_vm.pagesNumber, function(page) {
-                      return _c(
-                        "li",
-                        {
-                          key: page,
-                          staticClass: "page-item ",
-                          class: [page == _vm.isActived ? "active" : ""]
-                        },
-                        [
-                          _c("a", {
-                            staticClass: "page-link",
-                            attrs: { href: "#" },
-                            domProps: { textContent: _vm._s(page) },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.cambiarpagina(
-                                  page,
-                                  _vm.buscar,
-                                  _vm.criterio
-                                )
-                              }
-                            }
-                          })
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _vm.pagination.current_page < _vm.pagination.last_page
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.cambiarpagina(
-                                    _vm.pagination.current_page + 1,
-                                    _vm.buscar,
-                                    _vm.criterio
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("»")]
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  2
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        class: { mostrar: _vm.modal },
-        staticStyle: { display: "none" },
-        attrs: {
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-primary modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header bg-info" }, [
-                _c("h4", {
-                  staticClass: "modal-title",
-                  domProps: { textContent: _vm._s(_vm.tituloModal) }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { type: "button", "aria-label": "Close" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    staticClass: "form-horizontal",
-                    attrs: {
-                      action: "",
-                      method: "post",
-                      enctype: "multipart/form-data"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre ")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Nombre del Alumno(a)"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Apellidos ")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.apellido,
-                              expression: "apellido"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Apellido del Alumno(a)"
-                          },
-                          domProps: { value: _vm.apellido },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.apellido = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Grado")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.grado_id,
-                                expression: "grado_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.grado_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Selecciona el Grado")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayGrado, function(grado) {
-                              return _c("option", {
-                                key: grado.id,
-                                domProps: {
-                                  value: grado.id,
-                                  textContent: _vm._s(
-                                    grado.grado +
-                                      " - " +
-                                      grado.seccion +
-                                      " - " +
-                                      grado.turno
-                                  )
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "" }
-                        },
-                        [_vm._v("Fecha de Nacimiento")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fech_nacimiento,
-                              expression: "fech_nacimiento"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "date",
-                            placeholder: "Ingrese la fecha de Nacimiento"
-                          },
-                          domProps: { value: _vm.fech_nacimiento },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fech_nacimiento = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Sexo")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.sexo,
-                                expression: "sexo"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.sexo = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "sexo", disabled: "" } },
-                              [_vm._v("Selecciona tu sexo")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "masculino" } }, [
-                              _vm._v("Masculino")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "femenino" } }, [
-                              _vm._v("Femenino")
-                            ])
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
-                        [_vm._v("Dirección de Domicilio")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.direccion,
-                              expression: "direccion"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Ingrese la dirección de Domicilio"
-                          },
-                          domProps: { value: _vm.direccion },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.direccion = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errorAlumno,
-                            expression: "errorAlumno"
-                          }
-                        ],
-                        staticClass: "form-group row div-error"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "text-center text-error" },
-                          _vm._l(_vm.errorMostrarMsjAlumno, function(error) {
-                            return _c("div", {
-                              key: error,
-                              domProps: { textContent: _vm._s(error) }
-                            })
-                          }),
-                          0
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _vm.tipoAccion == 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.registrarAlumno()
-                          }
-                        }
-                      },
-                      [_vm._v("Guardar")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.tipoAccion == 2
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.actualizarAlumno()
-                          }
-                        }
-                      },
-                      [_vm._v("Actualizar")]
-                    )
-                  : _vm._e()
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _vm._m(2)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [_c("h1", [_vm._v("Alumnos")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-          _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Escritorio")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Alumnos")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", { staticClass: "bg-info text-center " }, [
-      _c("th", [_vm._v("Opciones")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Nombre")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Apellidos")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Grado")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Seccion")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Turno")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Fecha de Nacimiento")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Sexo")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Dirección")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Estado")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { display: "none" },
-        attrs: {
-          id: "modalEliminar",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-danger",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _vm._v("Eliminar Categoría")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Estas seguro de eliminar la categoría?")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "button" } },
-                  [_vm._v("Eliminar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("main", { staticClass: "content-wrapper" }, [
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header " }, [
-                _c("i", { staticClass: "fa fa-align-justify" }),
-                _vm._v(" Asignatura\n                "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-secondary bg-secondary ml-2 border-transparent ",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.abrirModal("asignatura", "registrar")
-                      }
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-plus" }),
-                    _vm._v(" Nuevo\n                ")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "form-group row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.criterio,
-                              expression: "criterio"
-                            }
-                          ],
-                          staticClass: "form-control col-md-3",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.criterio = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "nombre" } }, [
-                            _vm._v("Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "grado" } }, [
-                            _vm._v("Grado")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.buscar,
-                            expression: "buscar"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Texto a buscar" },
-                        domProps: { value: _vm.buscar },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return _vm.listarAsignatura(
-                              1,
-                              _vm.buscar,
-                              _vm.criterio
-                            )
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.buscar = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning text-white rounded-0",
-                          attrs: { type: "submit" },
-                          on: {
-                            click: function($event) {
-                              return _vm.listarAsignatura(
-                                1,
-                                _vm.buscar,
-                                _vm.criterio
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fa fa-search" }),
-                          _vm._v(" Buscar")
-                        ]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "table",
-                  { staticClass: "table table-bordered   " },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._l(_vm.arrayAsignatura, function(asignatura) {
-                      return _c("tr", { key: asignatura.id }, [
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning btn-sm",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.abrirModal(
-                                      "asignatura",
-                                      "actualizar",
-                                      asignatura
-                                    )
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-pen" })]
-                            ),
-                            _vm._v("  \n                      "),
-                            asignatura.condicion
-                              ? [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger btn-sm",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.desactivarAsignatura(
-                                            asignatura.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
-                                ]
-                              : [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-success btn-sm",
-                                      attrs: { type: "button" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.activarAsignatura(
-                                            asignatura.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-check" })]
-                                  )
-                                ]
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(asignatura.nombre) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(asignatura.temario) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(
-                              asignatura.nombre_maestro +
-                                " " +
-                                asignatura.apellido_maestro
-                            )
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(asignatura.grado) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(asignatura.seccion_grado)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", [
-                          asignatura.condicion
-                            ? _c("div", [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge bg-success" },
-                                  [_vm._v("Activo")]
-                                )
-                              ])
-                            : _c("div", [
-                                _c("span", { staticClass: "badge bg-danger" }, [
-                                  _vm._v("Inactivo")
-                                ])
-                              ])
-                        ])
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-footer clearfix" }, [
-                _c(
-                  "ul",
-                  { staticClass: "pagination pagination-sm m-0 float-right" },
-                  [
-                    _vm.pagination.current_page > 1
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.cambiarpagina(
-                                    _vm.pagination.current_page - 1,
-                                    _vm.buscar,
-                                    _vm.criterio
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("«")]
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm._l(_vm.pagesNumber, function(page) {
-                      return _c(
-                        "li",
-                        {
-                          key: page,
-                          staticClass: "page-item ",
-                          class: [page == _vm.isActived ? "active" : ""]
-                        },
-                        [
-                          _c("a", {
-                            staticClass: "page-link",
-                            attrs: { href: "#" },
-                            domProps: { textContent: _vm._s(page) },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.cambiarpagina(
-                                  page,
-                                  _vm.buscar,
-                                  _vm.criterio
-                                )
-                              }
-                            }
-                          })
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _vm.pagination.current_page < _vm.pagination.last_page
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.cambiarpagina(
-                                    _vm.pagination.current_page + 1,
-                                    _vm.buscar,
-                                    _vm.criterio
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("»")]
-                          )
-                        ])
-                      : _vm._e()
-                  ],
-                  2
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        class: { mostrar: _vm.modal },
-        staticStyle: { display: "none" },
-        attrs: {
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-primary modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header bg-info" }, [
-                _c("h4", {
-                  staticClass: "modal-title",
-                  domProps: { textContent: _vm._s(_vm.tituloModal) }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { type: "button", "aria-label": "Close" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    staticClass: "form-horizontal",
-                    attrs: {
-                      action: "",
-                      method: "post",
-                      enctype: "multipart/form-data"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre ")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Nombre de la Asignatura"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Temario ")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.temario,
-                              expression: "temario"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Temario de la Asignatura"
-                          },
-                          domProps: { value: _vm.temario },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.temario = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Maestro")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.maestro_id,
-                                expression: "maestro_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.maestro_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Selecciona el Maestro")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayMaestro, function(maestro) {
-                              return _c("option", {
-                                key: maestro.id,
-                                domProps: {
-                                  value: maestro.id,
-                                  textContent: _vm._s(
-                                    maestro.nombre + "  " + maestro.apellido
-                                  )
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Grado")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.grado_id,
-                                expression: "grado_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.grado_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "1", disabled: "" } },
-                              [_vm._v("Selecciona el Grado")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayGrado, function(grado) {
-                              return _c("option", {
-                                key: grado.id,
-                                domProps: {
-                                  value: grado.id,
-                                  textContent: _vm._s(
-                                    grado.grado + " - " + grado.seccion
-                                  )
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errorAsignatura,
-                            expression: "errorAsignatura"
-                          }
-                        ],
-                        staticClass: "form-group row div-error"
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "text-center text-error" },
-                          _vm._l(_vm.errorMostrarMsjAsignatura, function(
-                            error
-                          ) {
-                            return _c("div", {
-                              key: error,
-                              domProps: { textContent: _vm._s(error) }
-                            })
-                          }),
-                          0
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.cerrarModal()
-                      }
-                    }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _vm.tipoAccion == 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.registrarAsignatura()
-                          }
-                        }
-                      },
-                      [_vm._v("Guardar")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.tipoAccion == 2
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.actualizarAsignatura()
-                          }
-                        }
-                      },
-                      [_vm._v("Actualizar")]
-                    )
-                  : _vm._e()
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h1", [_vm._v("Asignatura")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-          _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Escritorio")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Asignatura")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", { staticClass: "bg-info text-center " }, [
-      _c("th", [_vm._v("Opciones")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Nombre")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Temario")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Maestro")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Grado")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Sección")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Estado")])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c& ***!
-  \***************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("main", { staticClass: "content-wrapper" }, [
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header " }, [
-                _c("i", { staticClass: "fa fa-align-justify" }),
-                _vm._v(" Grados\n                "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-secondary bg-secondary ml-2 border-transparent ",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.abrirModal("grado", "registrar")
+                        return _vm.abrirModal("aula", "registrar")
                       }
                     }
                   },
@@ -42801,12 +40525,8 @@ var render = function() {
                             _vm._v("Sección")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "grado" } }, [
-                            _vm._v("Grado")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "turno" } }, [
-                            _vm._v("Turno")
+                          _c("option", { attrs: { value: "aula" } }, [
+                            _vm._v("Aula")
                           ])
                         ]
                       ),
@@ -42837,7 +40557,7 @@ var render = function() {
                             ) {
                               return null
                             }
-                            return _vm.listarGrado(1, _vm.buscar, _vm.criterio)
+                            return _vm.listarAula(1, _vm.buscar, _vm.criterio)
                           },
                           input: function($event) {
                             if ($event.target.composing) {
@@ -42855,11 +40575,7 @@ var render = function() {
                           attrs: { type: "submit" },
                           on: {
                             click: function($event) {
-                              return _vm.listarGrado(
-                                1,
-                                _vm.buscar,
-                                _vm.criterio
-                              )
+                              return _vm.listarAula(1, _vm.buscar, _vm.criterio)
                             }
                           }
                         },
@@ -42874,12 +40590,12 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "table",
-                  { staticClass: "table table-bordered   " },
+                  { staticClass: "table table-bordered table-sm   " },
                   [
                     _vm._m(1),
                     _vm._v(" "),
-                    _vm._l(_vm.arrayGrado, function(grado) {
-                      return _c("tr", { key: grado.id }, [
+                    _vm._l(_vm.arrayAula, function(aula) {
+                      return _c("tr", { key: aula.id }, [
                         _c(
                           "td",
                           [
@@ -42891,9 +40607,9 @@ var render = function() {
                                 on: {
                                   click: function($event) {
                                     return _vm.abrirModal(
-                                      "grado",
+                                      "aula",
                                       "actualizar",
-                                      grado
+                                      aula
                                     )
                                   }
                                 }
@@ -42901,7 +40617,7 @@ var render = function() {
                               [_c("i", { staticClass: "fa fa-pen" })]
                             ),
                             _vm._v("  \n                      "),
-                            grado.condicion
+                            aula.condicion
                               ? [
                                   _c(
                                     "button",
@@ -42910,7 +40626,7 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.desactivarGrado(grado.id)
+                                          return _vm.desactivarAula(aula.id)
                                         }
                                       }
                                     },
@@ -42925,7 +40641,7 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.activarGrado(grado.id)
+                                          return _vm.activarAula(aula.id)
                                         }
                                       }
                                     },
@@ -42937,19 +40653,15 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(grado.grado) }
+                          domProps: { textContent: _vm._s(aula.grado) }
                         }),
                         _vm._v(" "),
                         _c("td", {
-                          domProps: { textContent: _vm._s(grado.seccion) }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(grado.turno) }
+                          domProps: { textContent: _vm._s(aula.seccion) }
                         }),
                         _vm._v(" "),
                         _c("td", [
-                          grado.condicion
+                          aula.condicion
                             ? _c("div", [
                                 _c(
                                   "span",
@@ -43257,64 +40969,6 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Turno")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.turno,
-                                expression: "turno"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.turno = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "turno", disabled: "" } },
-                              [_vm._v("Selecciona el turno")]
-                            ),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "Mañana" } }, [
-                              _vm._v("Mañana")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "Tarde" } }, [
-                              _vm._v("Tarde")
-                            ])
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c(
                       "div",
                       {
@@ -43322,8 +40976,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.errorGrado,
-                            expression: "errorGrado"
+                            value: _vm.errorAula,
+                            expression: "errorAula"
                           }
                         ],
                         staticClass: "form-group row div-error"
@@ -43332,7 +40986,7 @@ var render = function() {
                         _c(
                           "div",
                           { staticClass: "text-center text-error" },
-                          _vm._l(_vm.errorMostrarMsjGrado, function(error) {
+                          _vm._l(_vm.errorMostrarMsjAula, function(error) {
                             return _c("div", {
                               key: error,
                               domProps: { textContent: _vm._s(error) }
@@ -43369,7 +41023,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.registrarGrado()
+                            return _vm.registrarAula()
                           }
                         }
                       },
@@ -43385,7 +41039,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarGrado()
+                            return _vm.actualizarAularegistrarAula()
                           }
                         }
                       },
@@ -43408,7 +41062,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-2" }, [
-      _c("div", { staticClass: "col-sm-6" }, [_c("h1", [_vm._v("Grados")])]),
+      _c("div", { staticClass: "col-sm-6" }, [_c("h1", [_vm._v("Aulas")])]),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
         _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
@@ -43416,9 +41070,7 @@ var staticRenderFns = [
             _c("a", { attrs: { href: "#" } }, [_vm._v("Escritorio")])
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Grados")
-          ])
+          _c("li", { staticClass: "breadcrumb-item active" }, [_vm._v("Aulas")])
         ])
       ])
     ])
@@ -43433,8 +41085,6 @@ var staticRenderFns = [
       _c("th", [_vm._v("Grado")]),
       _vm._v(" "),
       _c("th", [_vm._v("Sección")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Turno")]),
       _vm._v(" "),
       _c("th", [_vm._v("Estado")])
     ])
@@ -43513,6 +41163,886 @@ var staticRenderFns = [
         )
       ]
     )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("main", { staticClass: "content-wrapper" }, [
+    _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header " }, [
+                _c("i", { staticClass: "fa fa-align-justify" }),
+                _vm._v(" Estudiante\n                "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-secondary bg-secondary ml-2 border-transparent ",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.abrirModal("estudiante", "registrar")
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-plus" }),
+                    _vm._v(" Nuevo\n                ")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.criterio,
+                              expression: "criterio"
+                            }
+                          ],
+                          staticClass: "form-control col-md-3",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.criterio = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "grado" } }, [
+                            _vm._v("Grado")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "nombre" } }, [
+                            _vm._v("Nombre")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.buscar,
+                            expression: "buscar"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "Texto a buscar" },
+                        domProps: { value: _vm.buscar },
+                        on: {
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.listarEstudiante(
+                              1,
+                              _vm.buscar,
+                              _vm.criterio
+                            )
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.buscar = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning text-white rounded-0",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.listarEstudiante(
+                                1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-search" }),
+                          _vm._v(" Buscar")
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered table-sm " },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._l(_vm.arrayEstudiante, function(estudiante) {
+                      return _c("tr", { key: estudiante.id }, [
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.abrirModal(
+                                      "estudiante",
+                                      "actualizar",
+                                      estudiante
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-pen" })]
+                            ),
+                            _vm._v("  \n                      "),
+                            estudiante.condicion
+                              ? [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.desactivarEstudiante(
+                                            estudiante.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  )
+                                ]
+                              : [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-success btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activarEstudiante(
+                                            estudiante.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                ]
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(
+                              estudiante.grado + " " + estudiante.seccion
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(estudiante.nombre) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(estudiante.apellido) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(estudiante.fech_nacimiento)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(estudiante.sexo) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(estudiante.dni) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            textContent: _vm._s(estudiante.direccion)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          estudiante.condicion
+                            ? _c("div", [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge bg-success" },
+                                  [_vm._v("Activo")]
+                                )
+                              ])
+                            : _c("div", [
+                                _c("span", { staticClass: "badge bg-danger" }, [
+                                  _vm._v("Inactivo")
+                                ])
+                              ])
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer clearfix" }, [
+                _c(
+                  "ul",
+                  { staticClass: "pagination pagination-sm m-0 float-right" },
+                  [
+                    _vm.pagination.current_page > 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarpagina(
+                                    _vm.pagination.current_page - 1,
+                                    _vm.buscar,
+                                    _vm.criterio
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("«")]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesNumber, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          key: page,
+                          staticClass: "page-item ",
+                          class: [page == _vm.isActived ? "active" : ""]
+                        },
+                        [
+                          _c("a", {
+                            staticClass: "page-link",
+                            attrs: { href: "#" },
+                            domProps: { textContent: _vm._s(page) },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cambiarpagina(
+                                  page,
+                                  _vm.buscar,
+                                  _vm.criterio
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.pagination.current_page < _vm.pagination.last_page
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.cambiarpagina(
+                                    _vm.pagination.current_page + 1,
+                                    _vm.buscar,
+                                    _vm.criterio
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("»")]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none" },
+        attrs: {
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "myModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-primary modal-lg",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header bg-info" }, [
+                _c("h4", {
+                  staticClass: "modal-title",
+                  domProps: { textContent: _vm._s(_vm.tituloModal) }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "form-horizontal",
+                    attrs: {
+                      action: "",
+                      method: "post",
+                      enctype: "multipart/form-data"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Aula")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.aula_id,
+                                expression: "aula_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.aula_id = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "0", disabled: "" } },
+                              [_vm._v("Selecciona el aula")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.arrayAula, function(aula) {
+                              return _c("option", {
+                                key: aula.id,
+                                domProps: {
+                                  value: aula.id,
+                                  textContent: _vm._s(
+                                    aula.grado + " - " + aula.seccion
+                                  )
+                                }
+                              })
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("Nombre del Estudiante")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nombre,
+                              expression: "nombre"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ingrese el Nombre del Estudiante"
+                          },
+                          domProps: { value: _vm.nombre },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.nombre = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("Apellido del Estudiante")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.apellido,
+                              expression: "apellido"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ingrese los Apellidos del Estudiante"
+                          },
+                          domProps: { value: _vm.apellido },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.apellido = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("Fecha de Nacimiento")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fech_nacimiento,
+                              expression: "fech_nacimiento"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            placeholder:
+                              "Ingrese la fecha de nacimiento del Estudiante"
+                          },
+                          domProps: { value: _vm.fech_nacimiento },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fech_nacimiento = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Sexo")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sexo,
+                                expression: "sexo"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.sexo = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "sexo", disabled: "" } },
+                              [_vm._v("Selecciona tu sexo")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "masculino" } }, [
+                              _vm._v("Masculino")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "femenino" } }, [
+                              _vm._v("Femenino")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("Fecha de Nacimiento")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.dni,
+                              expression: "dni"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            placeholder:
+                              "Ingrese el Documento de Identidad del Estudiante"
+                          },
+                          domProps: { value: _vm.dni },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.dni = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("Dirección")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.direccion,
+                              expression: "direccion"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Ingrese la Dirección del Estudiante"
+                          },
+                          domProps: { value: _vm.direccion },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.direccion = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorEstudiante,
+                            expression: "errorEstudiante"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsjEstudiante, function(
+                            error
+                          ) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _vm.tipoAccion == 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.registrarEstudiante()
+                          }
+                        }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 2
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.actualizarEstudiante()
+                          }
+                        }
+                      },
+                      [_vm._v("Actualizar")]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("h1", [_vm._v("Estudiante")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+          _c("li", { staticClass: "breadcrumb-item" }, [
+            _c("a", { attrs: { href: "#" } }, [_vm._v("Escritorio")])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item active" }, [
+            _vm._v("Estudiante")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", { staticClass: "bg-info  " }, [
+      _c("th", [_vm._v("Opciones")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Aula")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Apellido")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Fecha de Nacimiento")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sexo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("DNI")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Dirección")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Estado")])
+    ])
   }
 ]
 render._withStripped = true
@@ -43680,7 +42210,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "table",
-                  { staticClass: "table table-bordered   " },
+                  { staticClass: "table table-bordered  table-sm  " },
                   [
                     _vm._m(1),
                     _vm._v(" "),
@@ -43766,6 +42296,10 @@ var render = function() {
                           domProps: {
                             textContent: _vm._s(maestro.grado_instruccion)
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(maestro.dni) }
                         }),
                         _vm._v(" "),
                         _c("td", {
@@ -44190,6 +42724,44 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
+                        [_vm._v("Dni")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.dni,
+                              expression: "dni"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            placeholder: "Ingrese el documento de Identidad"
+                          },
+                          domProps: { value: _vm.dni },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.dni = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
                         [_vm._v("Dirección de Domicilio")]
                       ),
                       _vm._v(" "),
@@ -44384,6 +42956,8 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Grado de Instruccion")]),
       _vm._v(" "),
+      _c("th", [_vm._v("Dni")]),
+      _vm._v(" "),
       _c("th", [_vm._v("Dirección")]),
       _vm._v(" "),
       _c("th", [_vm._v("Celular")]),
@@ -44441,7 +43015,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Estas seguro de eliminar la categoría?")])
+                _c("p", [_vm._v("Estas seguro de eliminar el Maestro?")])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -44473,10 +43047,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -44498,7 +43072,7 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header " }, [
                 _c("i", { staticClass: "fa fa-align-justify" }),
-                _vm._v(" Asignaturas de Maestros\n                "),
+                _vm._v(" Grados de Maestros\n                "),
                 _c(
                   "button",
                   {
@@ -44507,7 +43081,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        return _vm.abrirModal("maestroasignatura", "registrar")
+                        return _vm.abrirModal("maestroaula", "registrar")
                       }
                     }
                   },
@@ -44551,20 +43125,12 @@ var render = function() {
                           }
                         },
                         [
+                          _c("option", { attrs: { value: "grado" } }, [
+                            _vm._v("Grado")
+                          ]),
+                          _vm._v(" "),
                           _c("option", { attrs: { value: "nombre" } }, [
                             _vm._v("Nombre")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "apellido" } }, [
-                            _vm._v("Apellidos")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "sexo" } }, [
-                            _vm._v("Sexo")
                           ])
                         ]
                       ),
@@ -44595,7 +43161,7 @@ var render = function() {
                             ) {
                               return null
                             }
-                            return _vm.listarMaestroAsignatura(
+                            return _vm.listarMaestroAula(
                               1,
                               _vm.buscar,
                               _vm.criterio
@@ -44617,7 +43183,7 @@ var render = function() {
                           attrs: { type: "submit" },
                           on: {
                             click: function($event) {
-                              return _vm.listarMaestroAsignatura(
+                              return _vm.listarMaestroAula(
                                 1,
                                 _vm.buscar,
                                 _vm.criterio
@@ -44636,14 +43202,12 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "table",
-                  { staticClass: "table table-bordered   " },
+                  { staticClass: "table table-bordered table-sm " },
                   [
                     _vm._m(1),
                     _vm._v(" "),
-                    _vm._l(_vm.arrayMaestroAsignatura, function(
-                      maestroasignatura
-                    ) {
-                      return _c("tr", { key: maestroasignatura.id }, [
+                    _vm._l(_vm.arrayMaestroAula, function(maestroaula) {
+                      return _c("tr", { key: maestroaula.id }, [
                         _c(
                           "td",
                           [
@@ -44655,9 +43219,9 @@ var render = function() {
                                 on: {
                                   click: function($event) {
                                     return _vm.abrirModal(
-                                      "maestroasignatura",
+                                      "maestroaula",
                                       "actualizar",
-                                      maestroasignatura
+                                      maestroaula
                                     )
                                   }
                                 }
@@ -44665,7 +43229,7 @@ var render = function() {
                               [_c("i", { staticClass: "fa fa-pen" })]
                             ),
                             _vm._v("  \n                      "),
-                            maestroasignatura.condicion
+                            maestroaula.condicion
                               ? [
                                   _c(
                                     "button",
@@ -44674,8 +43238,8 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.desactivarMaestroAsignatura(
-                                            maestroasignatura.id
+                                          return _vm.desactivarMaestroAula(
+                                            maestroaula.id
                                           )
                                         }
                                       }
@@ -44691,8 +43255,8 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.activarMaestroAsignatura(
-                                            maestroasignatura.id
+                                          return _vm.activarMaestroaAula(
+                                            maestroaula.id
                                           )
                                         }
                                       }
@@ -44707,22 +43271,29 @@ var render = function() {
                         _c("td", {
                           domProps: {
                             textContent: _vm._s(
-                              maestroasignatura.nombre +
-                                maestroasignatura.apellido
+                              maestroaula.nombre_maestro +
+                                " " +
+                                maestroaula.apellido_maestro
                             )
                           }
                         }),
                         _vm._v(" "),
                         _c("td", {
+                          domProps: { textContent: _vm._s(maestroaula.grado) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { textContent: _vm._s(maestroaula.seccion) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
                           domProps: {
-                            textContent: _vm._s(
-                              maestroasignatura.nombre_asignatura
-                            )
+                            textContent: _vm._s(maestroaula.nombre_curso)
                           }
                         }),
                         _vm._v(" "),
                         _c("td", [
-                          maestroasignatura.condicion
+                          maestroaula.condicion
                             ? _c("div", [
                                 _c(
                                   "span",
@@ -44932,7 +43503,7 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { value: "0", disabled: "" } },
+                              { attrs: { value: "1", disabled: "" } },
                               [_vm._v("Selecciona el Maestro")]
                             ),
                             _vm._v(" "),
@@ -44942,7 +43513,7 @@ var render = function() {
                                 domProps: {
                                   value: maestro.id,
                                   textContent: _vm._s(
-                                    maestro.nombre + " - " + maestro.apellido
+                                    maestro.nombre + " " + maestro.apellido
                                   )
                                 }
                               })
@@ -44960,7 +43531,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Asignatura")]
+                        [_vm._v("Aula")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -44971,8 +43542,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.asignatura_id,
-                                expression: "asignatura_id"
+                                value: _vm.aula_id,
+                                expression: "aula_id"
                               }
                             ],
                             staticClass: "form-control",
@@ -44986,7 +43557,7 @@ var render = function() {
                                     var val = "_value" in o ? o._value : o.value
                                     return val
                                   })
-                                _vm.asignatura_id = $event.target.multiple
+                                _vm.aula_id = $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
                               }
@@ -44995,16 +43566,79 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { value: "1", disabled: "" } },
-                              [_vm._v("Selecciona la Asignatura")]
+                              { attrs: { value: "0", disabled: "" } },
+                              [_vm._v("Selecciona el aula")]
                             ),
                             _vm._v(" "),
-                            _vm._l(_vm.arrayAsignatura, function(asignatura) {
+                            _vm._l(_vm.arrayAula, function(aula) {
                               return _c("option", {
-                                key: asignatura.id,
+                                key: aula.id,
                                 domProps: {
-                                  value: asignatura.id,
-                                  textContent: _vm._s(asignatura.nombre)
+                                  value: aula.id,
+                                  textContent: _vm._s(
+                                    aula.grado + " - " + aula.seccion
+                                  )
+                                }
+                              })
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Curso")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.curso_id,
+                                expression: "curso_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.curso_id = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "2", disabled: "" } },
+                              [_vm._v("Selecciona el curso")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.arrayCurso, function(curso) {
+                              return _c("option", {
+                                key: curso.id,
+                                domProps: {
+                                  value: curso.id,
+                                  textContent: _vm._s(curso.nombre)
                                 }
                               })
                             })
@@ -45021,8 +43655,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.errorMaestroAsignatura,
-                            expression: "errorMaestroAsignatura"
+                            value: _vm.errorMaestroAula,
+                            expression: "errorMaestroAula"
                           }
                         ],
                         staticClass: "form-group row div-error"
@@ -45031,7 +43665,7 @@ var render = function() {
                         _c(
                           "div",
                           { staticClass: "text-center text-error" },
-                          _vm._l(_vm.errorMostrarMsjMaestroAsignatura, function(
+                          _vm._l(_vm.errorMostrarMsjMaestroAula, function(
                             error
                           ) {
                             return _c("div", {
@@ -45070,7 +43704,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.registrarMaestroAsignatura()
+                            return _vm.registrarMaestroAula()
                           }
                         }
                       },
@@ -45086,7 +43720,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarMaestroAsignatura()
+                            return _vm.actualizarMaestroAula()
                           }
                         }
                       },
@@ -45098,9 +43732,7 @@ var render = function() {
           ]
         )
       ]
-    ),
-    _vm._v(" "),
-    _vm._m(2)
+    )
   ])
 }
 var staticRenderFns = [
@@ -45110,7 +43742,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-2" }, [
       _c("div", { staticClass: "col-sm-6" }, [
-        _c("h1", [_vm._v("Asignaturas de Maestros")])
+        _c("h1", [_vm._v("Aula de los Maestros")])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
@@ -45120,7 +43752,7 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Asignaturas de Maestros")
+            _vm._v("Aula de los Maestros")
           ])
         ])
       ])
@@ -45133,87 +43765,16 @@ var staticRenderFns = [
     return _c("tr", { staticClass: "bg-info text-center " }, [
       _c("th", [_vm._v("Opciones")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Nombre de Maestro")]),
+      _c("th", [_vm._v("Maestro")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Asignatura")]),
+      _c("th", [_vm._v("Grado")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sección")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Curso")]),
       _vm._v(" "),
       _c("th", [_vm._v("Estado")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { display: "none" },
-        attrs: {
-          id: "modalEliminar",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "myModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-danger",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _vm._v("Eliminar Categoría")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Estas seguro de eliminar la categoría?")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "button" } },
-                  [_vm._v("Eliminar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -45373,7 +43934,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "table",
-                  { staticClass: "table table-bordered   " },
+                  { staticClass: "table table-bordered table-sm   " },
                   [
                     _vm._m(1),
                     _vm._v(" "),
@@ -58108,11 +56669,14 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('portada', __webpack_require__(/*! ./components/Portada.vue */ "./resources/assets/js/components/Portada.vue")["default"]);
 Vue.component('maestro', __webpack_require__(/*! ./components/Maestro.vue */ "./resources/assets/js/components/Maestro.vue")["default"]);
-Vue.component('grado', __webpack_require__(/*! ./components/Grado.vue */ "./resources/assets/js/components/Grado.vue")["default"]);
-Vue.component('periodo', __webpack_require__(/*! ./components/Periodo.vue */ "./resources/assets/js/components/Periodo.vue")["default"]);
-Vue.component('alumno', __webpack_require__(/*! ./components/Alumno.vue */ "./resources/assets/js/components/Alumno.vue")["default"]);
-Vue.component('asignatura', __webpack_require__(/*! ./components/Asignatura.vue */ "./resources/assets/js/components/Asignatura.vue")["default"]);
-Vue.component('maestroasignatura', __webpack_require__(/*! ./components/MaestroAsignatura.vue */ "./resources/assets/js/components/MaestroAsignatura.vue")["default"]); // Vue.component('grado', require('./components/Grado.vue'));
+Vue.component('aula', __webpack_require__(/*! ./components/Aula.vue */ "./resources/assets/js/components/Aula.vue")["default"]);
+Vue.component('periodo', __webpack_require__(/*! ./components/Periodo.vue */ "./resources/assets/js/components/Periodo.vue")["default"]); // Vue.component('alumno', require('./components/Alumno.vue').default);
+
+Vue.component('maestroaula', __webpack_require__(/*! ./components/MaestroAula.vue */ "./resources/assets/js/components/MaestroAula.vue")["default"]);
+Vue.component('estudiante', __webpack_require__(/*! ./components/Estudiante.vue */ "./resources/assets/js/components/Estudiante.vue")["default"]); // Vue.component('curso', require('./components/Curso.vue').default);
+// Vue.component('alumnoasignatura', require('./components/AlumnoAsignatura.vue').default);
+// Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
+// Vue.component('grado', require('./components/Grado.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -58187,18 +56751,18 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Alumno.vue":
-/*!***************************************************!*\
-  !*** ./resources/assets/js/components/Alumno.vue ***!
-  \***************************************************/
+/***/ "./resources/assets/js/components/Aula.vue":
+/*!*************************************************!*\
+  !*** ./resources/assets/js/components/Aula.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alumno.vue?vue&type=template&id=f45f700a& */ "./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a&");
-/* harmony import */ var _Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alumno.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alumno.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Aula.vue?vue&type=template&id=30cc00e0& */ "./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0&");
+/* harmony import */ var _Aula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Aula.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Aula.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Aula.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -58209,9 +56773,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Aula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -58221,71 +56785,71 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/components/Alumno.vue"
+component.options.__file = "resources/assets/js/components/Aula.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/assets/js/components/Aula.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/assets/js/components/Aula.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alumno.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Aula.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&":
-/*!************************************************************************************!*\
-  !*** ./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css& ***!
-  \************************************************************************************/
+/***/ "./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************!*\
+  !*** ./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alumno.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Aula.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a&":
-/*!**********************************************************************************!*\
-  !*** ./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a& ***!
-  \**********************************************************************************/
+/***/ "./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0&":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0& ***!
+  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alumno.vue?vue&type=template&id=f45f700a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Alumno.vue?vue&type=template&id=f45f700a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Aula.vue?vue&type=template&id=30cc00e0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Aula.vue?vue&type=template&id=30cc00e0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alumno_vue_vue_type_template_id_f45f700a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Aula_vue_vue_type_template_id_30cc00e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Asignatura.vue":
+/***/ "./resources/assets/js/components/Estudiante.vue":
 /*!*******************************************************!*\
-  !*** ./resources/assets/js/components/Asignatura.vue ***!
+  !*** ./resources/assets/js/components/Estudiante.vue ***!
   \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Asignatura.vue?vue&type=template&id=5c8e5d2c& */ "./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c&");
-/* harmony import */ var _Asignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Asignatura.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Asignatura.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Estudiante.vue?vue&type=template&id=758dfb6e& */ "./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e&");
+/* harmony import */ var _Estudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Estudiante.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Estudiante.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -58296,9 +56860,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Asignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Estudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -58308,141 +56872,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/components/Asignatura.vue"
+component.options.__file = "resources/assets/js/components/Estudiante.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js&":
 /*!********************************************************************************!*\
-  !*** ./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asignatura.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Estudiante.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&":
+/***/ "./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&":
 /*!****************************************************************************************!*\
-  !*** ./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css& ***!
   \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asignatura.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Estudiante.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c&":
+/***/ "./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e&":
 /*!**************************************************************************************!*\
-  !*** ./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c& ***!
+  !*** ./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e& ***!
   \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Asignatura.vue?vue&type=template&id=5c8e5d2c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Asignatura.vue?vue&type=template&id=5c8e5d2c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Estudiante.vue?vue&type=template&id=758dfb6e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Estudiante.vue?vue&type=template&id=758dfb6e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Asignatura_vue_vue_type_template_id_5c8e5d2c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Grado.vue":
-/*!**************************************************!*\
-  !*** ./resources/assets/js/components/Grado.vue ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Grado.vue?vue&type=template&id=254f208c& */ "./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c&");
-/* harmony import */ var _Grado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Grado.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/Grado.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Grado.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Grado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/assets/js/components/Grado.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Grado.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ./resources/assets/js/components/Grado.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Grado.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************!*\
-  !*** ./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Grado.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c&":
-/*!*********************************************************************************!*\
-  !*** ./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c& ***!
-  \*********************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Grado.vue?vue&type=template&id=254f208c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/Grado.vue?vue&type=template&id=254f208c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Grado_vue_vue_type_template_id_254f208c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Estudiante_vue_vue_type_template_id_758dfb6e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -58535,18 +57012,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/MaestroAsignatura.vue":
-/*!**************************************************************!*\
-  !*** ./resources/assets/js/components/MaestroAsignatura.vue ***!
-  \**************************************************************/
+/***/ "./resources/assets/js/components/MaestroAula.vue":
+/*!********************************************************!*\
+  !*** ./resources/assets/js/components/MaestroAula.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaestroAsignatura.vue?vue&type=template&id=4da8c44a& */ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a&");
-/* harmony import */ var _MaestroAsignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaestroAsignatura.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MaestroAsignatura.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaestroAula.vue?vue&type=template&id=70ad93de& */ "./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de&");
+/* harmony import */ var _MaestroAula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaestroAula.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MaestroAula.vue?vue&type=style&index=0&lang=css& */ "./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -58557,9 +57034,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _MaestroAsignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _MaestroAula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -58569,54 +57046,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/components/MaestroAsignatura.vue"
+component.options.__file = "resources/assets/js/components/MaestroAula.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************!*\
-  !*** ./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************/
+/***/ "./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAsignatura.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAula.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************/
+/***/ "./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAsignatura.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAula.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a& ***!
-  \*********************************************************************************************/
+/***/ "./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de&":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAsignatura.vue?vue&type=template&id=4da8c44a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAsignatura.vue?vue&type=template&id=4da8c44a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MaestroAula.vue?vue&type=template&id=70ad93de& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/MaestroAula.vue?vue&type=template&id=70ad93de&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAsignatura_vue_vue_type_template_id_4da8c44a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaestroAula_vue_vue_type_template_id_70ad93de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

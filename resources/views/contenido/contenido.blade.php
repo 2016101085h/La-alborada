@@ -11,13 +11,13 @@
    <h1 class="content-wrapper">Contenido del menu 2</h1>
 </template>
 <template v-if="menu==3">
-   <grado></grado>
+   <aula></aula>
 </template>
 <template v-if="menu==4">
-   <h1 class="content-wrapper">Contenido del menu 4</h1>
+<maestroaula></maestroaula>
 </template>
 <template v-if="menu==5">
-   <h1 class="content-wrapper">Contenido del menu 5</h1>
+   <estudiante></estudiante>
 </template>
 <template v-if="menu==6">
    <periodo></periodo>
@@ -38,13 +38,13 @@
    <h1 class="content-wrapper">Contenido del menu 11</h1>
 </template>
 <template v-if="menu==12">
-   <asignatura></asignatura>
+   <curso></curso>
 </template>
 <template v-if="menu==13">
    <maestroasignatura></maestroasignatura>
 </template>
 <template v-if="menu==14">
-   <h1 class="content-wrapper">Contenido del menu 44</h1>
+  
 </template>
 <template v-if="menu==15">
    <h1 class="content-wrapper">Contenido del menu 15</h1>

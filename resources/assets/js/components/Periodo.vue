@@ -40,9 +40,9 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered table-sm   ">
                   <tr class="bg-info text-center ">
-                    <th>Opciones</th>
+                    <th >Opciones</th>
                     <th>Nombre</th>
                     
                     <th >Estado</th>
@@ -448,7 +448,7 @@
                                 this.modal=1;
                                 this.tipoAccion=1;
                                 this.tituloModal='Registrar Periodo';
-                                this.nombre='nombre';
+                                this.nombre='periodo';
                              
                                 
                                 break;

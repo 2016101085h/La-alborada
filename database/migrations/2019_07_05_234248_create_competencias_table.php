@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCalificacionesTable extends Migration
+class CreateCompetenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCalificacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('calificaciones', function (Blueprint $table) {
+        Schema::create('competencias', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cal_periodo', 20);
-            $table->string('calificacion_tipo', 50);
-            $table->string('cal_periodofinal', 20);
+            $table->integer('curso_id')->unsigned();
+            $table->string('nombre',50);
             $table->boolean('condicion')->default(1);
             $table->timestamps();
+            $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateCalificacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calificaciones');
+        Schema::dropIfExists('competencias');
     }
 }

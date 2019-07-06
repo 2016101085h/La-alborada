@@ -20,12 +20,18 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('portada', require('./components/Portada.vue').default);
+
 Vue.component('maestro', require('./components/Maestro.vue').default);
-Vue.component('grado', require('./components/Grado.vue').default);
+Vue.component('aula', require('./components/Aula.vue').default);
+
 Vue.component('periodo', require('./components/Periodo.vue').default);
-Vue.component('alumno', require('./components/Alumno.vue').default);
-Vue.component('asignatura', require('./components/Asignatura.vue').default);
-Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
+// Vue.component('alumno', require('./components/Alumno.vue').default);
+Vue.component('maestroaula', require('./components/MaestroAula.vue').default);
+Vue.component('estudiante', require('./components/Estudiante.vue').default);
+// Vue.component('curso', require('./components/Curso.vue').default);
+// Vue.component('alumnoasignatura', require('./components/AlumnoAsignatura.vue').default);
+// Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
+
 // Vue.component('grado', require('./components/Grado.vue'));
 
 /**

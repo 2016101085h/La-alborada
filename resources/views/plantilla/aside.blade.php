@@ -53,9 +53,34 @@
            </li>
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Cursos
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li @click="menu=12" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>General </p>
+                </a>
+              </li>
+              <li @click="menu=13" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Maestros</p>
+                </a>
+              </li>
+             
+              
+            </ul>
+          </li>
+           <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Grado
+                Aulas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -63,7 +88,19 @@
               <li @click="menu=3" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grado</p>
+                  <p>Aula</p>
+                </a>
+              </li>
+              <li @click="menu=4" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Maestro</p>
+                </a>
+              </li>
+               <li @click="menu=5" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Alumnos</p>
                 </a>
               </li>
             
@@ -123,30 +160,7 @@
              
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Asignaturas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li @click="menu=12" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General </p>
-                </a>
-              </li>
-              <li @click="menu=13" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Maestros</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
+          
         
           <li class="nav-header">EXAMPLES</li>
           <li @click="menu=14" class="nav-item">

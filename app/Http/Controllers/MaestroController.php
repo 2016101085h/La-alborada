@@ -63,6 +63,7 @@ class MaestroController extends Controller
         $maestro->fech_nacimiento        = $request->fech_nacimiento;
         $maestro->sexo              = $request->sexo;
         $maestro->grado_instruccion  = $request->grado_instruccion;
+        $maestro->dni  = $request->dni;
         $maestro->direccion       = $request->direccion;
         $maestro->num_celular       = $request->num_celular;
         $maestro->condicion         = '1';
@@ -88,9 +89,10 @@ class MaestroController extends Controller
         $maestro = Maestro::findOrFail($request->id);
         $maestro->nombre          = $request->nombre;
         $maestro->apellido        = $request->apellido;
-        $maestro->fech_nacimiento    = $request->fech_nacimiento;
+        $maestro->fech_nacimiento        = $request->fech_nacimiento;
         $maestro->sexo              = $request->sexo;
         $maestro->grado_instruccion  = $request->grado_instruccion;
+        $maestro->dni  = $request->dni;
         $maestro->direccion       = $request->direccion;
         $maestro->num_celular       = $request->num_celular;
         $maestro->condicion         = '1';
@@ -116,5 +118,4 @@ class MaestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
 }

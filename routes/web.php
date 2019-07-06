@@ -20,14 +20,21 @@ Route::post('/maestro/registrar', 'MaestroController@store');
 Route::put('/maestro/actualizar', 'MaestroController@update');
 Route::put('/maestro/desactivar', 'MaestroController@desactivar');
 Route::put('/maestro/activar', 'MaestroController@activar');
-Route::get('/maestro/selectMaestro', 'MaestroController@selectMaestro');
+Route::get('/maestro/selectmaestro', 'MaestroController@selectMaestro');
 
-Route::get('/grado', 'GradoController@index');
-Route::post('/grado/registrar', 'GradoController@store');
-Route::put('/grado/actualizar', 'GradoController@update');
-Route::put('/grado/desactivar', 'GradoController@desactivar');
-Route::put('/grado/activar', 'GradoController@activar');
-Route::get('/grado/selectGrado', 'GradoController@selectGrado');
+Route::get('/aula', 'AulaController@index');
+Route::post('/aula/registrar', 'AulaController@store');
+Route::put('/aula/actualizar', 'AulaController@update');
+Route::put('/aula/desactivar', 'AulaController@desactivar');
+Route::put('/aula/activar', 'AulaController@activar');
+Route::get('/aula/selectaula', 'AulaController@selectAula');
+
+Route::get('/maestroaula', 'MaestroAulaController@index');
+Route::post('/maestroaula/registrar', 'MaestroAulaController@store');
+Route::put('/maestroaula/actualizar', 'MaestroAulaController@update');
+Route::put('/maestroaula/desactivar', 'MaestroAulaController@desactivar');
+Route::put('/maestroaula/activar', 'MaestroAulaController@activar');
+
 
 Route::get('/periodo', 'PeriodoController@index');
 Route::post('/periodo/registrar', 'PeriodoController@store');
@@ -36,20 +43,20 @@ Route::put('/periodo/desactivar', 'PeriodoController@desactivar');
 Route::put('/periodo/activar', 'PeriodoController@activar');
 
 
-Route::get('/alumno', 'AlumnoController@index');
-Route::post('/alumno/registrar', 'AlumnoController@store');
-Route::put('/alumno/actualizar', 'AlumnoController@update');
-Route::put('/alumno/desactivar', 'AlumnoController@desactivar');
-Route::put('/alumno/activar', 'AlumnoController@activar');
-Route::get('/alumno/selectAlumno', 'AlumnoController@selectAlumno');
+Route::get('/estudiante', 'EstudianteController@index');
+Route::post('/estudiante/registrar', 'EstudianteController@store');
+Route::put('/estudiante/actualizar', 'EstudianteController@update');
+Route::put('/estudiante/desactivar', 'EstudianteController@desactivar');
+Route::put('/estudiante/activar', 'EstudianteController@activar');
+Route::get('/estudiante/selectestudiante', 'EstudianteController@selectEstudiante');
 
 
-Route::get('/asignatura', 'AsignaturaController@index');
-Route::post('/asignatura/registrar', 'AsignaturaController@store');
-Route::put('/asignatura/actualizar', 'AsignaturaController@update');
-Route::put('/asignatura/desactivar', 'AsignaturaController@desactivar');
-Route::put('/asignatura/activar', 'AsignaturaController@activar');
-Route::get('/asignatura/selectAsignatura', 'AsignaturaController@selectAsignatura');
+Route::get('/curso', 'CursoController@index');
+Route::post('/curso/registrar', 'CursoController@store');
+Route::put('/curso/actualizar', 'CursoController@update');
+Route::put('/curso/desactivar', 'CursoController@desactivar');
+Route::put('/curso/activar', 'CursoController@activar');
+Route::get('/curso/selectcurso', 'CursoController@selectCurso');
 
 Route::get('/alumnoasignatura', 'AlumnoAsignaturaController@index');
 Route::post('/alumnoasignatura/registrar', 'AlumnoAsignaturaController@store');
@@ -59,7 +66,13 @@ Route::put('/alumnoasignatura/activar', 'AlumnoAsignaturaController@activar');
 
 Route::get('/maestroasignatura', 'MaestroAsignaturaController@index');
 Route::post('/maestroasignatura/registrar', 'MaestroAsignaturaController@store');
-Route::put('/maestrosignatura/actualizar', 'MaestroAsignaturaController@update');
-Route::put('/maestrosignatura/desactivar', 'MaestroAsignaturaController@desactivar');
-Route::put('/maestrosignatura/activar', 'MaestroAsignaturaController@activar');
+Route::put('/maestroasignatura/actualizar', 'MaestroAsignaturaController@update');
+Route::put('/maestroasignatura/desactivar', 'MaestroAsignaturaController@desactivar');
+Route::put('/maestroasignatura/activar', 'MaestroAsignaturaController@activar');
+
+Route::get('/gradomaestro', 'GradoMaestroController@index');
+Route::post('/gradomaestro/registrar', 'GradoMaestroController@store');
+Route::put('/gradomaestro/actualizar', 'GradoMaestroController@update');
+Route::put('/gradomaestro/desactivar', 'GradoMaestroController@desactivar');
+Route::put('/gradomaestro/activar', 'GradoMaestroController@activar');
 

@@ -41,7 +41,7 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered   ">
+                <table class="table table-bordered  table-sm  ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Nombre</th>
@@ -49,6 +49,7 @@
                     <th>Fecha de Nacimiento</th>
                     <th>Sexo</th>
                     <th>Grado de Instruccion</th>
+                    <th>Dni</th>
                     <th>Dirección</th>
                     <th >Celular</th>
                     <th >Estado</th>
@@ -76,6 +77,7 @@
                     <td v-text="maestro.fech_nacimiento"></td>
                     <td v-text="maestro.sexo"></td>
                     <td v-text="maestro.grado_instruccion"></td>
+                    <td v-text="maestro.dni"></td>
                     <td v-text="maestro.direccion"></td>
                     <td v-text="maestro.num_celular"></td>
                     <td>
@@ -183,12 +185,18 @@
                         <option value="grado" disabled>Selecciona su Grado Académico</option>
                         <option value="Docente">Docente</option>
                         <option value="Auxiliar">Auxiliar</option>
-                        <option value="Licenciado">Licenciado</option>
+                        <option value="Licenciado">Licenciado</option>  
                         <option value="Magister">Magister</option>
                         
                     </select>                                    
                 </div>
             </div> 
+             <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Dni</label>
+               <div class="col-md-9">
+                 <input type="number" v-model="dni" class="form-control" placeholder="Ingrese el documento de Identidad">
+               </div>
+             </div>
              <div class="form-group row">
                <label class="col-md-3 form-control-label" for="email-input">Dirección de Domicilio</label>
                <div class="col-md-9">
@@ -234,7 +242,7 @@
            </button>
          </div>
          <div class="modal-body">
-           <p>Estas seguro de eliminar la categoría?</p>
+           <p>Estas seguro de eliminar el Maestro?</p>
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -262,6 +270,7 @@
                 fech_nacimiento:'',
                 sexo:'',
                 grado_instruccion:'',
+                dni:0,
                 direccion:'',
                 num_celular:0,
                 arrayMaestro:[],
@@ -348,6 +357,7 @@
                     'fech_nacimiento':this.fech_nacimiento,
                     'sexo':this.sexo,
                     'grado_instruccion':this.grado_instruccion,
+                    'dni':this.dni,
                     'direccion':this.direccion,
                     'num_celular': this.num_celular
 
@@ -373,6 +383,7 @@
                     'fech_nacimiento':this.fech_nacimiento,
                     'sexo':this.sexo,
                     'grado_instruccion':this.grado_instruccion,
+                    'dni':this.dni,
                     'direccion':this.direccion,
                     'num_celular': this.num_celular
                 }).then(function (response) {
@@ -496,6 +507,7 @@
                                 this.fech_nacimiento='';
                                 this.sexo='sexo',
                                 this.grado_instruccion='grado',
+                                this.dni=0,
                                 this.direccion='',
                                 this.num_celular=0;
                                 break;
@@ -511,6 +523,7 @@
                                 this.fech_nacimiento=data['fech_nacimiento'];
                                 this.sexo=data['sexo'],
                                 this.grado_instruccion=data['grado_instruccion'],
+                                this.dni=data['dni'],
                                 this.direccion=data['direccion'],
                                 this.num_celular=data['num_celular'];
                                 break;
@@ -541,6 +554,7 @@
                 this.fech_nacimiento='';
                 this.sexo='',
                 this.grado_instruccion='',
+                this.dni='',
                 this.direccion='',
                 this.num_celular=0;
                 this.errorMaestro=0;
