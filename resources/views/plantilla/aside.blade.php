@@ -103,12 +103,7 @@
                   <p>Alumnos</p>
                 </a>
               </li>
-              <li @click="menu=4" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Maestro</p>
-                </a>
-              </li>
+              
             
             </ul>
           </li>
@@ -143,7 +138,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Alumnos
+                Estudiantes
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -166,40 +161,6 @@
             </ul>
           </li>
           
-<<<<<<< HEAD
-=======
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Asignaturas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li @click="menu=12" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General </p>
-                </a>
-              </li>
-              <li @click="menu=13" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Maestros</p>
-                </a>
-              </li>
-              <li @click="menu=14" class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Alumnos</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
-         
->>>>>>> 43f52c6eea3ac5b91a58a05abb2ec1ab067b15e1
         
           <li class="nav-header">EXAMPLES</li>
           <li @click="menu=14" class="nav-item">

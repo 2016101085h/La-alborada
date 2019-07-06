@@ -32,16 +32,16 @@
    <h1 class="content-wrapper">Contenido del menu 9</h1>
 </template>
 <template v-if="menu==10">
-   <alumno></alumno>
+  <estudiante></estudiante>
 </template>
 <template v-if="menu==11">
    <h1 class="content-wrapper">Contenido del menu 11</h1>
 </template>
 <template v-if="menu==12">
-   <curso></curso>
+      <curso></curso>
 </template>
 <template v-if="menu==13">
-   <maestroasignatura></maestroasignatura>
+   <h1 class="content-wrapper">Contenido del menu 13</h1>
 </template>
 <template v-if="menu==14">
   
