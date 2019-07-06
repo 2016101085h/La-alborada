@@ -42,8 +42,8 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered table-sm ">
-                  <tr class="bg-info  ">
+                <table class="table table-bordered  table-sm  ">
+                  <tr class="bg-info text-center ">
                     <th>Opciones</th>
                     <th>Aula</th>
 

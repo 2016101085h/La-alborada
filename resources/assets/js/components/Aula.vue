@@ -496,9 +496,15 @@
 
                 
                 // if (this.turno=='turno') this.errorMostrarMsjGrado.push("El turno no puede estar vacio.");
+<<<<<<< HEAD:resources/assets/js/components/Aula.vue
                 if (this.seccion=='seccion') this.errorMostrarMsjAula.push("La sección no puede estar vacío.");
                if (this.grado=='gra') this.errorMostrarMsjAula.push("El grado no puede estar vacío.");
                 if (this.turno=='turno') this.errorMostrarMsjAula.push("El turno no puede estar vacio.");
+=======
+               if (this.grado=='gra') this.errorMostrarMsjGradoMaestro.push("El grado no puede estar vacío.");
+                if (this.seccion=='seccion') this.errorMostrarMsjGradoMaestro.push("La sección no puede estar vacío.");
+                if (this.turno=='turno') this.errorMostrarMsjGradoMaestro.push("El turno no puede estar vacio.");
+>>>>>>> 43f52c6eea3ac5b91a58a05abb2ec1ab067b15e1:resources/assets/js/components/Grado.vue
 
                 if (this.errorMostrarMsjAula.length) this.errorAula = 1;
 
