@@ -32,7 +32,7 @@ class MaestroAulaController extends Controller
                     'personas.id',
                     'personas.nombre',
                     'personas.apellido',
-                   
+                 
                     'aulas.seccion',
                     'aulas.grado','cursos.nombre as nombre_curso',
                     'maestro_aulas.condicion'

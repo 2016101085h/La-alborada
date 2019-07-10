@@ -23,6 +23,7 @@ class CreateRolsTable extends Migration
         DB::table('rols')->insert(array('id' => '1', 'nombre' => 'Administrador', 'descripcion' => 'Administradores de área', 'condicion' => '1'));
         DB::table('rols')->insert(array('id' => '2', 'nombre' => 'Maestro', 'descripcion' => 'Maestro designada a cada aula', 'condicion' => '1'));
         DB::table('rols')->insert(array('id' => '3', 'nombre' => 'Padre', 'descripcion' => 'Padre de familia', 'condicion' => '1'));
+        
     }
 
     /**

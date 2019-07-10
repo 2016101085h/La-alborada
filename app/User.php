@@ -15,10 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
+  
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,4 +33,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $fillable = [
+        'id','rol_id', 'usuario', 'password', 'condicion'
+    ];
+    // $table->increments ('id');
+    // $table->integer('rol_id')->unsigned();
+    // $table->string('usuario', 50);
+    // $table->string('password', 50);
+    // $table->boolean('condicion')->default(1);
+    // $table->timestamps();
+    // $table->foreign('rol_id')->references('id')->on('rols');
+    public function rol()
+    {
+        return $this->belongsTo('App\Rol');
+    }
+
+    public function persona()
+    {
+        return $this->belongsTo('App\Persona');
+    }
 }

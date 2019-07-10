@@ -138,7 +138,7 @@
        <li class="user-menu nav-item dropdown mt-2 ml-3">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#menu">
            <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
-           <span class="text-dark">Alexander Pierce</span>
+           <span class="text-dark">{{ Auth::user()->usuario}} </span>
          </a>
           <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -191,7 +191,10 @@
                <a href="#" class="btn btn-info float-left">Profile</a>
              </div>
              <div class="pull-right">
-               <a href="#" class="btn btn-danger float-right">Cerrar Sesión</a>
+               <a href="{{ route('logout')}} " onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger float-right">Cerrar Sesión</a>
+               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                </form>
              </div>
            </li>
          </ul>
@@ -212,8 +215,18 @@
   <!-- Content Wrapper. Contains page content -->
   
      
+   @if(Auth::check())
+      @if (Auth::user()->rol_id == 1)
+          @include('plantilla.asideadministrador')
+      @elseif (Auth::user()->rol_id == 2)
+          @include('plantilla.asidemaestro')
+      @elseif (Auth::user()->rol_id == 3)
+          @include('plantilla.asidepadre')
+      @else
 
-    @include('plantilla.aside')
+      @endif
+
+    @endif
     @yield('contenido')
   
   <!-- /.content-wrapper -->

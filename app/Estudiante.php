@@ -25,4 +25,8 @@ class Estudiante extends Model
     {
         return $this->hasMany('App\Nota');
     }
+    public function padre()
+    {
+        return $this->belongsTo('App\Padre');
+    }
 }
