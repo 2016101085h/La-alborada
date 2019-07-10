@@ -50,11 +50,11 @@
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link" data-toggle="dropdown" href="#" data-target="#mensaje">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="mensaje">
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
@@ -89,7 +89,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
-            <div class="media">
+            <div class="media" >
               <img src="img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -108,11 +108,11 @@
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link" data-toggle="dropdown" href="#" data-target="#notificacion">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="notificacion">
           <span class="dropdown-item dropdown-header">15 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
@@ -135,8 +135,8 @@
       </li>
        <!-- User Account: style can be found in dropdown.less -->
       
-       <li class=" user-menu nav-item dropdown mt-2 ml-3">
-         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+       <li class="user-menu nav-item dropdown mt-2 ml-3">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#menu">
            <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
            <span class="text-dark">Alexander Pierce</span>
          </a>
@@ -160,7 +160,7 @@
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
           </div> -->
-         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="menu">
            <!-- User image -->
            <li class="user-header">
              <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">

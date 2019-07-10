@@ -9,7 +9,7 @@ class MaestroAula extends Model
     //
     protected $fillable=[
 
-        'maestro_id','aula_id','curso_id','condicion'
+        'id','aula_id','curso_id','condicion'
         // $table->integer('maestro_id')->unsigned();
         // $table->integer('aula_id')->unsigned();
         // $table->integer('curso_id')->unsigned();

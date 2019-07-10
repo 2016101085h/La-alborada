@@ -33,7 +33,12 @@ class PeriodoController extends Controller
         ];
     }
 
-
+    public function selectPeriodo(Request $request)
+    {
+        // if(!$request->ajax()) return redirect('/');
+        $periodos = Periodo::where('condicion', '=', '1')->select('id', 'nombre')->orderBy('nombre', 'asc')->get();
+        return ['periodos' => $periodos];
+    }
 
     /**
      * Store a newly created resource in storage.

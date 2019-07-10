@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maestro extends Model
 {
-    protected $fillable = ['nombre','apellido','fech_nacimiento','sexo','grado_instruccion','dni',
-    'direccion','num_celular','condicion'];
+    protected $fillable = ['id','grado_instruccion','condicion'];
         public function aula()
         {
             return $this->belongsTo('App\Aula');

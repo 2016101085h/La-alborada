@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\MaestroAula;
+use App\Persona;
+use App\Maestro;
+use App\Aula;
+
 
 class MaestroAulaController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -20,29 +25,36 @@ class MaestroAulaController extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         if ($buscar == '') {
-
-            $maestro_aulas = MaestroAula::join('maestros', 'maestro_aulas.maestro_id', '=', 'maestros.id')->join('aulas','maestro_aulas.aula_id','=','aulas.id')
-                ->join('cursos','maestro_aulas.curso_id','=','cursos.id')->select(
-                    'maestro_aulas.id',
-                    'maestro_aulas.maestro_id','maestros.nombre as nombre_maestro','maestros.apellido as apellido_maestro',
-                    'maestro_aulas.aula_id','aulas.seccion','aulas.grado',
-                    'maestro_aulas.curso_id','cursos.nombre as nombre_curso',                   
+            $maestro_aulas = MaestroAula::join('personas', 'maestro_aulas.id', '=', 'personas.id')->
+            join('cursos','maestro_aulas.curso_id','=','cursos.id')
+            ->join('aulas','maestro_aulas.aula_id','=','aulas.id')
+                ->select(
+                    'personas.id',
+                    'personas.nombre',
+                    'personas.apellido',
+                   
+                    'aulas.seccion',
+                    'aulas.grado','cursos.nombre as nombre_curso',
                     'maestro_aulas.condicion'
                 )
-                ->orderBy('maestro_aulas.id', 'desc')->paginate(5);
+                ->orderBy('personas.id', 'desc')->paginate(3);
         } else {
-            $maestro_aulas= MaestroAula::join('maestros', 'maestro_aulas.maestros_id', '=', 'maestros.id')->join('aulas','maestro_aulas.aula_id','=','aulas.id')
-            ->join('cursos','maestro_aulas.curso_id','=','cursos.id')->select(
-                'maestro_aulas.id',
-                'maestro_aulas.maestro_id','maestros.nombre as nombre_maestro','maestros.apellido as apellido_maestro',
-                'maestro_aulas.aula_id','aulas.seccion','aulas.grado',
-                'maestro_aulas.curso_id','cursos.nombre as nombre_curso',                   
-                'maestro_aulas.condicion'
-            )
-            ->where('maestro_aulas.' . $criterio, 'like', '%' . $buscar . '%')
-                ->orderBy('maestro_aulas.id', 'desc')->paginate(2);
-            // $alumnos = Alumno::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(2);
+            $maestro_aulas = MaestroAula::join('personas', 'maestro_aulas.id', '=', 'personas.id')->join('cursos', 'maestro_aulas.curso_id', '=', 'cursos.id')
+                ->join('aulas', 'maestro_aulas.aula_id', '=', 'aulas.id')
+                ->select(
+                    'personas.id',
+                    'personas.nombre',
+                    'personas.apellido',
+                    
+                    'aulas.seccion',
+                    'aulas.grado',
+                    'cursos.nombre as nombre_curso',
+                    'maestro_aulas.condicion'
+                )
+                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')
+                ->orderBy('personas.id', 'desc')->paginate(3);
         }
+
         return [
             'pagination' => [
                 'total' => $maestro_aulas->total(),
@@ -55,9 +67,9 @@ class MaestroAulaController extends Controller
             'maestro_aulas'    => $maestro_aulas
         ];
     }
-
     
-    /**returm $sdqw, -$wfwefwwrv
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -67,13 +79,31 @@ class MaestroAulaController extends Controller
     {
 
         // if(!$request->ajax()) return redirect('/');
+        try {
+            DB::beginTransaction();
+            $persona = new Persona();
+            $persona->nombre = $request->nombre;
+            $persona->apellido = $request->apellido;
+            $persona->save();
 
-        $maestro_aula = new MaestroAula();
-        $maestro_aula->maestro_id          = $request->maestro_id;
-        $maestro_aula->aula_id          = $request->aula_id;
-        $maestro_aula->curso_id          = $request->curso_id;
-        $maestro_aula->condicion         = '1';
-        $maestro_aula->save();
+            $aula = new Aula();
+            $aula->seccion = $request->seccion;
+            $aula->grado = $persona->grado;
+            $aula->save();
+
+
+            $curso = new Curso();
+            $curso->nombre = $request->nombre_curso;           
+            $curso->save();
+
+            $maestro_aula = new MaestroAula();   
+            $maestro_aula->id = $persona->id;
+            $maestro_aula->save();
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
 
@@ -89,12 +119,30 @@ class MaestroAulaController extends Controller
     public function update(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');
-        $grado_maestro = MaestroAula::findOrFail($request->id);
-        $maestro_aula->maestro_id          = $request->maestro_id;
-        $maestro_aula->aula_id          = $request->aula_id;
-        $maestro_aula->curso_id          = $request->curso_id;
-        $maestro_aula->condicion         = '1';
-        $maestro_aula->save();
+        try {
+            DB::beginTransaction();
+            $maestro_aula = Maestro::findOrFail($request->id);
+            $aula = Aula::find($request->id);
+            $curso = Curso::find($request->id);
+            $persona = Persona::findOrFail($maestro_aula->id);
+
+            $persona->nombre = $request->nombre;
+            $persona->apellido = $request->apellido;
+            $persona->save();
+
+            $aula->seccion = $request->seccion;
+            $aula->grado = $persona->grado;
+            $aula->save();
+
+            $curso->nombre = $request->nombre_curso; 
+            $curso->save();
+
+        
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     public function desactivar(Request $request)

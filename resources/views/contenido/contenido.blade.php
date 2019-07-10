@@ -39,7 +39,7 @@
     <competencia></competencia>
 </template>
 <template v-if="menu==12">
-      
+      <nota></nota>
 </template>
 <template v-if="menu==13">
    <h1 class="content-wrapper">Contenido del menu 13</h1>

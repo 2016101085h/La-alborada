@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Aula de los Maestros</h1>
+            <h1>Notas</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
-              <li class="breadcrumb-item active">Aula de los Maestros</li>
+              <li class="breadcrumb-item active">Notas</li>
             </ol>
           </div>
         </div>
@@ -20,8 +20,8 @@
           <div class="col-md-12">
             <div class="card">
                 <div class="card-header ">
-                  <i class="fa fa-align-justify"></i> Grados de Maestros
-                  <button type="button" @click="abrirModal('maestroaula','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                  <i class="fa fa-align-justify"></i> Notas
+                  <button type="button" @click="abrirModal('nota','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
                 </div>
@@ -31,56 +31,60 @@
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control col-md-3" v-model="criterio">
-                        <option value="grado">Grado</option>
-                        <option value="nombre">Nombre</option>
+                        <option value="nombre_competencia">Competencia</option>
+                        <option value="nombre_estudiante">Nombre</option>
+                        <option value="calificacion">Calificacion</option>
                         
                         
                         
                       </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarMaestroAula(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarMaestroAula(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
+                      <input type="text" v-model="buscar" @keyup.enter="listarNota(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                      <button type="submit" @click="listarNota(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
                 <table class="table table-bordered table-sm ">
                   <tr class="bg-info text-center ">
                     <th>Opciones</th>
-                    <th>Maestro</th>
+                    <th>Competencia</th>
+                    <th>Estudiante</th>
 
-                    <th>Grado</th>
-                    <th>Sección</th>
                     <th>Curso</th>
+                    <th>Periodo</th>
+                    <th>Calificacion</th>
+                   
                     
                                       
                     <th >Estado</th>
 
                   </tr>
-                  <tr v-for="maestroaula in arrayMaestroAula" :key="maestroaula.id">
+                  <tr v-for="nota in arrayNota" :key="nota.id">
                     <td >
-                        <button type="button" @click="abrirModal('maestroaula','actualizar',maestroaula)" class="btn btn-warning btn-sm" 
+                        <button type="button" @click="abrirModal('nota','actualizar',nota)" class="btn btn-warning btn-sm" 
                           >
                           <i class="fa fa-pen"></i>
                         </button> &nbsp;
-                        <template v-if="maestroaula.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarMaestroAula(maestroaula.id)">
+                        <template v-if="nota.condicion">
+                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarNota(nota.id)">
                           <i class="fa fa-trash"></i>
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestroaAula(maestroaula.id)">
+                         <button type="button" class="btn btn-success btn-sm" @click="activarNota(nota.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestroaula.nombre + ' '+maestroaula.apellido  "></td>
-                    <td v-text="maestroaula.grado "></td>
-                    <td v-text="maestroaula.seccion "></td>
+                    <td v-text="nota.nombre_competencia "></td>
+                    <td v-text="nota.nombre_estudiante + ' ' + nota.apellido_estudiante "></td>
+                    <td v-text="nota.nombre_curso "></td>
                    
-                    <td v-text="maestroaula.nombre_curso"></td>                 
+                    <td v-text="nota.nombre_periodo"></td>                 
+                    <td v-text="nota.calificacion"></td>                 
                     
                     
                     <td>
-                        <div v-if="maestroaula.condicion">
+                        <div v-if="nota.condicion">
                             <span class="badge bg-success">Activo</span>
                         </div>
                         <div v-else>
@@ -149,22 +153,22 @@
                
              </div> -->
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Maestro</label>
+                <label class="col-md-3 form-control-label" for="text-input">Competencia</label>
                 <div class="col-md-9">
-                    <select v-model="maestro_id" class="form-control">
-                        <option value="1" disabled>Selecciona el Maestro</option>
-                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' '+maestro.apellido"></option>
+                    <select v-model="competencia_id" class="form-control">
+                        <option value="0" disabled>Selecciona el competencia</option>
+                        <option v-for="competencia in arrayCompetencia " :key="competencia.id" :value="competencia.id" v-text="competencia.nombre"></option>
                         
                         
                     </select>                                    
                 </div>
             </div> 
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Aula</label>
+                <label class="col-md-3 form-control-label" for="text-input">Estudiante</label>
                 <div class="col-md-9">
-                    <select v-model="aula_id" class="form-control">
-                        <option value="0" disabled>Selecciona el aula</option>
-                        <option v-for="aula in arrayAula " :key="aula.id" :value="aula.id" v-text="aula.grado + ' - '+ aula.seccion"></option>
+                    <select v-model="estudiante_id" class="form-control">
+                        <option value="1" disabled>Selecciona el Estudiante</option>
+                        <option v-for="estudiante in arrayEstudiante " :key="estudiante.id" :value="estudiante.id" v-text="estudiante.nombre + ' - '+ estudiante.apellido"></option>
                         
                         
                     </select>                                    
@@ -176,6 +180,17 @@
                     <select v-model="curso_id" class="form-control">
                         <option value="2" disabled>Selecciona el curso</option>
                         <option v-for="curso in arrayCurso " :key="curso.id" :value="curso.id" v-text="curso.nombre"></option>
+                        
+                        
+                    </select>                                    
+                </div>
+            </div> 
+            <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Periodo</label>
+                <div class="col-md-9">
+                    <select v-model="periodo_id" class="form-control">
+                        <option value="3" disabled>Selecciona el periodo</option>
+                        <option v-for="periodo in arrayPeriodo " :key="periodo.id" :value="periodo.id" v-text="periodo.nombre"></option>
                         
                         
                     </select>                                    
@@ -204,18 +219,18 @@
                 </div>
             </div>  -->
              
-             <!-- <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Grado de Intrucción</label>
+           <div class="form-group row">
+               <label class="col-md-3 form-control-label" for="email-input">Calificacion</label>
                <div class="col-md-9">
-                 <input type="text" v-model="grado_instruccion" class="form-control" placeholder="Ingrese el grado de instruccion">
+                 <input type="text" v-model="calificacion" class="form-control" placeholder="Ingrese la Calificacion">
                </div>
-             </div> -->
+             </div>
               
            
            
-              <div v-show="errorMaestroAula" class="form-group row div-error">
+              <div v-show="errorNota" class="form-group row div-error">
                 <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjMaestroAula" :key="error" v-text="error">
+                    <div v-for="error in errorMostrarMsjNota" :key="error" v-text="error">
                         
                     </div>
                   
@@ -225,8 +240,8 @@
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarMaestroAula()" class="btn btn-primary">Guardar</button>
-           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarMaestroAula()">Actualizar</button>
+           <button v-if="tipoAccion==1" type="button" @click="registrarNota()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarNota()">Actualizar</button>
          </div>
        </div>
        <!-- /.modal-content -->
@@ -246,24 +261,24 @@
     export default {
         data(){
             return{
-                maestroaula_id:'',
-                maestro_id:0,
-                nombre:'',
-                apellido:'',
-                aula_id:0,
-                seccion:'',
-                grado:'',
+                nota_id:'',
+                competencia_id:0,
+                nombre_competencia:'',
+                estudiante_id:0,
+                nombre_estudiante:'',
+                apellido_estudiante:'',
                 curso_id:0,
                 nombre_curso:'',
-               
-                
-                
-                arrayMaestroAula:[],
+                periodo_id:0,
+                nombre_periodo:'',
+                calificacion:'',
+                    
+                arrayNota:[],
                 modal:0,
                 tituloModal:'',
                 tipoAccion:0,
-                errorMaestroAula:0,
-                errorMostrarMsjMaestroAula:[],
+                errorNota:0,
+                errorMostrarMsjNota:[],
                 pagination:{
                     'total':0,
                     'current_page':0,
@@ -273,11 +288,12 @@
                     'to':0,
                 },
                 offset:3,
-                criterio:'grado',
+                criterio:'nombre_estudiante',
                 buscar:'',
-                arrayAula:[],
+                arrayCompetencia:[],
                 arrayCurso:[],
-                arrayMaestro:[],
+                arrayEstudiante:[],
+                arrayPeriodo:[],
 
 
 
@@ -310,14 +326,14 @@
             }
         },
         methods:{
-            listarMaestroAula(page,buscar,criterio){
+            listarNota(page,buscar,criterio){
                 let me= this;
-                var url = '/maestroaula?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
+                var url = '/nota?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestroAula=respuesta.maestro_aulas.data;
+                    me.arrayNota=respuesta.notas.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -334,7 +350,7 @@
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.personas;
+                    me.arrayMaestro=respuesta.maestros;
                         // me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -344,14 +360,14 @@
                     console.log(error);
                 });
             },
-            selectAula(){
+            selectCompetencia(){
                  let me= this;
-                var url = '/aula/selectaula';
+                var url = '/competencia/selectcompetencia';
                 axios.get(url).then(function (response) {
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayAula=respuesta.aulas;
+                    me.arrayCompetencia=respuesta.competencias;
                         // me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -378,28 +394,64 @@
                     console.log(error);
                 });
             },
+            selectEstudiante(){
+                 let me= this;
+                var url = '/estudiante/selectestudiante';
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
+                    // // // handle success
+                    // // console.log(response);
+                    me.arrayEstudiante=respuesta.estudiantes;
+                        // me.pagination=respuesta.pagination;
+                    
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+            selectPeriodo(){
+                 let me= this;
+                var url = '/periodo/selectperiodo';
+                axios.get(url).then(function (response) {
+                    var respuesta=response.data;
+                    // // // handle success
+                    // // console.log(response);
+                    me.arrayPeriodo=respuesta.periodos;
+                        // me.pagination=respuesta.pagination;
+                    
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
              cambiarpagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la pagina actual
                 me.pagination.current_page = page;
 
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarMaestroAula(page,buscar,criterio);
+                me.listarNota(page,buscar,criterio);
             },
-            registrarMaestroAula(){
-                 if (this.validarMaestroAula()){
+            registrarNota(){
+                 if (this.validarNota()){
                     return;
                 }
                 let me=this;
-                axios.post('maestroaula/registrar',{
-                    'maestro_id':this.maestro_id,
-                    'nombre':this.nombre,
-                    'apellido':this.apellido,
-                    'aula_id':this.aula_id,
-                    'seccion':this.seccion,
-                    'grado':this.grado,
+                axios.post('nota/registrar',{
+                    'competencia_id':this.competencia_id,
+                    // 'nombre_competencia':this.nombre_competencia,
+                    'estudiante_id':this.estudiante_id,
+                    // 'nomre_estudiante':this.nomnre_estudiante,
+                    // 'apellido_estudiante':this.apellido_estudiante,
                     'curso_id':this.curso_id,
-                    'nombre_curso':this.nombre_curso,
+                    // 'nombre_curso':this.nombre_curso,
+                    'periodo_id':this.periodo_id,
+                    // 'nombre_periodo':this.nombre_periodo,
+                    'calificacion':this.calificacion,
                     
                     
                     
@@ -409,40 +461,43 @@
                 }
                 ).then(function (response){
                     me.cerrarModal();
-                    me.listarMaestroAula(1,'','nombre');
+                    me.listarNota(1,'','nombre');
                 }).catch(function(error){
                     console.log(error);
                 });
             },
-            actualizarMaestroAula(){
-               if (this.validarMaestroAula()){
+            actualizarNota(){
+               if (this.validarNota()){
                     return;
                 }
                 
                 let me = this;
 
-                axios.put('/maestroaula/actualizar',{
-                    'id': this.maestroaula_id,
-                 'maestro_id':this.maestro_id,
-                    'nombre':this.nombre,
-                    'apellido':this.apellido,
-                    'aula_id':this.aula_id,
-                    'seccion':this.seccion,
-                    'grado':this.grado,
+                axios.put('/nota/actualizar',{
+                    'id': this.nota_id,
+                    'competencia_id':this.competencia_id,
+                    // 'nombre_competencia':this.nombre_competencia,
+                    'estudiante_id':this.estudiante_id,
+                    // 'nomnre_estudiante':this.nomnre_estudiante,
+                    // 'apellido_estudiante':this.apellido_estudiante,
                     'curso_id':this.curso_id,
-                    'nombre_curso':this.nombre_curso,
+                    // 'nombre_curso':this.nombre_curso,
+                    'periodo_id':this.periodo_id,
+                    // 'nombre_periodo':this.nombre_periodo,
+                    'calificacion':this.calificacion,
+                    
                     
                     
                     
                     
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarMaestroAula(1,'','nombre');
+                    me.listarNota(1,'','nombre');
                 }).catch(function (error) {
                     console.log(error);
                 }); 
             },
-            desactivarMaestroAula(id){
+            desactivarNota(id){
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -462,13 +517,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroaula/desactivar',{
+                    axios.put('nota/desactivar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAula(1,'','nombre');
+                        me.listarNota(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Desactivado!',
                             'El registro ha sido desactivado con exito.',
@@ -490,7 +545,7 @@
                 }
                 }) 
             },
-            activarMaestroAula(id){
+            activarNota(id){
                 
                const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -511,13 +566,13 @@
                 }).then((result) => {
                 if (result.value) {
                     let me=this;
-                    axios.put('maestroaula/activar',{
+                    axios.put('nota/activar',{
                        
                         'id':id
                     }
                     ).then(function (response){
                         
-                        me.listarMaestroAula(1,'','nombre');
+                        me.listarNota(1,'','nombre');
                           swalWithBootstrapButtons.fire(
                             'Activado!',
                             'El registro ha sido activado con exito.',
@@ -543,22 +598,25 @@
             abrirModal(modelo,accion,data= []){
 
                 switch(modelo){
-                    case "maestroaula":
+                    case "nota":
                     {
                         switch(accion){
                             case 'registrar':
                             {
                                 this.modal=1;
                                 this.tipoAccion=1;
-                                this.tituloModal='Registrar Aula del Maestro';
-                                this.maestro_id='1';
-                                this.nombre='';
-                                this.apellido='';
-                                this.aula_id='0';
-                                this.seccion='',
-                                this.grado='',
-                                this.curso_id='2'
-                                
+                                this.tituloModal='Registrar Nota';
+                                this.competencia_id='0';
+                              
+                                this.estudiante_id='1';
+                              
+                               
+                                this.curso_id='2';
+                             
+                                this.periodo_id='3';
+                               
+                                this.calificacion='';
+                               
                                 
                                
                                
@@ -567,17 +625,17 @@
                             case 'actualizar':
                             {
                                 this.modal=1;
-                                this.tituloModal='Actualizar  Aula del Maestro';
+                                this.tituloModal='Actualizar  Nota';
                                 this.tipoAccion=2;
-                                this.maestroaula_id=data['id'];
-                                this.maestro_id=data['maestro_id'];
-                                this.nombre=data['nombre'];
-                                this.apellido=data['apellido'];
-                                this.aula_id=data['aula_id'];
-                                this.seccion=data['seccion'];
-                                this.grado=data['grado'];
+                                this.nota_id=data['id'];
+                               
+                                this.estudiante_id=data['estudiante_id'];
+                               
                                 this.curso_id=data['curso_id'];
-                                this.nombre_curso=data['nombre_curso'];
+                                
+                                this.periodo_id=data['periodo_id'];
+                               
+                                this.calificacion=data['calificacion'];
                                
                                 // this.grado=data['grado'];
                                 // this.seccion_grado=data['seccion_grado'];
@@ -589,14 +647,15 @@
                             }
                         }
                     }
-                    this.selectMaestro();
-                    this.selectAula();
+                    this.selectEstudiante();
+                    this.selectCompetencia();
+                    this.selectPeriodo();
                     this.selectCurso();
                 }
             },
-            validarMaestroAula(){
-                this.errorMaestroAula=0;
-                this.errorMostrarMsjMaestroAula =[];
+            validarNota(){
+                this.errorNota=0;
+                this.errorMostrarMsjNota =[];
 
             //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
             //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
@@ -608,23 +667,23 @@
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
-                this.grado_id='';
-                this.grado='';
-                this.seccion='';
-                
-                this.maestro_id='';
-                this.nombre='';
-                this.apellido='';
-                this.curso_id='',
-                this.nombre_curso='',
+                this.competencia_id='';
+              
+                this.estudiante_id='';
+              
+                this.curso_id='';
+              
+                this.periodo_id='';
+              
+                this.calificacion='',
                 
                
-                this.errorMaestroAula=0;
+                this.errorNota=0;
                 
             },
         },
         mounted() {
-           this.listarMaestroAula(1,this.buscar,this.criterio);
+           this.listarNota(1,this.buscar,this.criterio);
         }
     }
 </script>

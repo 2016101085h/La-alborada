@@ -173,7 +173,7 @@
               <li @click="menu=12" class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Icons</p>
+                  <p>Alumnos</p>
                 </a>
               </li>
               

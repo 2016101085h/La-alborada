@@ -32,6 +32,7 @@ Vue.component('estudiante', require('./components/Estudiante.vue').default);
  Vue.component('rol', require('./components/Rol.vue').default);
  Vue.component('usuario', require('./components/Usuario.vue').default);
  Vue.component('competencia', require('./components/Competencia.vue').default);
+ Vue.component('nota', require('./components/Nota.vue').default);
 // Vue.component('alumnoasignatura', require('./components/AlumnoAsignatura.vue').default);
 // Vue.component('maestroasignatura', require('./components/MaestroAsignatura.vue').default);
 

@@ -14,13 +14,13 @@ class CreateMaestroAulasTable extends Migration
     public function up()
     {
         Schema::create('maestro_aulas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('maestro_id')->unsigned();
+            
+            $table->integer('id')->unsigned();
             $table->integer('aula_id')->unsigned();
             $table->integer('curso_id')->unsigned();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('maestro_id')->references('id')->on('maestros');
+            $table->foreign('id')->references('id')->on('personas');
             $table->foreign('aula_id')->references('id')->on('aulas');
             $table->foreign('curso_id')->references('id')->on('cursos');
         });

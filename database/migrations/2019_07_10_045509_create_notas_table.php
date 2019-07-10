@@ -19,7 +19,7 @@ class CreateNotasTable extends Migration
             $table->integer('estudiante_id')->unsigned();
             $table->integer('curso_id')->unsigned();
             $table->integer('periodo_id')->unsigned();
-            $table->integer('calificacion');
+            $table->string('calificacion');
             $table->boolean('condicion')->default(1);
             $table->timestamps();
             $table->foreign('competencia_id')->references('id')->on('competencias')->onDelete('cascade')->onUpdate('cascade');

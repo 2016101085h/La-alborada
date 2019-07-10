@@ -73,7 +73,7 @@ class CompetenciaController extends Controller
 
         $competencia = new Competencia();
         $competencia->curso_id          = $request->curso_id;
-        $competencia->nombre          = $request->nombre;
+        $competencia->nombre         = $request->nombre_competencia;
         $competencia->condicion         = '1';
         $competencia->save();
     }

@@ -41,6 +41,7 @@ Route::post('/periodo/registrar', 'PeriodoController@store');
 Route::put('/periodo/actualizar', 'PeriodoController@update');
 Route::put('/periodo/desactivar', 'PeriodoController@desactivar');
 Route::put('/periodo/activar', 'PeriodoController@activar');
+Route::get('/periodo/selectperiodo', 'PeriodoController@selectPeriodo');
 
 
 Route::get('/estudiante', 'EstudianteController@index');
@@ -81,3 +82,14 @@ Route::put('/competencia/desactivar', 'CompetenciaController@desactivar');
 Route::put('/competencia/activar', 'CompetenciaController@activar');
 Route::get('/competencia/selectcompetencia', 'CompetenciaController@selectCompetencia');
 
+Route::get('/nota', 'NotaController@index');
+Route::post('/nota/registrar', 'NotaController@store');
+Route::put('/nota/actualizar', 'NotaController@update');
+Route::put('/nota/desactivar', 'NotaController@desactivar');
+Route::put('/nota/activar', 'NotaController@activar');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

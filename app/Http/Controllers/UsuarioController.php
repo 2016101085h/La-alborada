@@ -77,7 +77,7 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
         $usuario->rol_id          = $request->rol_id;
         $usuario->usuario          = $request->usuario;
-        $usuario->password          = $request->password;
+        $usuario->password          = bcrypt($request->password);
         $usuario->condicion         = '1';
         $usuario->save();
     }
@@ -97,7 +97,7 @@ class UsuarioController extends Controller
         $usuario = Usuario::findOrFail($request->id);
         $usuario->rol_id          = $request->rol_id;
         $usuario->usuario          = $request->usuario;
-        $usuario->password          = $request->password;
+        $usuario->password          = bcrypt($request->password);
         $usuario->condicion         = '1';
         $usuario->save();
     }

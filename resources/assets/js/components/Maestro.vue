@@ -328,7 +328,7 @@
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros.data;
+                    me.arrayMaestro=respuesta.personas.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);

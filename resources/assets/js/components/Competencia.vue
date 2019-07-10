@@ -472,8 +472,6 @@
                                 this.tituloModal='Actualizar Competencia';
                                 this.tipoAccion=2;
                                 this.curso_id=data['id'];
-                                
-                                
                                 this.nombre_curso=data['nombre_curso'];
                                 this.nombre_competencia=data['nombre_competencia'];
                                 break;
