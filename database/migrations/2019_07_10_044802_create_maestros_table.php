@@ -14,11 +14,18 @@ class CreateMaestrosTable extends Migration
     public function up()
     {
         Schema::create('maestros', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->string('grado_instruccion', 50);
+            $table->increments('id');
+            $table->string('nombre', 50);
+            $table->string('apellido', 100);
+            $table->date('fech_nacimiento')->nullable();
+            $table->string('sexo', 50)->nullable();
+            $table->integer('dni')->nullable();
+            $table->integer('num_celular')->nullable();
+            $table->string('direccion', 256)->nullable();
+            $table->string('grado_instruccion', 50)->nullable();
             $table->boolean('condicion')->default(1);
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 

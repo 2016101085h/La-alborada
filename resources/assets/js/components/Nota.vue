@@ -21,103 +21,55 @@
             <div class="card">
                 <div class="card-header ">
                   <i class="fa fa-align-justify"></i> Notas
-                  <button type="button" @click="abrirModal('nota','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
-                    <i class="fa fa-plus"></i>&nbsp;Nuevo
+                  <button type="button" @click="abrirModal('selects')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
+                    <i class="fa fa-plus"></i>&nbsp;Agregar Notas
                   </button>
+                  <button type="button" @click="listarPdf()" class="btn btn-secondary bg-primary ml-2 border-transparent " >
+                    <i class="fas fa-file"></i>&nbsp;Reporte
+                  </button>
+                  <!-- <input type="text" id="aula2"> -->
                 </div>
+                
               <!-- /.card-header -->
               <div class="card-body">
-                <div class="form-group row">
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <select class="form-control col-md-3" v-model="criterio">
-                        <option value="nombre_competencia">Competencia</option>
-                        <option value="nombre_estudiante">Nombre</option>
-                        <option value="calificacion">Calificacion</option>
-                        
-                        
-                        
-                      </select>
-                      <input type="text" v-model="buscar" @keyup.enter="listarNota(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                      <button type="submit" @click="listarNota(1,buscar,criterio)" class="btn btn-warning text-white rounded-0"><i class="fa fa-search"></i> Buscar</button>
-                    </div>
-                  </div>
-                </div>
                 <table class="table table-bordered table-sm ">
                   <tr class="bg-info text-center ">
-                    <th>Opciones</th>
-                    <th>Competencia</th>
-                    <th>Estudiante</th>
-
-                    <th>Curso</th>
-                    <th>Periodo</th>
-                    <th>Calificacion</th>
-                   
-                    
-                                      
-                    <th >Estado</th>
-
+                    <th>N° Orden</th>
+                    <th>Apellidos y Nombres</th>
+                    <th v-for="competencia in arrayCompetencias" :key="competencia.id" v-text="competencia.nombre">
+                    </th>                                   
                   </tr>
-                  <tr v-for="nota in arrayNota" :key="nota.id">
-                    <td >
-                        <button type="button" @click="abrirModal('nota','actualizar',nota)" class="btn btn-warning btn-sm" 
-                          >
-                          <i class="fa fa-pen"></i>
-                        </button> &nbsp;
-                        <template v-if="nota.condicion">
-                         <button type="button" class="btn btn-danger btn-sm" @click="desactivarNota(nota.id)">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                        </template>
-                        <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarNota(nota.id)">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        </template>
-                    </td>
-                    <td v-text="nota.nombre_competencia "></td>
-                    <td v-text="nota.nombre_estudiante + ' ' + nota.apellido_estudiante "></td>
-                    <td v-text="nota.nombre_curso "></td>
-                   
-                    <td v-text="nota.nombre_periodo"></td>                 
-                    <td v-text="nota.calificacion"></td>                 
-                    
-                    
-                    <td>
-                        <div v-if="nota.condicion">
-                            <span class="badge bg-success">Activo</span>
-                        </div>
-                        <div v-else>
-                            <span class="badge bg-danger">Inactivo</span>
-                        </div>
-                    </td>
-                  </tr>
-                 
-                  
-                  
+
+                  <tr v-for="estudiante in arrayEstudiantes" :key="estudiante.id">
+                    <td v-text="estudiante.id"  style="background-color:#E7CDB7"></td>
+                    <td v-text="estudiante.apellido + ', ' + estudiante.nombre" style="background-color:#D5EFC0"></td>
+                    <td v-for="(nota, index) in estudiante.nota" :key="nota.id" style="position:relative; text-align:center; background-color:#CBC6BB">
+                        <!-- <input type="number" v-model.number="estudiante.nota[index]"v-bind:class= "[estudiante.nota[index]<=10 ? 'text-danger' : 'text-primary']" style="width:50px; border-radius:5px; border:1px solid black; text-align:center"> -->
+                        <span v-show="estudiante.nota[index] = ''"></span>
+                        <select v-model="estudiante.nota[index]" v-bind:class= "[estudiante.nota[index]=='C' ? 'text-danger' : 'text-primary']">
+                          <!-- <option value="" disabled></option> -->
+                          <option value="AD">AD</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                        </select>
+                    </td>               
+                  </tr>                                                   
                 </table>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item" v-if="pagination.current_page > 1">
-                      <a class="page-link" href="#" @click.prevent="cambiarpagina(pagination.current_page - 1,buscar,criterio)" >&laquo;</a>
-                    </li>
-                    <li class="page-item " v-for="page in pagesNumber" :key="page" :class = "[page == isActived ? 'active' :'' ]">
-                        <a class="page-link" href="#" @click.prevent="cambiarpagina(page,buscar,criterio)" v-text="page"></a>
-                    </li>
-                  
-                     <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                         <a class="page-link" href="#" @click.prevent="cambiarpagina(pagination.current_page + 1,buscar,criterio)">&raquo;</a>
-                     </li>
-                </ul>
+                <div v-show="errorNota" class="form-group row div-error">
+                    <div class="text-center text-error">
+                        <div v-text="errorMostrarMsjNota">
+                            
+                        </div>
+                      
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-3" @click="registrarNota()">Guardar Cambios</button>
               </div>
             </div>
             <!-- /.card -->
-
-          
           </div>
-          <!-- /.col -->
+            <!-- /.col -->
           
         </div>
         <!-- /.row -->
@@ -153,22 +105,11 @@
                
              </div> -->
             <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Competencia</label>
+                <label class="col-md-3 form-control-label" for="text-input">Aula</label>
                 <div class="col-md-9">
-                    <select v-model="competencia_id" class="form-control">
-                        <option value="0" disabled>Selecciona el competencia</option>
-                        <option v-for="competencia in arrayCompetencia " :key="competencia.id" :value="competencia.id" v-text="competencia.nombre"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div> 
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Estudiante</label>
-                <div class="col-md-9">
-                    <select v-model="estudiante_id" class="form-control">
-                        <option value="1" disabled>Selecciona el Estudiante</option>
-                        <option v-for="estudiante in arrayEstudiante " :key="estudiante.id" :value="estudiante.id" v-text="estudiante.nombre + ' - '+ estudiante.apellido"></option>
+                    <select v-model="aula_id" class="form-control" id="aula">
+                        <option value="0" disabled>Selecciona el Aula</option>
+                        <option v-for="aula in arrayAulas" :key="aula.id" :value="aula.id" v-text="aula.grado +' - '+ aula.seccion"></option>
                         
                         
                     </select>                                    
@@ -178,10 +119,8 @@
                 <label class="col-md-3 form-control-label" for="text-input">Curso</label>
                 <div class="col-md-9">
                     <select v-model="curso_id" class="form-control">
-                        <option value="2" disabled>Selecciona el curso</option>
-                        <option v-for="curso in arrayCurso " :key="curso.id" :value="curso.id" v-text="curso.nombre"></option>
-                        
-                        
+                        <option value="0" disabled>Selecciona el curso</option>
+                        <option v-for="curso in arrayCursos " :key="curso.id" :value="curso.id" v-text="curso.nombre"></option>       
                     </select>                                    
                 </div>
             </div> 
@@ -189,58 +128,16 @@
                 <label class="col-md-3 form-control-label" for="text-input">Periodo</label>
                 <div class="col-md-9">
                     <select v-model="periodo_id" class="form-control">
-                        <option value="3" disabled>Selecciona el periodo</option>
-                        <option v-for="periodo in arrayPeriodo " :key="periodo.id" :value="periodo.id" v-text="periodo.nombre"></option>
-                        
-                        
+                        <option value="0" disabled>Selecciona el periodo</option>
+                        <option v-for="periodo in arrayPeriodos" :key="periodo.id" :value="periodo.id" v-text="periodo.nombre"></option>
                     </select>                                    
-                </div>
-            </div> 
-            <!-- <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Sección</label>
-                <div class="col-md-9">
-                    <select v-model="seccion_grado" class="form-control">
-                        <option value="2" disabled>Selecciona la Sección</option>
-                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.seccion"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div>  -->
-            <!-- <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Turno</label>
-                <div class="col-md-9">
-                    <select v-model="turno_grado" class="form-control">
-                        <option value="3" disabled>Selecciona el Turno</option>
-                        <option v-for="grado in arrayGrado " :key="grado.id" :value="grado.id" v-text="grado.turno"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div>  -->
-             
-           <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Calificacion</label>
-               <div class="col-md-9">
-                 <input type="text" v-model="calificacion" class="form-control" placeholder="Ingrese la Calificacion">
-               </div>
-             </div>
-              
-           
-           
-              <div v-show="errorNota" class="form-group row div-error">
-                <div class="text-center text-error">
-                    <div v-for="error in errorMostrarMsjNota" :key="error" v-text="error">
-                        
-                    </div>
-                  
                 </div>
             </div>
            </form>
          </div>
          <div class="modal-footer">
            <button  @click="cerrarModal()" type="button" class="btn btn-danger" >Cerrar</button>
-           <button v-if="tipoAccion==1" type="button" @click="registrarNota()" class="btn btn-primary">Guardar</button>
+           <button v-if="tipoAccion==1" type="button" @click="abrirEstudiantes()" class="btn btn-primary">Ingresar</button>
            <button v-if="tipoAccion==2" type="button" class="btn btn-primary" @click="actualizarNota()">Actualizar</button>
          </div>
        </div>
@@ -258,437 +155,163 @@
 </template>
 
 <script>
+    
     export default {
         data(){
-            return{
-                nota_id:'',
-                competencia_id:0,
-                nombre_competencia:'',
-                estudiante_id:0,
-                nombre_estudiante:'',
-                apellido_estudiante:'',
-                curso_id:0,
-                nombre_curso:'',
-                periodo_id:0,
-                nombre_periodo:'',
-                calificacion:'',
-                    
-                arrayNota:[],
-                modal:0,
-                tituloModal:'',
-                tipoAccion:0,
-                errorNota:0,
-                errorMostrarMsjNota:[],
-                pagination:{
-                    'total':0,
-                    'current_page':0,
-                    'per_page':0,
-                    'last_page':0,
-                    'from':0,
-                    'to':0,
-                },
-                offset:3,
-                criterio:'nombre_estudiante',
-                buscar:'',
-                arrayCompetencia:[],
-                arrayCurso:[],
-                arrayEstudiante:[],
-                arrayPeriodo:[],
+          return {
+            orden: 1,
+            nota_id: 0,
+            periodo_id: 0,
+            aula_id: 0,
+            curso_id: 0,
+            estudiante_id: [],
+            competencia_id: 0,
+            arrayAulas: [],
+            arrayEstudiantes: [],
+            arrayCursos: [],
+            arrayCompetencias: [],
+            arrayPeriodos: [],
+            arrayNotas: [],
+            calificacion: [],
+            modal: 0,
+            tipoAccion: 0,
+            tituloModal: '',
+            errorNota: 0,
+            errorMostrarMsjNota: ""
 
-
-
-            }
-        },
-        computed:{
-            isActived: function(){
-                return this.pagination.current_page;
-            },
-            //calcula los elemenos de la paginacion
-            pagesNumber: function(){
-                if(!this.pagination.to){
-                    return [];
-                }
-                var from = this.pagination.current_page-this.offset;
-                if(from<1){
-                    from=1;
-                }
-                var to = from+(this.offset*2);
-                if(to>=this.pagination.last_page){
-                    to=this.pagination.last_page;
-                }
-                var pagesArray=[];
-                while(from <= to){
-
-                    pagesArray.push(from);
-                    from++;
-                }
-                return pagesArray;
-            }
+          }
         },
         methods:{
-            listarNota(page,buscar,criterio){
-                let me= this;
-                var url = '/nota?page='+page +'&buscar=' + buscar + '&criterio='+criterio;
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayNota=respuesta.notas.data;
-                        me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectMaestro(){
-                 let me= this;
-                var url = '/maestro/selectmaestro';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayMaestro=respuesta.maestros;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectCompetencia(){
-                 let me= this;
-                var url = '/competencia/selectcompetencia';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayCompetencia=respuesta.competencias;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectCurso(){
-                 let me= this;
-                var url = '/curso/selectcurso';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayCurso=respuesta.cursos;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectEstudiante(){
-                 let me= this;
-                var url = '/estudiante/selectestudiante';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayEstudiante=respuesta.estudiantes;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-            selectPeriodo(){
-                 let me= this;
-                var url = '/periodo/selectperiodo';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayPeriodo=respuesta.periodos;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
-             cambiarpagina(page,buscar,criterio){
-                let me = this;
-                //Actualiza la pagina actual
-                me.pagination.current_page = page;
+          selectAlumnos(){
+            let me= this;
+            var url = '/nota';
 
-                //Envia la peticion para visualizar la data de esa pagina
-                me.listarNota(page,buscar,criterio);
-            },
-            registrarNota(){
-                 if (this.validarNota()){
-                    return;
-                }
-                let me=this;
-                axios.post('nota/registrar',{
-                    'competencia_id':this.competencia_id,
-                    // 'nombre_competencia':this.nombre_competencia,
-                    'estudiante_id':this.estudiante_id,
-                    // 'nomre_estudiante':this.nomnre_estudiante,
-                    // 'apellido_estudiante':this.apellido_estudiante,
-                    'curso_id':this.curso_id,
-                    // 'nombre_curso':this.nombre_curso,
-                    'periodo_id':this.periodo_id,
-                    // 'nombre_periodo':this.nombre_periodo,
-                    'calificacion':this.calificacion,
-                    
-                    
-                    
-                   
-                    
+            axios.get(url).then(function (response){
+              var respuesta = response.data;
 
-                }
-                ).then(function (response){
-                    me.cerrarModal();
-                    me.listarNota(1,'','nombre');
-                }).catch(function(error){
+              me.arrayAulas = respuesta.aulas;
+              me.arrayCursos = respuesta.cursos;
+              me.arrayPeriodos = respuesta.periodos;
+              me.arrayNotas = respuesta.notas;
+              console.log(response);
+            })
+            .catch(function (error) {
                     console.log(error);
-                });
-            },
-            actualizarNota(){
-               if (this.validarNota()){
-                    return;
-                }
-                
-                let me = this;
+            });
+          },
+          listarPdf(){
+            window.open('http://localhost:8000/nota/listarPdf')
+          },
+          abrirEstudiantes(aulaId = this.aula_id, cursoId = this.curso_id){
+                // aulaId = this.aula_id;
+                // cursoId = this.curso_id;
+            let me= this;
 
-                axios.put('/nota/actualizar',{
-                    'id': this.nota_id,
-                    'competencia_id':this.competencia_id,
-                    // 'nombre_competencia':this.nombre_competencia,
-                    'estudiante_id':this.estudiante_id,
-                    // 'nomnre_estudiante':this.nomnre_estudiante,
-                    // 'apellido_estudiante':this.apellido_estudiante,
-                    'curso_id':this.curso_id,
-                    // 'nombre_curso':this.nombre_curso,
-                    'periodo_id':this.periodo_id,
-                    // 'nombre_periodo':this.nombre_periodo,
-                    'calificacion':this.calificacion,
-                    
-                    
-                    
-                    
-                    
-                }).then(function (response) {
-                    me.cerrarModal();
-                    me.listarNota(1,'','nombre');
-                }).catch(function (error) {
-                    console.log(error);
-                }); 
-            },
-            desactivarNota(id){
-               const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false,
-                })
+            var url = '/nota/estudiantes?aula_id=' + aulaId + '&curso_id=' + cursoId;
 
-                swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Alumno?',
-                
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-                }).then((result) => {
-                if (result.value) {
-                    let me=this;
-                    axios.put('nota/desactivar',{
-                       
-                        'id':id
-                    }
-                    ).then(function (response){
-                        
-                        me.listarNota(1,'','nombre');
-                          swalWithBootstrapButtons.fire(
-                            'Desactivado!',
-                            'El registro ha sido desactivado con exito.',
-                            'success'
-                            )
-                    }).catch(function(error){
-                        console.log(error);
-                    });
-                  
-                } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
-                    'error'
-                    )
-                }
-                }) 
-            },
-            activarNota(id){
-                
-               const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false,
-                })
+            axios.get(url).then(function (response){
+              var respuesta = response.data;
 
-                swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Alumno?',
-                
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-                }).then((result) => {
-                if (result.value) {
-                    let me=this;
-                    axios.put('nota/activar',{
-                       
-                        'id':id
-                    }
-                    ).then(function (response){
-                        
-                        me.listarNota(1,'','nombre');
-                          swalWithBootstrapButtons.fire(
-                            'Activado!',
-                            'El registro ha sido activado con exito.',
-                            'success'
-                            )
-                    }).catch(function(error){
-                        console.log(error);
-                    });
-                  
-                } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
-                    'error'
-                    )
-                }
-                }) 
-            },
-            
-            abrirModal(modelo,accion,data= []){
+              me.arrayCompetencias = respuesta.competencias;
+              me.arrayEstudiantes = respuesta.estudiantes;
+              // console.log(response);
+                    for(let i=0;i<me.arrayEstudiantes.length;i++){
+                     me.arrayEstudiantes[i]['nota']={};
 
-                switch(modelo){
-                    case "nota":
-                    {
-                        switch(accion){
-                            case 'registrar':
-                            {
-                                this.modal=1;
-                                this.tipoAccion=1;
-                                this.tituloModal='Registrar Nota';
-                                this.competencia_id='0';
-                              
-                                this.estudiante_id='1';
-                              
-                               
-                                this.curso_id='2';
-                             
-                                this.periodo_id='3';
-                               
-                                this.calificacion='';
-                               
-                                
-                               
-                               
-                                break;
-                            }
-                            case 'actualizar':
-                            {
-                                this.modal=1;
-                                this.tituloModal='Actualizar  Nota';
-                                this.tipoAccion=2;
-                                this.nota_id=data['id'];
-                               
-                                this.estudiante_id=data['estudiante_id'];
-                               
-                                this.curso_id=data['curso_id'];
-                                
-                                this.periodo_id=data['periodo_id'];
-                               
-                                this.calificacion=data['calificacion'];
-                               
-                                // this.grado=data['grado'];
-                                // this.seccion_grado=data['seccion_grado'];
-                                // this.turno_grado=data['turno_grado'];
-                               
-                                
-                               
-                                break;
-                            }
+                        for(let j=0;j<me.arrayCompetencias.length;j++){
+                            me.arrayEstudiantes[i]['nota']['nota'+j]=0;
                         }
+                        
                     }
-                    this.selectEstudiante();
-                    this.selectCompetencia();
-                    this.selectPeriodo();
-                    this.selectCurso();
-                }
-            },
-            validarNota(){
-                this.errorNota=0;
-                this.errorMostrarMsjNota =[];
+                    me.cerrarModal();
 
-            //    if (this.grado=='0') this.errorMostrarMsjGrado.push("El grado no puede estar vacío.");
-            //     if (this.maestro_id=='1') this.errorMostrarMsjGrado.push("La sección no puede estar vacío.");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          },
+          registrarNota(){
+              if (this.validarNota()){
+                  return;
+              }
 
-            //     if (this.errorMostrarMsjGradoMaestro.length) this.errorGradoMaestro = 1;
+                  let me = this;
+                  axios.post('/nota/registrar',{
+                  'data':me.arrayEstudiantes,
+                  'curso_id':me.curso_id,
+                  'aula_id':me.aula_id,
+                  'periodo_id':me.periodo_id,
+                  'competencias':me.arrayCompetencias
+                  })
+                  .then(function (response) {
+ 
 
-            //     return this.errorGradoMaestro;
+                  }).catch(function (error) {
+                  console.log(error);
+                  }); 
+          },
+          validarNota(){
+            this.errorNota = 0;
+            this.errorMostrarMsjNota;
+            for(let i=0;i<this.arrayEstudiantes.length;i++){
+
+
+                        for(let j=0;j<this.arrayCompetencias.length;j++){
+                            if (this.arrayEstudiantes[i]['nota']['nota'+j] == '') this.errorMostrarMsjNota = 'Ninguna nota puede estar vacía si desea registrar notas';
+                        }
+                        
+                    }
+
+            if (this.errorMostrarMsjNota.length) this.errorNota = 1;
+
+                return this.errorNota;
+          },
+          abrirModal(accion,data= []){
+
+                    switch(accion){
+                          case 'selects':
+                          {
+                              this.modal=1;
+                              this.tipoAccion=1;
+                              this.tituloModal='Ingresar Notas';
+                              this.orden = 0;
+
+                              break;
+                          }
+                          case 'actualizar':
+                          {
+                              this.modal=1;
+                              this.tituloModal='Actualstrar Notas';
+                              this.tipoAccion=2;
+
+                              break;
+                          }
+                      }
+                                
+              
             },
             cerrarModal(){
-                this.modal=0;
-                this.tituloModal='';
-                this.competencia_id='';
-              
-                this.estudiante_id='';
-              
-                this.curso_id='';
-              
-                this.periodo_id='';
-              
-                this.calificacion='',
-                
-               
-                this.errorNota=0;
-                
-            },
+                this.modal=0;                
+            }
         },
-        mounted() {
-           this.listarNota(1,this.buscar,this.criterio);
+          
+        mounted(){
+          this.selectAlumnos();
+          this.abrirEstudiantes(this.aula_id, this.curso_id);
         }
     }
+// $( "#aula" )
+//   .change(function () {
+//     var str = "";
+//     $( "#aula option:selected" ).each(function() {
+//       str += $( this ).text() + " ";
+//     });
+//     $( "#aula2" ).value( str );
+//   })
+//   .change();
 </script>
 
-<style >
+<style>
     .modal-content{
         width: 100%;
         position: absolute !important;

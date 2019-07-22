@@ -16,7 +16,7 @@ class CreateCompetenciasTable extends Migration
         Schema::create('competencias', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('curso_id')->unsigned();
-            $table->string('nombre', 50);
+            $table->string('nombre',255);
             $table->boolean('condicion')->default(1);
             $table->timestamps();
             $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade')->onUpdate('cascade');

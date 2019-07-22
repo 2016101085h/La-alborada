@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->foreign('id')->references('id')->on('personas');
             $table->foreign('rol_id')->references('id')->on('rols');
         });
+        DB::table('users')->insert(array('id' => 1, 'rol_id' => 1, 'usuario' => 'frank', 'password' => bcrypt('123'), 'condicion' => 1));
+
     }
 
     /**

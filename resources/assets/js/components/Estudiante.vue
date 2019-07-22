@@ -24,6 +24,9 @@
                   <button type="button" @click="abrirModal('estudiante','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
+                  <button type="button" @click="cargarPdf()" class="btn btn-secondary bg-primary ml-2 border-dark " style="background-color:#ABEBC6">
+                    <i class="fas fa-file"></i>&nbsp;Reporte
+                  </button>
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -68,7 +71,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarEstudiante(estudiante.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarEstudiante(estudiante.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
@@ -209,7 +212,7 @@
                 </div>
             </div> 
             <div class="form-group row">
-               <label class="col-md-3 form-control-label" for="email-input">Fecha de Nacimiento</label>
+               <label class="col-md-3 form-control-label" for="email-input">DNI</label>
                <div class="col-md-9">
                  <input type="number" v-model="dni" class="form-control" placeholder="Ingrese el Documento de Identidad del Estudiante">
                </div>
@@ -333,7 +336,9 @@
                     console.log(error);
                 });
             },
-            
+            cargarPdf(){
+              window.open('http://localhost:8000/estudiante/listarPdf','_blank')
+            },
             selectAula(){
                  let me= this;
                 var url = '/aula/selectaula';

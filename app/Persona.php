@@ -10,10 +10,7 @@ class Persona extends Model
         'nombre', 'apellido', 'fech_nacimiento', 'sexo', 'dni',
         'direccion', 'num_celular', 'condicion'
     ];
-    public function maestro()
-    {
-        return $this->belongsTo('App\Maestro');
-    }
+   
     public function padre()
     {
         return $this->hasMany('App\Padre');

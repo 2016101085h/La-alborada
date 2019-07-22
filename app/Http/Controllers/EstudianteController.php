@@ -33,7 +33,7 @@ class EstudianteController extends Controller
                     'estudiantes.direccion',
                     'estudiantes.condicion'
                 )
-                ->orderBy('estudiantes.id', 'desc')->paginate(5);
+                ->orderBy('estudiantes.id', 'asc')->paginate(10);
         } else {
             $estudiantes = Estudiante::join('aulas', 'estudiantes.aula_id', '=', 'aulas.id')
                 ->select(
@@ -50,7 +50,7 @@ class EstudianteController extends Controller
                     'estudiantes.condicion'
                 )
                 ->where('estudiantes.' . $criterio, 'like', '%' . $buscar . '%')
-                ->orderBy('estudiantes.id', 'desc')->paginate(2);
+                ->orderBy('estudiantes.id', 'asc')->paginate(2);
             // $estudiantes = Estudiante::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(2);
         }
         return [
@@ -65,14 +65,46 @@ class EstudianteController extends Controller
             'estudiantes'    => $estudiantes
         ];
     }
+    public function listarPdf()
+    {
+        $estudiantes = Estudiante::join('aulas', 'estudiantes.aula_id', '=', 'aulas.id')
+            ->select(
+                'estudiantes.id',
+                'estudiantes.aula_id',
+                'aulas.grado',
+                'aulas.seccion',
+                'estudiantes.nombre',
+                'estudiantes.apellido',
+                'estudiantes.fech_nacimiento',
+                'estudiantes.dni',
+                'estudiantes.sexo',
+                'estudiantes.direccion',
+                'estudiantes.condicion'
+            )
+            ->orderBy('estudiantes.id', 'asc')->get();
+        $cont = Estudiante::count();
 
+        $pdf = \PDF::loadView('pdf.estudiantespdf', ['estudiantes' => $estudiantes, 'cont' => $cont]);
+        return $pdf->download('estudiantes.pdf');
+    }
     public function selectEstudiante(Request $request)
     {
         // if(!$request->ajax()) return redirect('/');
         $estudiantes = Estudiante::where('condicion', '=', '1')->select('id', 'nombre', 'apellido')->orderBy('nombre', 'asc')->get();
         return ['estudiantes' => $estudiantes];
     }
+    public function buscarEstudiante(Request $request){
+        $aula_id = $request ->aula_id;
+        
 
+        $estudiantes = Estudiante::join('aulas','estudiantes.aula_id','=','aulas.id')->select(
+            'estudiantes.id','estudiantes.nombre','estudiantes.apellido','aulas.seccion','aulas.grado'
+        )->where('estudiantes.id','=',$aula_id)->orderBy('estudiantes.id','asc')->get();
+        return [
+
+            'estudiantes' => $estudiantes
+        ];
+    }
     /**
      * Store a newly created resource in storage.
      *

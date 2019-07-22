@@ -51,6 +51,33 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/nota/actualizar', 'NotaController@update');
         Route::put('/nota/desactivar', 'NotaController@desactivar');
         Route::put('/nota/activar', 'NotaController@activar');
+        Route::get('/nota/estudiantes', 'NotaController@est_comp');
+        Route::get('/nota/listarPdf', 'NotaController@listarPdf')->name('notas_pdf');
+
+    });
+    Route::group(['middleware' => ['Asistente']], function () {
+        Route::get('/periodo', 'PeriodoController@index');
+        Route::post('/periodo/registrar', 'PeriodoController@store');
+        Route::put('/periodo/actualizar', 'PeriodoController@update');
+        Route::put('/periodo/desactivar', 'PeriodoController@desactivar');
+        Route::put('/periodo/activar', 'PeriodoController@activar');
+        Route::get('/periodo/selectperiodo', 'PeriodoController@selectPeriodo');
+
+        Route::get('/competencia', 'CompetenciaController@index');
+        Route::post('/competencia/registrar', 'CompetenciaController@store');
+        Route::put('/competencia/actualizar', 'CompetenciaController@update');
+        Route::put('/competencia/desactivar', 'CompetenciaController@desactivar');
+        Route::put('/competencia/activar', 'CompetenciaController@activar');
+        Route::get('/competencia/selectcompetencia', 'CompetenciaController@selectCompetencia');
+
+        Route::get('/nota', 'NotaController@index');
+        Route::post('/nota/registrar', 'NotaController@store');
+        Route::put('/nota/actualizar', 'NotaController@update');
+        Route::put('/nota/desactivar', 'NotaController@desactivar');
+        Route::put('/nota/activar', 'NotaController@activar');
+        Route::get('/nota/estudiantes', 'NotaController@est_comp');
+        Route::get('/nota/listarPdf', 'NotaController@listarPdf')->name('notas_pdf');
+
     });
     Route::group(['middleware' => ['Administrador']], function () {
         
@@ -73,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/maestroaula/actualizar', 'MaestroAulaController@update');
         Route::put('/maestroaula/desactivar', 'MaestroAulaController@desactivar');
         Route::put('/maestroaula/activar', 'MaestroAulaController@activar');
+        Route::get('/maestroaula/listarPdf','MaestroAulaController@listarPdf')->name('maestroaulas_pdf');
     
     
         Route::get('/periodo', 'PeriodoController@index');
@@ -89,6 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/estudiante/desactivar', 'EstudianteController@desactivar');
         Route::put('/estudiante/activar', 'EstudianteController@activar');
         Route::get('/estudiante/selectestudiante', 'EstudianteController@selectEstudiante');
+        Route::get('/estudiante/buscarestudiante', 'EstudianteController@buscarEstudiante');
+        Route::get('/estudiante/listarPdf', 'EstudianteController@listarPdf')->name('estudiantes_pdf');
     
     
         Route::get('/curso', 'CursoController@index');
@@ -126,6 +156,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/nota/actualizar', 'NotaController@update');
         Route::put('/nota/desactivar', 'NotaController@desactivar');
         Route::put('/nota/activar', 'NotaController@activar');
+        Route::get('/nota/estudiantes','NotaController@est_comp');
+        Route::get('/nota/listarPdf', 'NotaController@listarPdf')->name('notas_pdf');
     });
 
 

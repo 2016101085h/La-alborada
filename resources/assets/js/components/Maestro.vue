@@ -67,7 +67,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestro(maestro.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarMaestro(maestro.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
@@ -328,7 +328,7 @@
                     var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.personas.data;
+                    me.arrayMaestro=respuesta.maestros.data;
                         me.pagination=respuesta.pagination;
                     
                     console.log(response);

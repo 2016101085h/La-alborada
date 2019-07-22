@@ -21,7 +21,7 @@ class AulaController extends Controller
         $criterio = $request->criterio;
         if($buscar == ''){
 
-            $aulas= Aula::orderBy('id','desc')->paginate(5);
+            $aulas= Aula::orderBy('id','desc')->paginate(15);
         }
         else{
             $aulas = Aula::where($criterio,'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(2);

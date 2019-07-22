@@ -138,7 +138,7 @@
        <li class="user-menu nav-item dropdown mt-2 ml-3">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#menu">
            <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
-           <span class="text-dark">{{ Auth::user()->usuario}} </span>
+           <span class="text-dark text-uppercase">{{ Auth::user()->usuario}} </span>
          </a>
           <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -165,13 +165,13 @@
            <li class="user-header">
              <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-             <p>
-               Alexander Pierce - Web Developer
+             <p class="text-uppercase">
+               {{ Auth::user()->usuario}}
                <small>Member since Nov. 2012</small>
              </p>
            </li>
            <!-- Menu Body -->
-           <li class="user-body">
+           {{-- <li class="user-body">
              <div class="row d-flex justify-content-between">
                <div class="col-xs-4 text-center">
                  <a href="#">Followers</a>
@@ -184,7 +184,7 @@
                </div>
              </div>
              <!-- /.row -->
-           </li>
+           </li> --}}
            <!-- Menu Footer-->
            <li class="user-footer">
              <div class="pull-left">
@@ -222,6 +222,9 @@
           @include('plantilla.asidemaestro')
       @elseif (Auth::user()->rol_id == 3)
           @include('plantilla.asidepadre')
+      
+      @elseif (Auth::user()->rol_id == 4)
+          @include('plantilla.asidepadre')
       @else
 
       @endif
@@ -237,7 +240,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.0
     </div>
-    <strong>Copyright &copy; 2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> Toddos los Derechos Reservados.
+    <strong>Copyright &copy; 2019 <a href="http://adminlte.io">I.E. La Alborada 30225</a>.</strong> Toddos los Derechos Reservados.
   </footer>
 </div>
   <!-- Control Sidebar -->

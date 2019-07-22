@@ -24,6 +24,9 @@
                   <button type="button" @click="abrirModal('maestroaula','registrar')" class="btn btn-secondary bg-secondary ml-2 border-transparent " >
                     <i class="fa fa-plus"></i>&nbsp;Nuevo
                   </button>
+                  <button type="button" @click="cargarPdf()" class="btn btn-secondary bg-primary ml-2 border-dark  " style="background-color:#ABEBC6">
+                    <i class="fas fa-file"></i>&nbsp;Reporte
+                  </button>
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -49,7 +52,7 @@
 
                     <th>Grado</th>
                     <th>Sección</th>
-                    <th>Curso</th>
+                
                     
                                       
                     <th >Estado</th>
@@ -67,16 +70,16 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarMaestroaAula(maestroaula.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarMaestroAula(maestroaula.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
                     </td>
-                    <td v-text="maestroaula.nombre + ' '+maestroaula.apellido  "></td>
+                    <td v-text="maestroaula.apellido+ ', ' +maestroaula.nombre  "></td>
                     <td v-text="maestroaula.grado "></td>
                     <td v-text="maestroaula.seccion "></td>
                    
-                    <td v-text="maestroaula.nombre_curso"></td>                 
+                                 
                     
                     
                     <td>
@@ -153,7 +156,7 @@
                 <div class="col-md-9">
                     <select v-model="maestro_id" class="form-control">
                         <option value="1" disabled>Selecciona el Maestro</option>
-                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.nombre+' '+maestro.apellido"></option>
+                        <option v-for="maestro in arrayMaestro " :key="maestro.id" :value="maestro.id" v-text="maestro.apellido+', '+maestro.nombre"></option>
                         
                         
                     </select>                                    
@@ -170,17 +173,7 @@
                     </select>                                    
                 </div>
             </div> 
-            <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="text-input">Curso</label>
-                <div class="col-md-9">
-                    <select v-model="curso_id" class="form-control">
-                        <option value="2" disabled>Selecciona el curso</option>
-                        <option v-for="curso in arrayCurso " :key="curso.id" :value="curso.id" v-text="curso.nombre"></option>
-                        
-                        
-                    </select>                                    
-                </div>
-            </div> 
+         
             <!-- <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Sección</label>
                 <div class="col-md-9">
@@ -248,12 +241,13 @@
             return{
                 maestroaula_id:'',
                 maestro_id:0,
+                id:0,
                 nombre:'',
                 apellido:'',
                 aula_id:0,
                 seccion:'',
                 grado:'',
-                curso_id:0,
+               
                 nombre_curso:'',
                
                 
@@ -276,7 +270,7 @@
                 criterio:'grado',
                 buscar:'',
                 arrayAula:[],
-                arrayCurso:[],
+                
                 arrayMaestro:[],
 
 
@@ -327,14 +321,17 @@
                     console.log(error);
                 });
             },
+            cargarPdf(){
+              window.open('http://localhost:8000/maestroaula/listarPdf','_blank')
+            },
             selectMaestro(){
                  let me= this;
                 var url = '/maestro/selectmaestro';
                 axios.get(url).then(function (response) {
-                    var respuesta=response.data;
+                       var respuesta=response.data;
                     // // // handle success
                     // // console.log(response);
-                    me.arrayMaestro=respuesta.personas;
+                    me.arrayMaestro=respuesta.maestros;
                         // me.pagination=respuesta.pagination;
                     
                     console.log(response);
@@ -361,23 +358,7 @@
                     console.log(error);
                 });
             },
-            selectCurso(){
-                 let me= this;
-                var url = '/curso/selectcurso';
-                axios.get(url).then(function (response) {
-                    var respuesta=response.data;
-                    // // // handle success
-                    // // console.log(response);
-                    me.arrayCurso=respuesta.cursos;
-                        // me.pagination=respuesta.pagination;
-                    
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                });
-            },
+            
              cambiarpagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la pagina actual
@@ -398,8 +379,6 @@
                     'aula_id':this.aula_id,
                     'seccion':this.seccion,
                     'grado':this.grado,
-                    'curso_id':this.curso_id,
-                    'nombre_curso':this.nombre_curso,
                     
                     
                     
@@ -423,14 +402,13 @@
 
                 axios.put('/maestroaula/actualizar',{
                     'id': this.maestroaula_id,
-                 'maestro_id':this.maestro_id,
+                    'maestro_id':this.maestro_id,
                     'nombre':this.nombre,
                     'apellido':this.apellido,
                     'aula_id':this.aula_id,
                     'seccion':this.seccion,
                     'grado':this.grado,
-                    'curso_id':this.curso_id,
-                    'nombre_curso':this.nombre_curso,
+                    
                     
                     
                     
@@ -555,9 +533,9 @@
                                 this.nombre='';
                                 this.apellido='';
                                 this.aula_id='0';
-                                this.seccion='',
-                                this.grado='',
-                                this.curso_id='2'
+                                this.seccion='';
+                                this.grado='';
+                               
                                 
                                 
                                
@@ -576,8 +554,7 @@
                                 this.aula_id=data['aula_id'];
                                 this.seccion=data['seccion'];
                                 this.grado=data['grado'];
-                                this.curso_id=data['curso_id'];
-                                this.nombre_curso=data['nombre_curso'];
+                              
                                
                                 // this.grado=data['grado'];
                                 // this.seccion_grado=data['seccion_grado'];
@@ -591,7 +568,7 @@
                     }
                     this.selectMaestro();
                     this.selectAula();
-                    this.selectCurso();
+                    
                 }
             },
             validarMaestroAula(){
@@ -615,8 +592,7 @@
                 this.maestro_id='';
                 this.nombre='';
                 this.apellido='';
-                this.curso_id='',
-                this.nombre_curso='',
+                
                 
                
                 this.errorMaestroAula=0;

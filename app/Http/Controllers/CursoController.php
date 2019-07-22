@@ -21,10 +21,10 @@ class CursoController extends Controller
         $criterio = $request->criterio;
         if($buscar == ''){
 
-            $cursos= Curso::orderBy('id','desc')->paginate(5);
+            $cursos= Curso::orderBy('id','asc')->paginate(5);
         }
         else{
-            $cursos = Curso::where($criterio,'like', '%'. $buscar . '%')->orderBy('id', 'desc')->paginate(2);
+            $cursos = Curso::where($criterio,'like', '%'. $buscar . '%')->orderBy('id', 'asc')->paginate(2);
 
         }
         return [

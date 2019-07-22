@@ -62,7 +62,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarCompetencia(competencia.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarCompetencia(competencia.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
@@ -362,7 +362,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de desactivar este Alumno?',
+                title: 'Esta de seguro de desactivar esta Competencia?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -411,7 +411,7 @@
                 })
 
                 swalWithBootstrapButtons.fire({
-                title: 'Esta de seguro de activar este Alumno?',
+                title: 'Esta de seguro de activar esta Competencia?',
                 
                 type: 'warning',
                 showCancelButton: true,
@@ -471,7 +471,8 @@
                                 this.modal=1;
                                 this.tituloModal='Actualizar Competencia';
                                 this.tipoAccion=2;
-                                this.curso_id=data['id'];
+                                this.competencia_id=data['id'];
+                                this.curso_id=data['curso_id'];
                                 this.nombre_curso=data['nombre_curso'];
                                 this.nombre_competencia=data['nombre_competencia'];
                                 break;

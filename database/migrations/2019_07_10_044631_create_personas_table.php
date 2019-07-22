@@ -25,6 +25,10 @@ class CreatePersonasTable extends Migration
             $table->boolean('condicion')->default(1);
             $table->timestamps();
         });
+        DB::table('personas')->insert(array(
+            'id' => '1', 'nombre' => 'Frank', 'apellido' => 'Serrano Basilio',
+            'fech_nacimiento' => '2019-10-03', 'sexo' => 'masculino', 'num_celular' => '924883733', 'dni' => '70236495', 'direccion' => 'Avenida evitamiento sur 984', 'condicion' => 1
+        ));
     }
 
     /**

@@ -27,7 +27,7 @@ class CompetenciaController extends Controller
                     'competencias.nombre as nombre_competencia',
                     'competencias.condicion'
                 )
-                ->orderBy('competencias.id', 'desc')->paginate(5);
+                ->orderBy('competencias.id', 'asc')->paginate(5);
         } else {
             $competencias = Competencia::join('cursos', 'competencias.curso_id', '=', 'cursos.id')
                 ->select(
@@ -92,7 +92,7 @@ class CompetenciaController extends Controller
         // if(!$request->ajax()) return redirect('/');
         $competencia = Competencia::findOrFail($request->id);
         $competencia->curso_id          = $request->curso_id;
-        $competencia->nombre          = $request->nombre;
+        $competencia->nombre          = $request->nombre_competencia;
         $competencia->condicion         = '1';
         $competencia->save();
     }

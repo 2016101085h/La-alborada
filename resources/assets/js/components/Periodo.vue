@@ -60,7 +60,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarPeriodo(periodo.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarPeriodo(periodo.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>

@@ -61,7 +61,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarCurso(curso.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarCurso(curso.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>

@@ -62,7 +62,7 @@
                         </button>
                         </template>
                         <template v-else>
-                         <button type="button" class="btn btn-success btn-sm" @click="activarAula(aula.id)">
+                         <button type="button" class="btn btn-primary btn-sm" @click="activarAula(aula.id)">
                           <i class="fa fa-check"></i>
                         </button>
                         </template>
@@ -157,6 +157,7 @@
                         <option value="B">Sección B</option>
                         <option value="C">Sección C</option>
                         <option value="D">Sección D</option>
+                        <option value="E">Sección E</option>
                       
                         
                     </select>                                    

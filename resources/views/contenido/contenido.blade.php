@@ -97,6 +97,25 @@
             <template v-if="menu==16">
                <h1 class="content-wrapper">Contenido del menu 16</h1>
             </template>
+            @elseif (Auth::user()->rol_id == 4)
+             <template v-if="menu==0">
+                <portada></portada>
+            </template>
+             <template v-if="menu==12">
+                  <nota></nota>
+            </template>
+            <template v-if="menu==13">
+               <h1 class="content-wrapper">Contenido del menu 13</h1>
+            </template>
+            <template v-if="menu==14">
+            
+            </template>
+            <template v-if="menu==15">
+               <h1 class="content-wrapper">Contenido del menu 15</h1>
+            </template>
+            <template v-if="menu==16">
+               <h1 class="content-wrapper">Contenido del menu 16</h1>
+            </template>
             @else
             @endif
 
